@@ -10,9 +10,10 @@ This repository organizes foundational knowledge and experiments for creating hi
 
 ### Current Research Documents
 
-| Document | Description | Path |
-|----------|-------------|------|
-| **Panel Composition Theory** | Comprehensive study of panel layout, McCloud’s 6 transitions, gutters, flow (T-rule), Golden Ratio, eyelines, and practical application to 2–3 panel strips. | [`research/PANEL-COMPOSITION-THEORY.md`](research/PANEL-COMPOSITION-THEORY.md) |
+| Document                        | Description                                                                 | Path                                      |
+|---------------------------------|-----------------------------------------------------------------------------|-------------------------------------------|
+| **Panel Composition Theory**    | Comprehensive study of panel layout, McCloud’s 6 transitions, gutters, flow (T-rule), Golden Ratio, eyelines, and practical application to 2–3 panel strips. | [`research/PANEL-COMPOSITION-THEORY.md`](research/PANEL-COMPOSITION-THEORY.md) |
+| **Comic Timing and Pacing**     | In-depth guide to timing vs pacing, McCloud foundations, gutter rhythm, panel size as time control, silence vs dialogue, and application to the Setup–Reinforce–Turnaround structure. | [`research/COMIC-TIMING-AND-PACING.md`](research/COMIC-TIMING-AND-PACING.md) |
 
 ### Planned / Future Documents
 
@@ -30,7 +31,8 @@ This repository organizes foundational knowledge and experiments for creating hi
 foundational-comic-skills/
 ├── README.md
 ├── research/
-│   └── PANEL-COMPOSITION-THEORY.md
+│   ├── PANEL-COMPOSITION-THEORY.md
+│   └── COMIC-TIMING-AND-PACING.md
 └── (future: experiments/, prompts/, assets/)
 ```
 
