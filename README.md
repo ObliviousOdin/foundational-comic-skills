@@ -1,2 +1,45 @@
 # foundational-comic-skills
-Private research repository for comic strip creation experiments, retro hand-inked manga style generation, prompt engineering analysis, and building foundational skills in AI-assisted and traditional comic/manga creation.
+
+**Private research repository** for comic strip creation experiments, retro hand-inked manga style generation, prompt engineering analysis, and building foundational skills in AI-assisted and traditional comic/manga creation.
+
+---
+
+## Research Index
+
+This repository organizes foundational knowledge and experiments for creating high-quality, consistent comic strips (especially simple 2–3 panel horizontal formats in retro manga style).
+
+### Current Research Documents
+
+| Document | Description | Path |
+|----------|-------------|------|
+| **Panel Composition Theory** | Comprehensive study of panel layout, McCloud’s 6 transitions, gutters, flow (T-rule), Golden Ratio, eyelines, and practical application to 2–3 panel strips. | [`research/PANEL-COMPOSITION-THEORY.md`](research/PANEL-COMPOSITION-THEORY.md) |
+
+### Planned / Future Documents
+
+- Character Consistency & Manga Stylization Techniques
+- Emotional Arc & "Setup–Reinforce–Turnaround" Storytelling
+- Retro Hand-Inked Line Work & Shading Simulation
+- Prompt Engineering Templates for Multi-Panel Generation
+- Reference Image Handling & Style Transfer Best Practices
+
+---
+
+## Repository Structure
+
+```
+foundational-comic-skills/
+├── README.md
+├── research/
+│   └── PANEL-COMPOSITION-THEORY.md
+└── (future: experiments/, prompts/, assets/)
+```
+
+---
+
+## Goals
+
+- Build a reusable knowledge base for consistent, high-quality comic generation
+- Document techniques that work specifically for short horizontal manga-style strips
+- Support iterative improvement of AI-assisted comic creation workflows
+
+*Last updated: May 2026*
