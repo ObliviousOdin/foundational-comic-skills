@@ -1,37 +1,126 @@
 # foundational-comic-skills
 
-**Private research repository** for comic strip creation experiments, retro hand-inked manga style generation, prompt engineering analysis, and building foundational skills in AI-assisted and traditional comic/manga creation.
+**A production-grade, modular skill system for consistent, long-form comic generation.**
+
+This repository provides a complete, layered foundation for building comics with strong character consistency, style control, and world coherence — especially for 100+ panel arcs. It is designed to work directly with Hermes agents and other LLM-based creative pipelines.
 
 ---
 
-## Research Index
+## Quick Start (Hermes)
 
-This repository organizes foundational knowledge and experiments for creating high-quality, consistent comic strips (especially simple 2–3 panel horizontal formats in retro manga style).
+### 1. Clone the Repository
 
-### Current Research Documents
+```bash
+cd ~/Documents
+git clone https://github.com/ObliviousOdin/foundational-comic-skills.git
+```
 
-| Document                        | Description                                                                 | Path                                      |
-|---------------------------------|-----------------------------------------------------------------------------|-------------------------------------------|
-|| **Panel Composition Theory**    | Comprehensive study of panel layout, McCloud’s 6 transitions, gutters, flow (T-rule), Golden Ratio, eyelines, and practical application to 2–3 panel strips. | [`research/PANEL-COMPOSITION-THEORY.md`](research/PANEL-COMPOSITION-THEORY.md) |
-|| **Comic Timing and Pacing**     | In-depth guide to timing vs pacing, McCloud foundations, gutter rhythm, panel size as time control, silence vs dialogue, and application to the Setup–Reinforce–Turnaround structure. | [`research/COMIC-TIMING-AND-PACING.md`](research/COMIC-TIMING-AND-PACING.md) |
-|| **Comic Art Evaluation Frameworks** | Professional editor rubrics, common failure modes, gesture theory, perceptual studies on AI vs human art, uncanny valley in comics, and measurable signals for building evaluation systems. | [`research/COMIC-ART-EVALUATION-FRAMEWORKS.md`](research/COMIC-ART-EVALUATION-FRAMEWORKS.md) |
-|| **Artistic Decision-Making & Process Modeling** | Micro-decisions (cropping, line weight, negative space, gaze), manga *name* workflow, Neil Cohn's PINS model, gist perception, spiral expertise model, and embodied cognition in drawing. | [`research/ARTISTIC-DECISION-MAKING-PROCESS-MODELING.md`](research/ARTISTIC-DECISION-MAKING-PROCESS-MODELING.md) |
-|| **Advanced Consistency Systems** | IP-Adapter / InstantID / PuLID, StoryDiffusion Consistent Self-Attention, StyleID, DiffSensei, LoRA training, FLUX.1 Kontext, world bible construction, and multi-agent orchestration patterns. | [`research/ADVANCED-CONSISTENCY-SYSTEMS.md`](research/ADVANCED-CONSISTENCY-SYSTEMS.md) |
-|| **Style-Specific Technical Mastery** | Computational simulation of screentone, gekiga cinematic framing, ligne claire, Junji Ito body horror distortion, woodcut/printmaking techniques, and ink-paper physics. | [`research/STYLE-SPECIFIC-TECHNICAL-MASTERY.md`](research/STYLE-SPECIFIC-TECHNICAL-MASTERY.md) |
+### 2. Install the Skills
 
-### Skill Harnesses Library
+```bash
+# Install core consistency layer (recommended first)
+hermes skills install ~/Documents/foundational-comic-skills --layer comic-consistency
 
-| Document | Description | Path |
-|----------|-------------|------|
-| **25 Image-Driven Comic Strip Skill Harnesses** | Complete portable skill library (25 styles) with universal operating rule, input contract, story derivation from image cues, strict 3-panel structure, and detailed style locks for Japanese Manga, Western, European, Noir, Horror, Adventure, Sci-Fi, and more. | [`skills/IMAGE-DRIVEN-COMIC-STRIP-SKILL-HARNESSES.md`](skills/IMAGE-DRIVEN-COMIC-STRIP-SKILL-HARNESSES.md) |
+# Install style skills
+hermes skills install ~/Documents/foundational-comic-skills --layer comic-styles
 
-### Planned / Future Documents
+# Or install everything
+hermes skills install ~/Documents/foundational-comic-skills
+```
 
-- Character Consistency & Manga Stylization Techniques
-- Emotional Arc & "Setup–Reinforce–Turnaround" Storytelling
-- Retro Hand-Inked Line Work & Shading Simulation
-- Prompt Engineering Templates for Multi-Panel Generation
-- Reference Image Handling & Style Transfer Best Practices
+### 3. Verify Installation
+
+```bash
+hermes skills list | grep comic
+```
+
+You should see skills such as:
+- `comic-world-bible-system`
+- `comic-character-consistency-system`
+- `comic-long-sequence-orchestrator`
+- Multiple style skills (e.g., `retro-hand-inked-manga`, `ligne-claire`, etc.)
+
+---
+
+## Core Philosophy
+
+**Every consistency decision must trace back to a single, versioned source of truth.**
+
+This repository treats the **World Bible** as the central nervous system for long-running comic projects. Instead of relying on scattered reference images and ad-hoc prompting, all consistency artifacts (DNA templates, model sheets, negative libraries, LoRA recommendations) are **derived** from a structured, queryable world bible.
+
+---
+
+## Primary Skill: `comic-world-bible-system`
+
+This is the foundational skill. All other consistency systems depend on it.
+
+### How to Use It
+
+**Best Practice Prompt Template:**
+
+```
+Using the `comic-world-bible-system` skill, create a production-ready world bible for a new comic series.
+
+Project name: [Your Series Name]
+Target length: [e.g., 500–1000+ panels]
+Style direction: [e.g., retro hand-inked manga with gekiga influences]
+Main characters: [List 2–4 characters with brief descriptions]
+Key locations: [List recurring environments]
+Special requirements: [Any specific constraints or themes]
+
+Please:
+1. Generate a complete `world-bible.yaml` following the defined schema.
+2. Create the corresponding folder structure.
+3. Generate the initial DNA templates for each character.
+4. Provide the negative prompt library.
+5. Output the recommended consistency configuration.
+```
+
+### Concrete Example
+
+**User Prompt:**
+
+```
+Using the `comic-world-bible-system` skill, initialize a world bible for a series called "Rabot".
+
+- Style: Clean retro manga with strong linework and subtle screentone
+- Main character: Rabot – young man, sharp features, navy jacket, small scar on left cheek
+- Supporting character: Echo – female, silver hair, tech aesthetic
+- Primary location: A dimly lit control room with cool fluorescent lighting
+- Target: 1000+ panel serialized story
+```
+
+**Expected Output from the skill:**
+- A validated `world-bible.yaml`
+- DNA template blocks ready for prompt injection
+- Negative prompt library
+- Consistency configuration (LoRA/IP-Adapter weights)
+- Folder structure ready for asset organization
+
+---
+
+## Best Practices
+
+### 1. Always Start with a World Bible
+Never begin generating panels without first establishing (or updating) the world bible. This is the single highest-leverage practice for long-sequence consistency.
+
+### 2. Version Everything
+Treat the world bible as version-controlled source code. Every significant change (new character, style rule update, location addition) should bump the version and include rationale.
+
+### 3. Derive, Don’t Duplicate
+Use the derivation capabilities of the system:
+- Generate DNA templates from the bible instead of writing them manually
+- Generate model sheet prompts from character entries
+- Generate negative libraries by combining global + per-character rules
+
+### 4. Human-in-the-Loop for Conflicts
+When the system detects character conflicts or bible violations, escalate to human review rather than letting the model resolve them autonomously.
+
+### 5. Keep Canonical References Sacred
+The reference images and descriptions in the world bible are the single source of truth. Generated variations should never override canonical references.
+
+### 6. Use Layered Conditioning
+Combine multiple techniques (IP-Adapter + LoRA + negative prompting + style memory) rather than relying on a single method.
 
 ---
 
@@ -40,19 +129,43 @@ This repository organizes foundational knowledge and experiments for creating hi
 ```
 foundational-comic-skills/
 ├── README.md
-├── comic-core/                    # Universal rules, structure, quality gates
-├── comic-consistency/             # World bible, character identity, style memory, long-sequence orchestration
-├── research/                      # 6 foundational papers
-├── skills/                        # Original 25 harnesses (legacy)
-└── (future: comic-styles/, comic-pipeline/, comic-production/)
+├── comic-core/                    # Universal rules, quality gates, structural standards
+├── comic-consistency/             # World bible, character DNA, style memory, long-sequence orchestration
+│   ├── comic-world-bible-system/
+│   ├── comic-character-consistency-system/
+│   ├── comic-style-memory-system/
+│   ├── comic-long-sequence-orchestrator/
+│   └── comic-image-generation-adapter/
+├── comic-styles/                  # 25+ individual style skills with Style Locks
+├── research/                      # 6 foundational technical papers
+└── exports/                       # Generated artifacts and templates
 ```
+
+---
+
+## Research Foundation
+
+This system is grounded in six core research documents:
+
+| Document | Focus | Path |
+|----------|-------|------|
+| Advanced Consistency Systems | IP-Adapter, InstantID, LoRA orchestration, world bible architecture | `research/ADVANCED-CONSISTENCY-SYSTEMS.md` |
+| Style-Specific Technical Mastery | Screentone simulation, ligne claire, gekiga framing, ink physics | `research/STYLE-SPECIFIC-TECHNICAL-MASTERY.md` |
+| Comic Art Evaluation Frameworks | Professional rubrics, failure modes, human vs AI signals | `research/COMIC-ART-EVALUATION-FRAMEWORKS.md` |
+| Artistic Decision-Making Process Modeling | Micro-decisions, PINS model, embodied cognition | `research/ARTISTIC-DECISION-MAKING-PROCESS-MODELING.md` |
+| Panel Composition Theory | McCloud transitions, gutters, Golden Ratio, eyelines | `research/PANEL-COMPOSITION-THEORY.md` |
+| Comic Timing and Pacing | Setup–Reinforce–Turnaround, gutter rhythm | `research/COMIC-TIMING-AND-PACING.md` |
 
 ---
 
 ## Goals
 
-- Build a reusable knowledge base for consistent, high-quality comic generation
-- Document techniques that work specifically for short horizontal manga-style strips
-- Support iterative improvement of AI-assisted comic creation workflows
+- Provide a **single source of truth** for long-form comic consistency
+- Enable **derivable, versioned** consistency artifacts
+- Support **Hermes agents** and other LLM pipelines with clear, structured skills
+- Bridge research and production with practical, implementable systems
 
-*Last updated: May 2026*
+---
+
+*Last updated: May 2026*  
+*Maintained by ObliviousOdin*
