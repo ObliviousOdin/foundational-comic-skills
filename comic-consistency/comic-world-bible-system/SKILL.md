@@ -69,16 +69,40 @@ From a valid world bible, the system can automatically generate:
 - Consistency configuration files (LoRA weights, IP-Adapter settings)
 
 ### 3. Validate
-- Check that all required sections exist
-- Verify that character entries have canonical references
-- Ensure style grammar is defined before any generation
-- Flag missing negative libraries
+A valid world bible must pass these checks:
 
-### 4. Query
-- Retrieve DNA template for a specific character
-- Get all characters in a specific costume state
-- List all locations with night lighting rules
-- Export consistency configuration for a given pipeline
+**Structural Validation**
+- All top-level sections present (`visual_grammar`, `character_compendium`, `world_register`, `negative_library`, `version_history`)
+- At least one character entry exists
+- Every character has a `dna_template` block
+- Style grammar (linework + lighting) is defined
+
+**Content Validation**
+- Canonical reference images exist for all characters (or clear placeholders)
+- Negative libraries are non-empty
+- Version history has at least one entry with rationale
+
+**Consistency Validation**
+- No conflicting costume or lighting rules across characters
+- All referenced assets in the bible have corresponding files in the assets folder
+
+### 4. Derive Artifacts
+The world bible system should be able to generate the following derived artifacts:
+
+| Artifact | Purpose | Consumers |
+|----------|---------|-----------|
+| **DNA Template** | Prompt injection string for a character | All generation calls |
+| **Model Sheet Prompts** | Front/3/4/side/back generation instructions | `comic-character-consistency-system` |
+| **Negative Prompt Library** | Curated rejection list per character + style | All generation calls |
+| **Style Memory Pack** | Reference images + rules for linework/screentone | `comic-style-memory-system` |
+| **Consistency Config** | Recommended weights for LoRA / IP-Adapter / ControlNet | `comic-image-generation-adapter` |
+
+### 5. Query Interface (Planned)
+- `get_character_dna(name)`
+- `get_style_grammar()`
+- `list_characters_in_costume(costume)`
+- `export_consistency_config(pipeline_type)`
+- `validate_bible()` → returns structured errors/warnings
 
 ## Integration with Other Layers
 
