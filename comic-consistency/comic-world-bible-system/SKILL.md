@@ -1,0 +1,132 @@
+---
+name: comic-world-bible-system
+version: 1.0.0
+category: comic-consistency
+description: The canonical source of truth and asset registry for long-form comic production. Defines structured world bibles, character compendiums, style grammars, and generates derived consistency artifacts (DNA templates, model sheets, negative libraries).
+---
+
+# Comic World Bible System
+
+**Core principle**: Every consistency decision in a long-running comic project must trace back to a single, versioned source of truth.
+
+This skill implements the **World Bible** as the central nervous system for 1000+ panel arcs. It replaces ad-hoc prompt engineering and scattered reference images with a structured, queryable, and derivable knowledge base.
+
+## When to Use
+- Starting any new long-form comic project (multi-chapter, serialized, or 100+ panels)
+- Establishing consistency rules before generating the first panel
+- Generating or updating character DNA templates, model sheets, or style references
+- Validating that new panels remain consistent with established canon
+- Training or fine-tuning consistency models (LoRAs, IP-Adapter references)
+
+## World Bible Schema (v1)
+
+A world bible is a structured document containing the following top-level sections:
+
+### 1. Visual Grammar
+- Master style reference images (3–5 canonical examples)
+- Color palette anchors (named swatches + hex codes)
+- Linework rules (weight, anti-aliasing, hatching conventions, pressure behavior)
+- Lighting grammar (key light direction, shadow hardness, ambient temperature)
+- Typography rules (if lettering is used)
+
+### 2. Character Compendium (one entry per character)
+- Canonical reference sheet (front, 3/4, side, back, neutral expression)
+- Expression library (minimum 6 core states)
+- Costume variants with per-variant color codes
+- DNA template block (ready-to-inject prompt fragment)
+- Recommended consistency method + weights (LoRA path, IP-Adapter source, InstantID/PuLID settings)
+- Signature marks and distinguishing features
+- Negative prompt block (known failure modes for this character)
+
+### 3. World / Environment Register
+- Location reference sheets with consistent architectural and lighting rules
+- Recurring props and objects with visual specifications
+- Time-of-day and weather lighting conditions per location
+
+### 4. Negative Library
+- Project-wide negative prompts
+- Per-character negative blocks
+- Per-style negative blocks
+- Documented artifacts to actively reject
+
+### 5. Version History
+- Date-stamped record of all changes to characters, locations, or style rules
+- Rationale for each change (critical for long-running series)
+
+## Framework
+
+### 1. Create World Bible
+- Start with a minimal valid bible (Visual Grammar + at least one Character entry)
+- Use the schema above as the contract
+- Store as versioned YAML or structured Markdown + assets folder
+
+### 2. Derive Artifacts
+From a valid world bible, the system can automatically generate:
+- Character DNA templates (for prompt injection)
+- Model sheet generation prompts
+- Style memory reference packs
+- Negative prompt libraries
+- Consistency configuration files (LoRA weights, IP-Adapter settings)
+
+### 3. Validate
+A valid world bible must pass these checks:
+
+**Structural Validation**
+- All top-level sections present (`visual_grammar`, `character_compendium`, `world_register`, `negative_library`, `version_history`)
+- At least one character entry exists
+- Every character has a `dna_template` block
+- Style grammar (linework + lighting) is defined
+
+**Content Validation**
+- Canonical reference images exist for all characters (or clear placeholders)
+- Negative libraries are non-empty
+- Version history has at least one entry with rationale
+
+**Consistency Validation**
+- No conflicting costume or lighting rules across characters
+- All referenced assets in the bible have corresponding files in the assets folder
+
+### 4. Derive Artifacts
+The world bible system should be able to generate the following derived artifacts:
+
+| Artifact | Purpose | Consumers |
+|----------|---------|-----------|
+| **DNA Template** | Prompt injection string for a character | All generation calls |
+| **Model Sheet Prompts** | Front/3/4/side/back generation instructions | `comic-character-consistency-system` |
+| **Negative Prompt Library** | Curated rejection list per character + style | All generation calls |
+| **Style Memory Pack** | Reference images + rules for linework/screentone | `comic-style-memory-system` |
+| **Consistency Config** | Recommended weights for LoRA / IP-Adapter / ControlNet | `comic-image-generation-adapter` |
+
+### 5. Query Interface (Planned)
+- `get_character_dna(name)`
+- `get_style_grammar()`
+- `list_characters_in_costume(costume)`
+- `export_consistency_config(pipeline_type)`
+- `validate_bible()` → returns structured errors/warnings
+
+## Integration with Other Layers
+
+| Layer | How it uses the World Bible |
+|-------|-----------------------------|
+| `comic-core` | References style grammar and structural rules |
+| `comic-character-consistency-system` | Primary source for DNA templates, model sheets, and identity artifacts |
+| `comic-style-memory-system` | Pulls linework, screentone, and hatching rules |
+| `comic-long-sequence-orchestrator` | Maintains persistent state against the bible across 1000+ panels |
+| Style skills | Load style-specific rules and negative libraries |
+
+## Design Principles (from Research)
+
+- **Single Source of Truth** — No consistency decision should be made without referencing the bible
+- **Derivability** — The bible should be able to generate the artifacts needed by technical consistency systems
+- **Versioning** — Long-running series require change tracking with rationale
+- **Human + Machine Readable** — Structured enough for agents, readable enough for human artists and editors
+
+## Related Skills (Planned)
+- `comic-character-consistency-system`
+- `comic-style-memory-system`
+- `comic-long-sequence-orchestrator`
+- `comic-image-generation-adapter`
+
+---
+
+*Without a world bible, even the best technical consistency tools have nothing reliable to be consistent with.*

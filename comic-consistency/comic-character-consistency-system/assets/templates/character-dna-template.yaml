@@ -1,0 +1,23 @@
+# Character DNA Template
+# Use this structure when defining characters in the World Bible
+
+character:
+  name: ""
+  face:
+    skin_tone: ""
+    eye_color: ""
+    eye_shape: ""
+    nose_bridge: ""
+    lip_fullness: ""
+  hair:
+    length: ""
+    texture: ""
+    color: ""
+    styling: ""
+  build:
+    height: ""
+    body_type: ""
+    posture: ""
+  default_costume: ""
+  signature_marks: ""
+  negative_prompt: ""
