@@ -15,6 +15,12 @@ This repository organizes foundational knowledge and experiments for creating hi
 | **Panel Composition Theory**    | Comprehensive study of panel layout, McCloud’s 6 transitions, gutters, flow (T-rule), Golden Ratio, eyelines, and practical application to 2–3 panel strips. | [`research/PANEL-COMPOSITION-THEORY.md`](research/PANEL-COMPOSITION-THEORY.md) |
 | **Comic Timing and Pacing**     | In-depth guide to timing vs pacing, McCloud foundations, gutter rhythm, panel size as time control, silence vs dialogue, and application to the Setup–Reinforce–Turnaround structure. | [`research/COMIC-TIMING-AND-PACING.md`](research/COMIC-TIMING-AND-PACING.md) |
 
+### Skill Harnesses Library
+
+| Document | Description | Path |
+|----------|-------------|------|
+| **25 Image-Driven Comic Strip Skill Harnesses** | Complete portable skill library (25 styles) with universal operating rule, input contract, story derivation from image cues, strict 3-panel structure, and detailed style locks for Japanese Manga, Western, European, Noir, Horror, Adventure, Sci-Fi, and more. | [`skills/IMAGE-DRIVEN-COMIC-STRIP-SKILL-HARNESSES.md`](skills/IMAGE-DRIVEN-COMIC-STRIP-SKILL-HARNESSES.md) |
+
 ### Planned / Future Documents
 
 - Character Consistency & Manga Stylization Techniques
@@ -33,6 +39,8 @@ foundational-comic-skills/
 ├── research/
 │   ├── PANEL-COMPOSITION-THEORY.md
 │   └── COMIC-TIMING-AND-PACING.md
+├── skills/
+│   └── IMAGE-DRIVEN-COMIC-STRIP-SKILL-HARNESSES.md
 └── (future: experiments/, prompts/, assets/)
 ```
 
