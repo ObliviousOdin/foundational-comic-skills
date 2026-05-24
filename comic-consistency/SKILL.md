@@ -14,10 +14,10 @@ description: The consistency layer for long-form comic production. Provides worl
 | Skill | Role | Status |
 |-------|------|--------|
 | `comic-world-bible-system` | Canonical source of truth + asset registry | ✅ Foundation complete |
-| `comic-character-consistency-system` | Identity locking, DNA templates, model sheets, layered conditioning | Planned |
-| `comic-style-memory-system` | Linework, screentone, and hatching signature preservation | Planned |
-| `comic-long-sequence-orchestrator` | Multi-agent pipelines, drift detection, 1000+ panel support | Planned |
-| `comic-image-generation-adapter` | Unified interface for GPT Image 4, Higgsfield, ComfyUI, etc. | Planned |
+| `comic-character-consistency-system` | Identity locking, DNA templates, model sheets, layered conditioning | ✅ Foundation complete |
+| `comic-style-memory-system` | Linework, screentone, and hatching signature preservation | ✅ Foundation complete |
+| `comic-long-sequence-orchestrator` | Multi-agent pipelines, drift detection, 1000+ panel support | ✅ Foundation complete |
+| `comic-image-generation-adapter` | Unified interface for GPT Image 4, Higgsfield, ComfyUI, etc. | ✅ Foundation complete |
 
 ## How the Consistency Layer Works
 
