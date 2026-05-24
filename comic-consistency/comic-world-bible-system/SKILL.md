@@ -138,12 +138,34 @@ Example files are available in the `/artifacts` folder.
 - **Versioning** — Long-running series require change tracking with rationale
 - **Human + Machine Readable** — Structured enough for agents, readable enough for human artists and editors
 
-## Related Skills (Planned)
-- `comic-character-consistency-system`
-- `comic-style-memory-system`
-- `comic-long-sequence-orchestrator`
-- `comic-image-generation-adapter`
+## Versioning & Change Management
 
----
+### Versioning Strategy
+- **Major** (v2.0): Changes to core visual grammar, color anchors, or fundamental style rules
+- **Minor** (v1.1): New characters, significant costume/location additions, or new negative library entries
+- **Patch** (v1.0.1): Corrections, clarifications, or small refinements with no breaking changes
+- Every version bump must be accompanied by a dated entry in `version_history` with clear rationale
+
+### Conflict Resolution Rules
+- **Character vs Character conflicts** (e.g., two characters cannot both have the same signature mark or costume color) → escalate to human review with proposed resolution
+- **Panel vs Bible violations** (generated panel breaks established rules) → flag immediately, suggest corrective prompt adjustment
+- **Canonical reference always wins** over any generated variation or model output
+- **Style grammar overrides** individual character preferences when they conflict with the established visual language
+
+### Export Formats for Consumers
+
+The world bible system supports multiple export formats depending on the consuming layer:
+
+| Consumer | Export Format | Purpose |
+|----------|---------------|---------|
+| `comic-character-consistency-system` | `dna-templates/*.yaml` + `model-sheets/` | Identity locking and reference generation |
+| `comic-image-generation-adapter` | `consistency-config.json` | LoRA weights, IP-Adapter settings, negative blocks |
+| `comic-long-sequence-orchestrator` | `world-bible.yaml` (full) | Persistent state validation across 1000+ panels |
+| `comic-style-memory-system` | `style-grammar.yaml` | Linework, screentone, and hatching rules |
+| Human editors / writers | `world-bible.md` (rendered) | Readable documentation with embedded references |
+
+Example export structure is defined in `/exports/README.md`.
+
+
 
 *Without a world bible, even the best technical consistency tools have nothing reliable to be consistent with.*
