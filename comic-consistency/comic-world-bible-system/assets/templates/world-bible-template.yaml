@@ -1,0 +1,70 @@
+# World Bible Template v1.0
+# Copy and customize this file for new projects
+
+project:
+  name: ""
+  version: "1.0.0"
+  created: ""
+  last_updated: ""
+
+visual_grammar:
+  style_references:
+    - name: "Master Style 01"
+      path: "assets/style/master-01.png"
+      description: ""
+  color_palette:
+    - name: "Primary Ink"
+      hex: "#000000"
+    - name: "Screentone Mid"
+      hex: "#4A4A4A"
+  linework:
+    weight: "medium"
+    anti_aliasing: "soft"
+    hatching_conventions: "parallel, form-following"
+  lighting:
+    key_light: "upper left, 45 degrees"
+    shadow_hardness: "medium"
+    ambient_temperature: "cool"
+
+character_compendium:
+  - name: ""
+    canonical_views:
+      front: "assets/characters/[name]/front.png"
+      three_quarter_left: "assets/characters/[name]/34-left.png"
+      side_left: "assets/characters/[name]/side-left.png"
+      back: "assets/characters/[name]/back.png"
+    expression_library:
+      neutral: ""
+      happy: ""
+      sad: ""
+      angry: ""
+      surprised: ""
+      fearful: ""
+    dna_template: |
+      [CHARACTER: name]
+      Face: 
+      Hair: 
+      Build: 
+      Default costume: 
+    consistency_method:
+      primary: "InstantID + ControlNet"
+      weights:
+        identity: 0.7
+        pose: 0.6
+        style_lora: 0.8
+    negative_prompt: ""
+
+world_register:
+  locations:
+    - name: ""
+      reference: ""
+      lighting_variants: []
+
+negative_library:
+  global: ""
+  per_character: {}
+
+version_history:
+  - date: ""
+    change: ""
+    rationale: ""
