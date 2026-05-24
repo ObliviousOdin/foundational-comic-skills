@@ -54,6 +54,31 @@ One entry per character containing:
 - Date-stamped record of all changes
 - Rationale for each change (critical for long-running series)
 
+## Expected Folder Structure
+
+A well-organized world bible project follows this layout:
+
+```
+project-root/
+├── bibles/
+│   └── v1.0.0/
+│       └── world-bible.yaml
+├── assets/
+│   ├── characters/
+│   │   └── [character-name]/
+│   │       ├── reference-sheet.png
+│   │       └── expressions/
+│   ├── locations/
+│   └── style-references/
+├── exports/
+│   ├── dna-templates/
+│   ├── model-sheets/
+│   ├── consistency-config.json
+│   └── style-grammar.yaml
+├── artifacts/          # Generated reference packs
+└── version_history.md
+```
+
 ## Framework
 
 ### 1. Create World Bible
