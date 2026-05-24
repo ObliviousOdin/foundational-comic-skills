@@ -192,6 +192,44 @@ The world bible system supports multiple export formats depending on the consumi
 
 Example export structure is defined in `/exports/README.md`.
 
+## Minimal Valid Example
+
+Here is a minimal valid `world-bible.yaml` that passes all validation checks:
+
+```yaml
+visual_grammar:
+  master_style_references: ["style-ref-01.png", "style-ref-02.png"]
+  color_palette_anchors:
+    - name: "primary-navy"
+      hex: "#19294D"
+  linework_rules: "clean 2px with subtle hatching"
+  lighting_grammar: "soft key light from upper left, gentle shadows"
+
+character_compendium:
+  - name: "Rabot"
+    canonical_reference_sheet: "rabot-ref-sheet.png"
+    expression_library: ["neutral", "focused", "smirk", "surprised", "determined", "tired"]
+    dna_template: "young man, short dark hair, sharp features, wearing navy jacket with white shirt"
+    consistency_method: "IP-Adapter + LoRA weight 0.75"
+    signature_marks: "small scar on left cheek"
+    negative_prompt_block: "deformed hands, extra fingers, blurry face"
+
+world_register:
+  location_reference_sheets:
+    - name: "Control Room"
+      lighting: "cool fluorescent with strong overhead shadows"
+
+negative_library:
+  project_wide_negatives: ["modern clothing", "photorealistic", "text on image"]
+
+version_history:
+  - date: "2026-05-23"
+    change: "Initial world bible created"
+    rationale: "Establish baseline for 1000+ panel Rabot series"
+```
+
+This example satisfies structural, content, and consistency validation.
+
 
 
 *Without a world bible, even the best technical consistency tools have nothing reliable to be consistent with.*
