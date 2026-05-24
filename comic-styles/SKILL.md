@@ -20,11 +20,15 @@ description: Modular artistic style skills. Each style is a self-contained skill
 | Category | Skill | Status |
 |----------|-------|--------|
 | Japanese Manga | `retro-hand-inked-manga-comic` | ✅ Foundation |
-| Japanese Manga | `gekiga-cinematic-manga` | Planned |
-| Japanese Manga | `shoujo-romance-manga` | Planned |
-| Horror | `junji-ito-body-horror` | Planned |
-| Western | `classic-newspaper-comic` | Planned |
-| ... | (23 more styles) | Planned |
+| Japanese Manga | `gekiga-cinematic-manga` | ✅ Foundation |
+| Japanese Manga | `shoujo-romance-manga` | ✅ Foundation |
+| Horror | `junji-ito-body-horror` | ✅ Foundation |
+| Horror | `horror-ec-comics-style` | ✅ Foundation |
+| Noir | `noir-expressionist-comic` | ✅ Foundation |
+| European | `moebius-metal-hurlant-sci-fi` | ✅ Foundation |
+| Sci-Fi | `cyberpunk-sci-fi-comic` | ✅ Foundation |
+| Western | `classic-newspaper-comic` | ✅ Foundation |
+| ... | (17 more styles) | Planned |
 
 ## Integration
 Every style skill must:
