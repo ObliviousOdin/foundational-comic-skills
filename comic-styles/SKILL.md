@@ -39,7 +39,9 @@ description: Modular artistic style skills. Each style is a self-contained skill
 | Pop Art | `pop-art-lichtenstein-comic` | ✅ Foundation |
 | Pop Art | `underground-zine-comix` | ✅ Foundation |
 | Western | `classic-newspaper-comic` | ✅ Foundation |
-| ... | (5 more styles) | Planned |
+| Western | `golden-age-superhero-comic` | ✅ Foundation |
+| Western | `silver-age-pop-comic` | ✅ Foundation |
+| ... | (0 more styles) | Complete |
 
 ## Integration
 Every style skill must:
