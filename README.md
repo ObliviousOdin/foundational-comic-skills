@@ -40,12 +40,11 @@ This repository organizes foundational knowledge and experiments for creating hi
 ```
 foundational-comic-skills/
 ├── README.md
-├── research/
-│   ├── PANEL-COMPOSITION-THEORY.md
-│   └── COMIC-TIMING-AND-PACING.md
-├── skills/
-│   └── IMAGE-DRIVEN-COMIC-STRIP-SKILL-HARNESSES.md
-└── (future: experiments/, prompts/, assets/)
+├── comic-core/                    # Universal rules, structure, quality gates
+├── comic-consistency/             # World bible, character identity, style memory, long-sequence orchestration
+├── research/                      # 6 foundational papers
+├── skills/                        # Original 25 harnesses (legacy)
+└── (future: comic-styles/, comic-pipeline/, comic-production/)
 ```
 
 ---
