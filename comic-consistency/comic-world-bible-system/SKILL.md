@@ -87,15 +87,32 @@ A valid world bible must pass these checks:
 - All referenced assets in the bible have corresponding files in the assets folder
 
 ### 4. Derive Artifacts
-The world bible system should be able to generate the following derived artifacts:
 
-| Artifact | Purpose | Consumers |
-|----------|---------|-----------|
-| **DNA Template** | Prompt injection string for a character | All generation calls |
-| **Model Sheet Prompts** | Front/3/4/side/back generation instructions | `comic-character-consistency-system` |
-| **Negative Prompt Library** | Curated rejection list per character + style | All generation calls |
-| **Style Memory Pack** | Reference images + rules for linework/screentone | `comic-style-memory-system` |
-| **Consistency Config** | Recommended weights for LoRA / IP-Adapter / ControlNet | `comic-image-generation-adapter` |
+The world bible system is responsible for generating ready-to-use artifacts from the canonical data.
+
+#### 4.1 DNA Template
+- Automatically formatted prompt fragment
+- Includes face, hair, build, costume, and signature marks
+- Injected at the top of every generation prompt
+
+#### 4.2 Model Sheet Prompts
+- Generates structured prompts for front, 3/4, side, and back views
+- Includes expression variations
+- Optimized for InstantID / IP-Adapter workflows
+
+#### 4.3 Negative Prompt Library
+- Combines global negatives with character-specific negatives
+- Includes known failure modes (e.g., "extra fingers", "deformed hands", "modern clothing")
+
+#### 4.4 Style Memory Pack
+- Extracts linework rules, screentone density, and hatching behavior
+- Generates reference images for attention injection (StyleID, Consistent Self-Attention)
+
+#### 4.5 Consistency Config
+- Recommended weights for LoRA, IP-Adapter, ControlNet per character
+- Optimized for long-sequence stability vs. expression freedom trade-off
+
+Example files are available in the `/artifacts` folder.
 
 ### 5. Query Interface (Planned)
 - `get_character_dna(name)`
