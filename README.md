@@ -12,8 +12,10 @@ This repository organizes foundational knowledge and experiments for creating hi
 
 | Document                        | Description                                                                 | Path                                      |
 |---------------------------------|-----------------------------------------------------------------------------|-------------------------------------------|
-| **Panel Composition Theory**    | Comprehensive study of panel layout, McCloud’s 6 transitions, gutters, flow (T-rule), Golden Ratio, eyelines, and practical application to 2–3 panel strips. | [`research/PANEL-COMPOSITION-THEORY.md`](research/PANEL-COMPOSITION-THEORY.md) |
-| **Comic Timing and Pacing**     | In-depth guide to timing vs pacing, McCloud foundations, gutter rhythm, panel size as time control, silence vs dialogue, and application to the Setup–Reinforce–Turnaround structure. | [`research/COMIC-TIMING-AND-PACING.md`](research/COMIC-TIMING-AND-PACING.md) |
+|| **Panel Composition Theory**    | Comprehensive study of panel layout, McCloud’s 6 transitions, gutters, flow (T-rule), Golden Ratio, eyelines, and practical application to 2–3 panel strips. | [`research/PANEL-COMPOSITION-THEORY.md`](research/PANEL-COMPOSITION-THEORY.md) |
+|| **Comic Timing and Pacing**     | In-depth guide to timing vs pacing, McCloud foundations, gutter rhythm, panel size as time control, silence vs dialogue, and application to the Setup–Reinforce–Turnaround structure. | [`research/COMIC-TIMING-AND-PACING.md`](research/COMIC-TIMING-AND-PACING.md) |
+|| **Comic Art Evaluation Frameworks** | Professional editor rubrics, common failure modes, gesture theory, perceptual studies on AI vs human art, uncanny valley in comics, and measurable signals for building evaluation systems. | [`research/COMIC-ART-EVALUATION-FRAMEWORKS.md`](research/COMIC-ART-EVALUATION-FRAMEWORKS.md) |
+|| **Artistic Decision-Making & Process Modeling** | Micro-decisions (cropping, line weight, negative space, gaze), manga *name* workflow, Neil Cohn's PINS model, gist perception, spiral expertise model, and embodied cognition in drawing. | [`research/ARTISTIC-DECISION-MAKING-PROCESS-MODELING.md`](research/ARTISTIC-DECISION-MAKING-PROCESS-MODELING.md) |
 
 ### Skill Harnesses Library
 
