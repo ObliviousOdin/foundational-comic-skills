@@ -22,13 +22,24 @@ description: Modular artistic style skills. Each style is a self-contained skill
 | Japanese Manga | `retro-hand-inked-manga-comic` | ✅ Foundation |
 | Japanese Manga | `gekiga-cinematic-manga` | ✅ Foundation |
 | Japanese Manga | `shoujo-romance-manga` | ✅ Foundation |
+| Japanese Manga | `manhwa-color-webtoon` | ✅ Foundation |
+| Japanese Manga | `chibi-kawaii-comic` | ✅ Foundation |
+| Japanese Manga | `manhua-wuxia-comic` | ✅ Foundation |
 | Horror | `junji-ito-body-horror` | ✅ Foundation |
 | Horror | `horror-ec-comics-style` | ✅ Foundation |
 | Noir | `noir-expressionist-comic` | ✅ Foundation |
 | European | `moebius-metal-hurlant-sci-fi` | ✅ Foundation |
+| European | `ligne-claire-franco-belge` | ✅ Foundation |
 | Sci-Fi | `cyberpunk-sci-fi-comic` | ✅ Foundation |
+| Sci-Fi | `steampunk-victorian-comic` | ✅ Foundation |
+| Adventure | `bold-woodcut-adventure` | ✅ Foundation |
+| Adventure | `pulp-adventure-comic` | ✅ Foundation |
+| Decorative | `elegant-art-nouveau-comic` | ✅ Foundation |
+| Literary | `autobio-indie-literary-comic` | ✅ Foundation |
+| Pop Art | `pop-art-lichtenstein-comic` | ✅ Foundation |
+| Pop Art | `underground-zine-comix` | ✅ Foundation |
 | Western | `classic-newspaper-comic` | ✅ Foundation |
-| ... | (17 more styles) | Planned |
+| ... | (5 more styles) | Planned |
 
 ## Integration
 Every style skill must:
