@@ -22,35 +22,36 @@ This skill implements the **World Bible** as the central nervous system for 1000
 
 A world bible is a structured document containing the following top-level sections:
 
-### 1. Visual Grammar
-- Master style reference images (3–5 canonical examples)
-- Color palette anchors (named swatches + hex codes)
-- Linework rules (weight, anti-aliasing, hatching conventions, pressure behavior)
-- Lighting grammar (key light direction, shadow hardness, ambient temperature)
-- Typography rules (if lettering is used)
+### 1. visual_grammar
+- `master_style_references`: 3–5 canonical style reference images
+- `color_palette_anchors`: Named swatches with hex codes
+- `linework_rules`: Weight, anti-aliasing, hatching conventions, pressure behavior
+- `lighting_grammar`: Key light direction, shadow hardness, ambient temperature
+- `typography_rules`: Lettering rules (if used)
 
-### 2. Character Compendium (one entry per character)
-- Canonical reference sheet (front, 3/4, side, back, neutral expression)
-- Expression library (minimum 6 core states)
-- Costume variants with per-variant color codes
-- DNA template block (ready-to-inject prompt fragment)
-- Recommended consistency method + weights (LoRA path, IP-Adapter source, InstantID/PuLID settings)
-- Signature marks and distinguishing features
-- Negative prompt block (known failure modes for this character)
+### 2. character_compendium
+One entry per character containing:
+- `canonical_reference_sheet`: Front, 3/4, side, back, neutral expression
+- `expression_library`: Minimum 6 core emotional states
+- `costume_variants`: Per-variant color codes
+- `dna_template`: Ready-to-inject prompt fragment
+- `consistency_method`: Recommended LoRA path, IP-Adapter source, InstantID/PuLID settings
+- `signature_marks`: Distinguishing features
+- `negative_prompt_block`: Known failure modes for this character
 
-### 3. World / Environment Register
-- Location reference sheets with consistent architectural and lighting rules
-- Recurring props and objects with visual specifications
-- Time-of-day and weather lighting conditions per location
+### 3. world_register
+- `location_reference_sheets`: Consistent architectural and lighting rules per location
+- `recurring_props`: Visual specifications for objects
+- `time_weather_lighting`: Time-of-day and weather conditions per location
 
-### 4. Negative Library
-- Project-wide negative prompts
-- Per-character negative blocks
-- Per-style negative blocks
-- Documented artifacts to actively reject
+### 4. negative_library
+- `project_wide_negatives`
+- `per_character_negatives`
+- `per_style_negatives`
+- `documented_artifacts_to_reject`
 
-### 5. Version History
-- Date-stamped record of all changes to characters, locations, or style rules
+### 5. version_history
+- Date-stamped record of all changes
 - Rationale for each change (critical for long-running series)
 
 ## Framework
