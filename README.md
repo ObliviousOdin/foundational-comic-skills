@@ -2,7 +2,9 @@
 
 **A production-grade, modular skill system for consistent, long-form comic generation.**
 
-This repository provides a complete, layered foundation for building comics with strong character consistency, style control, and world coherence — especially for 100+ panel arcs. It is designed to work directly with Hermes agents and other LLM-based creative pipelines.
+This repository provides a complete, layered foundation for building comics with strong character consistency, style control, world coherence, and explicit creative direction — especially for 100+ panel arcs. It is designed to work directly with Hermes agents and other LLM-based creative pipelines.
+
+**The stack in one sentence**: `comic-core` defines the laws, `comic-consistency` is the memory, `comic-styles` (28 skills) is the visual grammar, `comic-direction` (Producer + Director) is the judgment, and `comic-pipeline` turns it all into output across six formats and six narrative patterns.
 
 ---
 
@@ -38,15 +40,52 @@ You should see skills such as:
 - `comic-world-bible-system`
 - `comic-character-consistency-system`
 - `comic-long-sequence-orchestrator`
+- `comic-producer` and `comic-director` (the direction layer)
+- `comic-narrative-patterns` and `comic-format-library` (variation libraries)
 - Multiple style skills (e.g., `retro-hand-inked-manga`, `ligne-claire`, etc.)
 
 ---
 
 ## Core Philosophy
 
-**Every consistency decision must trace back to a single, versioned source of truth.**
+**Every consistency decision must trace back to a single, versioned source of truth — and every creative decision must be made before generation, by a role with authority to make it.**
 
 This repository treats the **World Bible** as the central nervous system for long-running comic projects. Instead of relying on scattered reference images and ad-hoc prompting, all consistency artifacts (DNA templates, model sheets, negative libraries, LoRA recommendations) are **derived** from a structured, queryable world bible.
+
+On top of the bible sits the **direction layer**: a **Producer** who locks every project's contract (format + narrative pattern + style + scope) and a **Director** who plans every panel as a shot — camera, staging, transition, pacing — before anything is rendered, and who owns the final cut.
+
+---
+
+## The Direction Layer (Producer + Director)
+
+The biggest failure mode in AI comics is not inconsistency — it is the absence of decisions. The `comic-direction/` layer makes the decisions explicit:
+
+| Role | Authority | Key Artifacts |
+|------|-----------|---------------|
+| `comic-producer` | What gets made, when it ships | Project contract (`production-brief.yaml`), greenlight gate, review cadence, sign-off |
+| `comic-director` | How it looks and reads | Vision statement, per-strip shot plans (`shot-plan-template.yaml`), final cut verdicts |
+
+**Every pipeline run follows the same shape:**
+
+```
+Producer locks the contract → Director plans the shots → consistency stack generates
+→ Director cuts (flow → words → everything → Artistic Life) → Producer signs off
+```
+
+Pipelines refuse to run without a locked contract, and nothing generates without a shot plan. See `comic-direction/SKILL.md` for the chain of authority.
+
+---
+
+## Variation: Formats × Patterns × Styles
+
+A project composes one choice from each library — locked in the contract, disciplined by the core:
+
+| Library | Options |
+|---------|---------|
+| `comic-core/comic-format-library` | 3-panel horizontal (default), 4-koma vertical, webtoon scroll segment, single-panel gag, 2×2 grid page, multi-page chapter |
+| `comic-core/comic-narrative-patterns` | Setup→Reinforce→Turnaround (default), kishōtenketsu, gag escalation, slow-burn reveal, parallel action, silent strip |
+| `comic-styles/` | 28 style skills across 12 categories |
+| `comic-pipeline/` | One pipeline per format family: 3-panel, 4-koma/grid, webtoon scroll, multi-page chapter |
 
 ---
 
@@ -122,6 +161,12 @@ The reference images and descriptions in the world bible are the single source o
 ### 6. Use Layered Conditioning
 Combine multiple techniques (IP-Adapter + LoRA + negative prompting + style memory) rather than relying on a single method.
 
+### 7. No Generation Without a Shot Plan
+Prompts are the last step, not the first. Let the Director decide beat role, shot size, angle, staging, transition, and pacing for every panel before anything renders. Re-rolling a failed panel without changing the shot plan is gambling, not directing.
+
+### 8. Lock the Contract Before the First Panel
+Format, narrative pattern, and style are chosen once per project by the Producer and recorded. Mid-project changes are re-locks with rationale — never silent drift.
+
 ---
 
 ## Repository Structure
@@ -129,16 +174,25 @@ Combine multiple techniques (IP-Adapter + LoRA + negative prompting + style memo
 ```
 foundational-comic-skills/
 ├── README.md
-├── comic-core/                    # Universal rules, quality gates, structural standards
+├── comic-core/                    # Universal rules, structural contract, quality gates,
+│   │                              #   story derivation, narrative patterns, format library
+│   ├── comic-narrative-patterns/
+│   └── comic-format-library/
 ├── comic-consistency/             # World bible, character DNA, style memory, long-sequence orchestration
 │   ├── comic-world-bible-system/
 │   ├── comic-character-consistency-system/
 │   ├── comic-style-memory-system/
 │   ├── comic-long-sequence-orchestrator/
 │   └── comic-image-generation-adapter/
-├── comic-styles/                  # 25+ individual style skills with Style Locks
+├── comic-styles/                  # 28 individual style skills with Style Locks (12 categories)
+├── comic-direction/               # Decision authority: Producer + Director
+│   ├── comic-producer/            #   project contract, greenlight, review cadence, sign-off
+│   └── comic-director/            #   vision, shot plans, camera grammar, final cut
+├── comic-pipeline/                # End-to-end workflows: 3-panel, 4-koma, webtoon scroll, chapter
+├── comic-production/              # Tooling adapters (Hermes, CLI, Higgsfield, Remotion)
 ├── research/                      # 6 foundational technical papers
-└── exports/                       # Generated artifacts and templates
+├── skills/                        # Original portable harness pack (repo skill tree is canonical)
+└── exports/                       # Generated artifacts and templates (derived, never hand-edited)
 ```
 
 ---
@@ -161,11 +215,13 @@ This system is grounded in six core research documents:
 ## Goals
 
 - Provide a **single source of truth** for long-form comic consistency
+- Make every creative decision **explicit, owned, and made before generation** (the direction layer)
 - Enable **derivable, versioned** consistency artifacts
+- Support **disciplined variation**: six formats × six narrative patterns × 28 styles
 - Support **Hermes agents** and other LLM pipelines with clear, structured skills
 - Bridge research and production with practical, implementable systems
 
 ---
 
-*Last updated: May 2026*  
+*Last updated: June 2026*  
 *Maintained by ObliviousOdin*

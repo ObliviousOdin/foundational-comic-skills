@@ -9,6 +9,8 @@ description: Production and integration layer. Handles Hermes skill registration
 
 **Purpose**: This is the outermost layer that connects the comic skill system to real-world usage — Hermes, CLI tools, and external generation platforms.
 
+**Scope note**: This layer is *tooling* (adapters, registration, export plumbing). Creative production management — contracts, scheduling, review, sign-off — belongs to `comic-direction/comic-producer`. Adapters here execute what the direction layer has already decided.
+
 ## Planned Skills
 
 | Skill | Description | Status |
