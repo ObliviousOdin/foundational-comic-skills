@@ -51,6 +51,7 @@ comic-image-generation-adapter (executes with consistency artifacts injected)
 ## Related Layers
 - `comic-core` (required dependency)
 - `comic-styles` (consumes consistency artifacts)
+- `comic-direction` (Producer requires a valid bible to greenlight; Director decisions log into `version_history`)
 - `comic-pipeline` (orchestrates full workflows)
 
 ---

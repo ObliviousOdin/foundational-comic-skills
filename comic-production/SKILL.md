@@ -9,10 +9,13 @@ description: Production and integration layer. Handles Hermes skill registration
 
 **Purpose**: This is the outermost layer that connects the comic skill system to real-world usage — Hermes, CLI tools, and external generation platforms.
 
-## Planned Skills
+**Scope note**: This layer is *tooling* (adapters, registration, export plumbing). Creative production management — contracts, scheduling, review, sign-off — belongs to `comic-direction/comic-producer`. Adapters here execute what the direction layer has already decided.
+
+## Skills
 
 | Skill | Description | Status |
 |-------|-------------|--------|
+| `comic-export-and-publish` | Platform delivery specs, re-cut rules, naming, archival | ✅ Active |
 | `comic-hermes-registration` | Registers all comic skills with Hermes | Planned |
 | `comic-cli-adapter` | Command-line interface for the full system | Planned |
 | `comic-higgsfield-adapter` | Direct integration with Higgsfield for generation | Planned |

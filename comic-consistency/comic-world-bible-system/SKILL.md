@@ -1,6 +1,6 @@
 ---
 name: comic-world-bible-system
-version: 1.0.0
+version: 1.1.0
 category: comic-consistency
 description: The canonical source of truth and asset registry for long-form comic production. Defines structured world bibles, character compendiums, style grammars, and generates derived consistency artifacts (DNA templates, model sheets, negative libraries).
 ---
@@ -140,12 +140,21 @@ The world bible system is responsible for generating ready-to-use artifacts from
 
 Example files are available in the `/artifacts` folder.
 
-### 5. Query Interface (Planned)
+### 5. Tooling
+
+**Implemented** — structural/content validation runs via the repository validator:
+
+```bash
+python3 tools/validate.py --bible path/to/world-bible.yaml
+```
+
+It enforces the Validate rules above (required sections, character DNA + reference sheets, non-empty negatives, rationale-bearing version history). Example bibles under `examples/` are validated automatically in CI.
+
+**Planned query interface**:
 - `get_character_dna(name)`
 - `get_style_grammar()`
 - `list_characters_in_costume(costume)`
 - `export_consistency_config(pipeline_type)`
-- `validate_bible()` → returns structured errors/warnings
 
 ## Integration with Other Layers
 

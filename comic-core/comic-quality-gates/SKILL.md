@@ -1,6 +1,6 @@
 ---
 name: comic-quality-gates
-version: 1.0.0
+version: 1.1.0
 category: comic-core
 description: A rigorous, multi-layer quality evaluation system that prevents generic AI output and enforces human-like artistic standards across all comic skills.
 ---
@@ -20,9 +20,9 @@ This skill defines the layered evaluation framework that separates professional-
 ## Framework
 
 ### Layer 1: Structural Gate (Non-Negotiable)
-- [ ] Exactly **3 horizontal panels** in a single wide image (16:9 or 21:9)
-- [ ] Clear left-to-right reading order
-- [ ] No missing panels, no extra panels, no vertical stacking
+- [ ] Panel count, orientation, and aspect ratio match the **locked format contract** (default: exactly 3 horizontal panels in a single wide 16:9/21:9 image; alternatives per `comic-format-library`)
+- [ ] Reading order is unambiguous and matches the contract's `reading_direction` (default left-to-right; RTL or vertical only when locked)
+- [ ] No missing panels, no extra panels, no layout outside the locked format
 - [ ] Panel borders are clean and consistent with style
 
 ### Layer 2: Character Consistency Gate
@@ -34,8 +34,8 @@ This skill defines the layered evaluation framework that separates professional-
 
 ### Layer 3: Story Integrity Gate
 - [ ] Story clearly derives from the four image cues (Mood, Wardrobe, Setting, Prop/Companion)
-- [ ] Setup → Reinforce → Turnaround arc is **readable at a glance**
-- [ ] Panel 3 delivers a genuine emotional reframing (not random or flat)
+- [ ] The **locked beat pattern** (default: Setup → Reinforce → Turnaround; alternatives per `comic-narrative-patterns`) is **readable at a glance**
+- [ ] The payoff beat delivers its pattern's required effect (reframing, *ten* recontextualization, gag break, or reveal — not random or flat)
 - [ ] No exposition dumping in dialogue
 
 ### Layer 4: Style Fidelity Gate
@@ -66,13 +66,16 @@ This is the most important and hardest gate. Ask:
 
 ## Integration Notes
 - This gate system should be referenced in every style skill's Quality Check section
-- Future consistency engines and pipelines will include automated checks against these gates
+- Pipelines run these gates automatically; the `comic-director` final cut reviews flow-first and **personally rules on Layer 6 (Artistic Life)** — a panel is not done until the Director accepts it
+- Gate failures route through the `comic-producer` review policy: two failures on the same panel stop re-rolls and force a shot-plan revision
 - Human review should focus primarily on **Layer 6 (Artistic Life)**
 
 ## Related Skills
 - `comic-universal-operating-rule`
 - `comic-structural-contract`
-- `comic-character-consistency-system` (planned)
+- `comic-character-consistency-system`
+- `comic-director`
+- `comic-producer`
 
 ---
 

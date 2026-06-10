@@ -1,13 +1,13 @@
 ---
 name: comic-structural-contract
-version: 1.0.0
+version: 1.1.0
 category: comic-core
-description: Defines the precise 3-panel horizontal narrative structure, panel relationships, and emotional arc requirements used across all comic skills.
+description: Defines the default 3-panel horizontal narrative structure, panel relationships, and emotional arc requirements — and governs how sanctioned format and pattern variations extend it.
 ---
 
 # Comic Structural Contract
 
-**Core principle**: Every comic must follow a clear, readable Setup → Reinforce → Turnaround arc within exactly three horizontal panels.
+**Core principle**: Every comic must follow a clear, readable beat arc within a locked structure. The default is Setup → Reinforce → Turnaround in exactly three horizontal panels; variations exist, but only as locked contracts — never as improvisation.
 
 This skill codifies the structural grammar that gives short-form comics their power and readability.
 
@@ -30,7 +30,7 @@ This skill codifies the structural grammar that gives short-form comics their po
 ### Panel Relationship Rules
 
 1. **Left-to-Right Flow**
-   - Western reading direction assumed unless style explicitly uses right-to-left
+   - Western reading direction assumed by default; manga-family styles may lock right-to-left via the project contract's `reading_direction` (see `comic-format-library`) — once locked, all eyelines and gutter logic must obey it
    - Each panel must logically lead into the next
 
 2. **Emotional Escalation**
@@ -62,15 +62,32 @@ This skill codifies the structural grammar that gives short-form comics their po
 - Ending on a flat statement instead of a reframing
 - Using the turnaround for exposition instead of emotional payoff
 
+### Sanctioned Variations
+
+This contract defines the **default** structure. Two extension libraries provide disciplined alternatives:
+
+| Library | Provides | Examples |
+|---------|----------|----------|
+| `comic-format-library` | Alternative canvases and panel counts | 4-koma vertical, webtoon scroll segment, single-panel gag, 2×2 grid, multi-page chapter |
+| `comic-narrative-patterns` | Alternative beat arcs | kishōtenketsu, gag escalation, slow-burn reveal, parallel action, silent strip |
+
+Rules of variation:
+1. A variation is only valid when **locked in the project contract** by `comic-producer` — defaults apply otherwise
+2. Format and pattern must be compatible (a 4-beat pattern needs a 4+ panel format)
+3. All other rules in this contract — emotional escalation, gutter meaning, forbidden patterns, turnaround tone — apply to every variation
+
 ## Integration Notes
 - This contract is referenced by every style skill's Story Harness
-- Future extensions (4+ panels, vertical formats, full chapters) will build on this base
-- Consistency systems must preserve this arc across panels
+- Extended by `comic-format-library` (canvases) and `comic-narrative-patterns` (beat arcs)
+- The `comic-direction` layer selects and enforces the locked structure per project
+- Consistency systems must preserve the locked arc across panels
 
 ## Related Skills
 - `comic-universal-operating-rule`
 - `comic-quality-gates`
 - `comic-story-derivation`
+- `comic-format-library`
+- `comic-narrative-patterns`
 
 ---
 

@@ -1,0 +1,33 @@
+# Emotional Arc Ledger Template
+# One file per arc/season. Updated after EVERY episode delivery.
+# States must reference the world bible expression library.
+# See comic-emotional-arc-orchestrator SKILL.md.
+
+arc:
+  project: ""
+  arc_name: ""
+  episodes_planned: 0
+  bible_version: ""        # world bible version this arc was designed against
+
+throughlines:
+  - character: ""
+    baseline_state: ""     # from the bible's expression_library
+    arc_shape: ""          # rise | fall | thaw | spiral | flat-with-spikes
+    destination_state: ""
+    destination_episode: 0
+    forbidden_resets: []   # feelings that may not be "forgotten" once earned
+    steps:                 # at most one step per episode per character
+      - episode: 1
+        enter: ""
+        exit_target: ""
+        because: ""        # the event that moves the state
+        exit_actual: ""    # filled after delivery
+        proof_panel: ""    # panel reference that shows the exit state
+        debt: ""           # if target missed: what the next episode owes
+
+bible_change_requests: []  # expression-library gaps discovered during the arc
+
+revisions:
+  - date: ""
+    change: ""
+    rationale: ""          # throughline re-versions require rationale
