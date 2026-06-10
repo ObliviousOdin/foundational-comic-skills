@@ -221,6 +221,68 @@ def check_cross_references(known: set[str]) -> None:
                 err(f"{rel(path)}: reference `{token}` does not resolve to any skill")
 
 
+def validate_bible(path: Path) -> list[str]:
+    """Validate a world-bible YAML against comic-world-bible-system rules.
+
+    Implements the structural/content checks from the skill's Validate
+    section. Returns a list of violations (empty = valid).
+    """
+    problems: list[str] = []
+    if not HAVE_YAML:
+        return ["pyyaml required for bible validation"]
+    try:
+        data = yaml.safe_load(path.read_text(encoding="utf-8"))
+    except yaml.YAMLError as exc:
+        return [f"invalid YAML - {exc}"]
+    if not isinstance(data, dict):
+        return ["bible must be a YAML mapping"]
+
+    required = (
+        "visual_grammar", "character_compendium",
+        "world_register", "negative_library", "version_history",
+    )
+    for section in required:
+        if section not in data:
+            problems.append(f"missing top-level section `{section}`")
+
+    grammar = data.get("visual_grammar") or {}
+    for rule in ("linework_rules", "lighting_grammar"):
+        if not grammar.get(rule):
+            problems.append(f"visual_grammar.{rule} is required")
+
+    characters = data.get("character_compendium") or []
+    if not characters:
+        problems.append("character_compendium needs >= 1 character")
+    names: list[str] = []
+    for ch in characters:
+        label = ch.get("name", "<unnamed>")
+        names.append(label)
+        if not ch.get("dna_template"):
+            problems.append(f"character `{label}` missing dna_template")
+        if not ch.get("canonical_reference_sheet"):
+            problems.append(f"character `{label}` missing canonical_reference_sheet")
+    if len(names) != len(set(names)):
+        problems.append("duplicate character names in compendium")
+
+    negatives = data.get("negative_library") or {}
+    if not negatives.get("project_wide_negatives"):
+        problems.append("negative_library.project_wide_negatives is empty")
+
+    history = data.get("version_history") or []
+    if not history:
+        problems.append("version_history needs >= 1 entry")
+    elif not all(entry.get("rationale") for entry in history):
+        problems.append("every version_history entry needs a rationale")
+
+    return problems
+
+
+def check_example_bibles() -> None:
+    for path in sorted(ROOT.glob("examples/**/world-bible*.yaml")):
+        for problem in validate_bible(path):
+            err(f"{rel(path)}: {problem}")
+
+
 def check_yaml_health() -> None:
     if not HAVE_YAML:
         warn("pyyaml not installed - skipping YAML checks (pip install pyyaml)")
@@ -244,6 +306,17 @@ def check_yaml_health() -> None:
 
 
 def main() -> int:
+    if len(sys.argv) == 3 and sys.argv[1] == "--bible":
+        path = Path(sys.argv[2]).resolve()
+        problems = validate_bible(path)
+        if problems:
+            for p in problems:
+                print(f"  FAIL  {p}")
+            print(f"\n{len(problems)} violation(s).")
+            return 1
+        print(f"{path.name}: valid world bible.")
+        return 0
+
     known_skills: set[str] = set()
     style_dirs: dict[str, str] = {}
 
@@ -262,6 +335,7 @@ def main() -> int:
     check_style_index(style_dirs)
     check_cross_references(known_skills)
     check_yaml_health()
+    check_example_bibles()
 
     print(f"Checked {len(skill_files())} skills ({len(style_dirs)} styles).")
     for w in warnings:
