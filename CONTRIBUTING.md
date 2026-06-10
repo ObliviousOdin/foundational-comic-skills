@@ -132,9 +132,9 @@ Conventional commits, scoped by layer: `feat(styles): …`, `fix(core): …`, `d
 
 The repo itself versions by milestone in `CHANGELOG.md` (Keep-a-Changelog format). Skill versions are independent semver per file.
 
-## Recommended (Owner Decisions)
+## License
 
-- **License**: the repository currently has no license (all rights reserved by default). Adding one (MIT/CC-BY for a skill library) is recommended but is the maintainer's call.
+This repository is licensed under the [MIT License](LICENSE). Contributions are accepted under the same terms.
 
 ---
 
