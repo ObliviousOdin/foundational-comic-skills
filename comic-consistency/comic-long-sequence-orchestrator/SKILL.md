@@ -24,9 +24,10 @@ This skill is responsible for scaling consistency from individual panels to full
 - Detect and resolve conflicts with the World Bible
 
 ### 2. Multi-Agent Pipeline
-- Director agent (scene parsing, camera grammar, global style)
+- Director agent — implemented by `comic-direction/comic-director` (vision, shot plans, camera grammar, final cut)
+- Producer agent — implemented by `comic-direction/comic-producer` (contract, schedule, review cadence, escalation)
 - Character agent (DNA + state resolution per panel)
-- Prompt engineering agent (injects bible + consistency artifacts)
+- Prompt engineering agent (injects bible + consistency artifacts + the shot plan)
 - Render agent (generation + review gate)
 
 ### 3. Drift Management
