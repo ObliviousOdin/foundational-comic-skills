@@ -1,6 +1,6 @@
 ---
 name: comic-universal-operating-rule
-version: 1.1.0
+version: 1.2.0
 category: comic-core
 description: The foundational input contract, story derivation method, and quality principles that apply to every comic generation skill in the system.
 ---
@@ -20,12 +20,13 @@ This skill defines the shared foundation that **every** comic skill in this syst
 ## Framework
 
 ### 1. INPUT CONTRACT
-- Accept **one reference image** of a person (or clear subject)
+- Accept **one reference image per primary character** (1–3 characters; one subject per image preferred — a single multi-person image is acceptable if each subject is clearly distinct)
 - Extract **only visible, non-sensitive visual cues**:
   - Hairstyle, face shape, outfit silhouette, posture, expression
   - Mood palette, visible props, environment hints
 - **Never** infer identity, ethnicity, age, health, religion, personality, profession, or social class
-- Redraw the subject as a **completely original comic character** in the target style
+- Redraw each subject as a **completely original comic character** in the target style
+- With 2+ characters, also extract the **RELATIONSHIP CUE** (see `comic-story-derivation`) — the visible dynamic between subjects, never an inferred real-world relationship
 
 ### 2. STORY DERIVATION (Image-Driven)
 Silently extract four cues from the reference before generating:
