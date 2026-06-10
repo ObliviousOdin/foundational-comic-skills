@@ -234,4 +234,4 @@ This system is grounded in six core research documents. **Every finding is mappe
 ---
 
 *Last updated: June 2026*  
-*Maintained by ObliviousOdin*
+*Maintained by ObliviousOdin · [MIT License](LICENSE)*
