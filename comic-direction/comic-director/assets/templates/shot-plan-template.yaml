@@ -1,0 +1,85 @@
+# Shot Plan Template (the digital "name")
+# One file per strip / page / scroll segment. Complete BEFORE any generation.
+# See comic-director SKILL.md §2 for field vocabulary.
+
+shot_plan:
+  project: ""
+  episode: ""
+  strip_id: ""
+  format: ""              # entry from comic-format-library (e.g., 3-panel-horizontal)
+  narrative_pattern: ""   # entry from comic-narrative-patterns
+  reading_direction: ""   # ltr | rtl | vertical
+  vision_check: ""        # the project's three register adjectives
+
+panels:
+  - panel: 1
+    beat_role: ""         # e.g., SETUP / ki
+    shot_size: ""         # establishing | wide | medium | close-up | extreme-close-up
+    camera_angle: ""      # eye-level | low | high | dutch | overhead
+    staging: ""           # fg/mg/bg placement, one line
+    eyeline_vector: ""    # where gaze/action points the reader
+    transition_in: ""     # n/a for panel 1
+    pacing_weight: ""     # small | medium | large
+    gutter_before: ""     # n/a | narrow | standard | wide
+    dialogue:
+      bubbles: 0          # max 2
+      lines: []           # each ≤ ~8 words
+      placement: ""       # where bubbles sit without hiding key art
+    crop_check:
+      action_legible: false
+      context_present: false
+      mood_served: false
+      composition_satisfying: false
+    notes: ""             # non-default decisions → intended effect
+
+  - panel: 2
+    beat_role: ""
+    shot_size: ""
+    camera_angle: ""
+    staging: ""
+    eyeline_vector: ""
+    transition_in: ""     # moment | action | subject | scene | aspect
+    pacing_weight: ""
+    gutter_before: ""
+    dialogue:
+      bubbles: 0
+      lines: []
+      placement: ""
+    crop_check:
+      action_legible: false
+      context_present: false
+      mood_served: false
+      composition_satisfying: false
+    notes: ""
+
+  - panel: 3
+    beat_role: ""
+    shot_size: ""
+    camera_angle: ""
+    staging: ""
+    eyeline_vector: ""
+    transition_in: ""
+    pacing_weight: ""     # the payoff panel usually takes "large"
+    gutter_before: ""     # usually "wide" before the payoff
+    dialogue:
+      bubbles: 0
+      lines: []
+      placement: ""
+    crop_check:
+      action_legible: false
+      context_present: false
+      mood_served: false
+      composition_satisfying: false
+    notes: ""
+
+name_criteria:            # all five must be true before generation
+  strong_first_panel: false
+  layout_effortless: false
+  action_always_clear: false
+  shifts_convincing: false
+  emotion_legible: false
+
+final_cut:
+  verdict: ""             # ACCEPT | RETAKE | RE-PLAN
+  corrective_field: ""    # required for RETAKE: the one shot-plan field to change
+  artistic_life_note: ""  # Director's Layer 6 ruling, one line
