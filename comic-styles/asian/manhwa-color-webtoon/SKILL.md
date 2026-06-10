@@ -22,6 +22,7 @@ description: Clean digital manhwa/webtoon style with cinematic lighting and K-dr
 ## Integration
 - Requires `comic-style-memory-system` for digital rendering rules
 - Works with `comic-long-sequence-orchestrator` for serialized webtoons
+- **Native format**: `webtoon-scroll-segment` (see `comic-format-library`) via `comic-webtoon-scroll-pipeline` — this style's scroll flow is sanctioned there, not in the 3-panel default
 
 ---
 
