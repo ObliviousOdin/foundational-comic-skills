@@ -17,7 +17,7 @@ description: End-to-end workflow skills that orchestrate comic-core, comic-consi
 | `comic-4koma-pipeline` | `4koma-vertical`, `2x2-grid-page` | ✅ Active |
 | `comic-webtoon-scroll-pipeline` | `webtoon-scroll-segment` | ✅ Active |
 | `comic-multi-page-chapter-pipeline` | `multi-page-chapter` | ✅ Active |
-| `comic-emotional-arc-orchestrator` | Cross-pipeline arc planning | Planned |
+| `comic-emotional-arc-orchestrator` | Series-level emotional continuity above all pipelines | ✅ Active |
 
 ## The Universal Pipeline Shape
 
