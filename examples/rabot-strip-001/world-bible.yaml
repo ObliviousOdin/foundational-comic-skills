@@ -1,0 +1,55 @@
+# World bible for the Rabot example project.
+# Extends the minimal valid example in comic-world-bible-system with a second
+# character to demonstrate multi-character consistency rules.
+
+visual_grammar:
+  master_style_references: ["style-ref-01.png", "style-ref-02.png"]
+  color_palette_anchors:
+    - name: "ink-black"
+      hex: "#111111"
+    - name: "paper-white"
+      hex: "#F7F4EC"
+  linework_rules: "G-pen swell/taper outlines, maru-pen interior detail, screentone 50 lpi feel, slight hand wobble"
+  lighting_grammar: "cool overhead fluorescent key, soft floor bounce, tone-flat backgrounds behind emotional beats"
+  typography_rules: "hand-lettered feel, rounded bubbles, no captions"
+
+character_compendium:
+  - name: "Rabot"
+    canonical_reference_sheet: "assets/characters/rabot/reference-sheet.png"
+    expression_library: ["neutral", "focused", "smirk", "surprised", "tired", "quiet-warm"]
+    dna_template: "young man, short dark hair, sharp features, navy work jacket over white shirt, small scar on left cheek"
+    consistency_method: "IP-Adapter 0.55 + style LoRA 0.8"
+    signature_marks: "small scar on left cheek; jacket collar always up"
+    negative_prompt_block: "deformed hands, extra fingers, blurry face, silver hair, antenna"
+    # note: includes Echo's signature marks as negatives (identity bleed prevention)
+
+  - name: "Echo"
+    canonical_reference_sheet: "assets/characters/echo/reference-sheet.png"
+    expression_library: ["neutral", "attentive", "dry-amusement", "processing", "dim", "quiet-warm"]
+    dna_template: "compact maintenance android with feminine silhouette, short silver hair, single round indicator light at the left temple, matte gray coverall"
+    consistency_method: "IP-Adapter 0.55 + style LoRA 0.8"
+    signature_marks: "round temple indicator light; silver hair"
+    negative_prompt_block: "deformed hands, extra fingers, blurry face, facial scar, navy jacket"
+    # note: includes Rabot's signature marks as negatives (identity bleed prevention)
+
+world_register:
+  location_reference_sheets:
+    - name: "Control Room"
+      lighting: "cool fluorescent, strong overhead shadows, monitor glow as fill"
+    - name: "Service Corridor"
+      lighting: "sparse maintenance strips, long shadows"
+  recurring_props:
+    - name: "thermos"
+      spec: "dented steel thermos, Rabot's; appears in cold-open beats"
+  time_weather_lighting: "perpetual station night; time read through fatigue, not windows"
+
+negative_library:
+  project_wide_negatives: ["color", "photorealistic", "modern smartphone", "text on image", "digital gradient"]
+
+version_history:
+  - date: "2026-06-09"
+    change: "Initial bible: visual grammar, Rabot, Control Room"
+    rationale: "Baseline for the 12-strip first season"
+  - date: "2026-06-10"
+    change: "Added Echo (character), Service Corridor (location), cross-character negative blocks"
+    rationale: "Strip 001 is a two-hander; multi-character rules require contrast anchors and identity-bleed negatives"
