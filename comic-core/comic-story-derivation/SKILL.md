@@ -1,8 +1,8 @@
 ---
 name: comic-story-derivation
-version: 1.0.0
+version: 1.1.0
 category: comic-core
-description: A systematic method for extracting narrative seeds from a single reference image and transforming them into emotionally coherent 3-panel stories.
+description: A systematic method for extracting narrative seeds from reference images and transforming them into emotionally coherent panel stories — including multi-character and serialized derivation.
 ---
 
 # Comic Story Derivation
@@ -30,6 +30,23 @@ Before writing any story, extract these four cues from the reference image:
 | **PROP/COMPANION CUE** | One small storytelling anchor | A folded newspaper, a small umbrella, or a stray cat |
 
 **Rule**: If the image gives you nothing for a cue, **invent one small, specific detail** that feels like it belongs to this person — never a generic default.
+
+### Step 1b: Relationship Cue (Multi-Character Only)
+
+When the strip features 2+ characters, extract a fifth cue:
+
+| Cue | Extraction Focus | Examples |
+|-----|------------------|----------|
+| **RELATIONSHIP CUE** | The visible dynamic between subjects — distance, mirroring, orientation, attention | Comfortable closeness, wary formality, playful rivalry, one-sided attention, parallel solitude |
+
+Rules:
+- Derive only from **visible** body language and staging; never infer real-world relationships
+- The arc then belongs to the **dynamic**, not to either character alone — the turnaround moves the relationship one step (closer, honest, reversed), and both characters must visibly react in the payoff
+- In serialized work, read this cue **through** the current arc ledger state (`comic-emotional-arc-orchestrator`) rather than from the image alone
+
+### Anti-Template Variation Check
+
+Before committing to an arc, verify it is not a repeat: if the last three strips used the same inciting-detail type (animal / object / stranger / weather), the same turnaround mechanism (gift / realization / reunion / reversal), or the same setting family, **change at least one**. Track these three axes in the production state. The cues guarantee the story fits the image; this check guarantees the *series* doesn't converge to one story wearing different clothes.
 
 ### Step 2: Emotional Arc Construction
 Map the four cues to the three-panel structure:

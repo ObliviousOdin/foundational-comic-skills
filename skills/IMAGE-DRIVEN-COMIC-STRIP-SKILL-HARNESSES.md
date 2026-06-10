@@ -1,5 +1,7 @@
 # 25 Image-Driven Comic Strip Skill Harnesses
 
+> **Canonical source note**: This document is the original, portable harness pack for external platforms and tracks the first 25 styles. The **skill tree in this repository is canonical** — where versions, names (e.g., `junji-ito-body-horror` here listed as `horror-junji-ito-manga`), or rules differ, the `comic-styles/`, `comic-core/`, and `comic-direction/` skills win. Newer styles, formats, and narrative patterns exist only in the skill tree.
+
 A portable, versioned skill library for ChatGPT (GPT-4o/DALL-E), Gemini, and Grok Imagine. Every skill follows the same core principle: **style is rigid, story is image-derived.** The uploaded photo seeds the plot, setting, and dialogue — the skill harness supplies only the visual grammar.
 
 ***

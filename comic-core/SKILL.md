@@ -1,22 +1,25 @@
 ---
 name: comic-core
-version: 1.0.0
+version: 1.2.0
 category: comic-core
-description: The foundational operating system for authentic, human-like comic generation. Contains the universal rules, structural contracts, quality gates, and story derivation methods that every style and pipeline skill builds upon.
+description: The foundational operating system for authentic, human-like comic generation. Contains the universal rules, structural contracts, format and narrative-pattern libraries, lettering craft, quality gates, and story derivation methods that every style and pipeline skill builds upon.
 ---
 
 # Comic Core — Foundational Operating System
 
-**Purpose**: This is the root layer that gives the entire comic skill system its discipline, consistency, and artistic integrity. Every higher-level skill (styles, consistency engines, pipelines) depends on these four contracts.
+**Purpose**: This is the root layer that gives the entire comic skill system its discipline, consistency, and artistic integrity. Every higher-level skill (styles, consistency engines, direction, pipelines) depends on these contracts.
 
 ## Skill Inventory
 
 | Skill | Role | Key Contribution |
 |-------|------|------------------|
-| `comic-universal-operating-rule` | Root contract | Input rules, four-cue story derivation, 3-panel structure, and baseline quality principles |
-| `comic-structural-contract` | Narrative architecture | Precise Setup → Reinforce → Turnaround emotional arc with panel relationships and turnaround tone guidelines |
+| `comic-universal-operating-rule` | Root contract | Input rules, four-cue story derivation, default 3-panel structure, and baseline quality principles |
+| `comic-structural-contract` | Narrative architecture | Default Setup → Reinforce → Turnaround emotional arc with panel relationships, turnaround tone guidelines, and variation governance |
+| `comic-narrative-patterns` | Beat pattern library | Six sanctioned arcs: the default plus kishōtenketsu, gag escalation, slow-burn reveal, parallel action, and silent strip |
+| `comic-format-library` | Format library | Six sanctioned canvases: 3-panel horizontal (default), 4-koma, webtoon scroll, single-panel, 2×2 grid, multi-page chapter |
 | `comic-quality-gates` | Evaluation framework | 6-layer quality system including the critical "Artistic Life" gate that separates human-like work from generic AI output |
-| `comic-story-derivation` | Narrative generation method | Repeatable process for extracting emotional seeds from reference images and building coherent arcs |
+| `comic-lettering-and-balloons` | Lettering craft contract | Balloon taxonomy, placement law, reading-order rules, and SFX policy that every style inherits |
+| `comic-story-derivation` | Narrative generation method | Repeatable process for extracting emotional seeds from reference images (incl. multi-character relationship cues) and building coherent arcs |
 
 ## How the Core Works Together
 
@@ -25,7 +28,9 @@ Reference Image
        ↓
 comic-story-derivation (extract 4 cues + build emotional arc)
        ↓
-comic-structural-contract (map arc to 3-panel Setup → Reinforce → Turnaround)
+comic-narrative-patterns + comic-format-library (locked per project by the Producer)
+       ↓
+comic-structural-contract (map arc to the locked beats and panels)
        ↓
 comic-universal-operating-rule (apply input contract + style translation)
        ↓
@@ -55,21 +60,26 @@ The four skills work together to enforce:
 3. **Emotional Intelligence** — Every panel must serve the emotional arc
 4. **Artistic Life** — Final output must pass the human-artist pride test
 
-## Future Extensions (Planned)
+## Delivered Extensions
 
-- `comic-character-consistency-system` — Long-term face, hair, outfit, and linework memory
-- `comic-world-memory-system` — Persistent setting, prop, and environmental continuity
-- `comic-linework-style-memory` — Encoding an artist's specific mark-making decisions
-- `comic-emotional-arc-tracking` — Tracking character emotional state across multiple strips
+The extensions originally planned for this layer now live in their own layers:
+
+- Character, world, and linework memory → `comic-consistency/` (`comic-character-consistency-system`, `comic-world-bible-system`, `comic-style-memory-system`)
+- Decision authority and review → `comic-direction/` (`comic-producer`, `comic-director`)
+- Format and pattern variation → `comic-narrative-patterns` and `comic-format-library` (this layer)
+
+Emotional state tracking across strips → delivered as `comic-emotional-arc-orchestrator` (pipeline layer).
 
 ## Integration with Higher Layers
 
 ```
 comic-core (this skill)
     ↓
-comic-styles/ (25+ individual artistic style skills)
-    ↓
 comic-consistency/ (character, world, linework memory)
+    ↓
+comic-styles/ (28 individual artistic style skills)
+    ↓
+comic-direction/ (Producer + Director decision authority)
     ↓
 comic-pipeline/ (end-to-end generation workflows)
     ↓

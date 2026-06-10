@@ -1,0 +1,61 @@
+# Production Brief Template (the project contract)
+# One file per project. Locked by the Producer at greenlight.
+# Changes after lock require a re-lock entry with rationale.
+# See comic-producer SKILL.md §1–§3.
+
+project:
+  name: ""
+  premise: ""             # one sentence
+  audience: ""            # who reads it
+  tone: ""                # how it should land
+
+inputs:
+  reference_images: []    # paths or "none"
+  world_bible: ""         # path, or "to-be-created"
+  existing_canon: ""      # prior episodes / characters, or "none"
+
+contract:                 # exactly one of each — changes require re-lock
+  format: ""              # from comic-core/comic-format-library
+  narrative_pattern: ""   # from comic-core/comic-narrative-patterns
+  style_skill: ""         # one skill from comic-styles
+  reading_direction: ""   # ltr | rtl | vertical
+
+scope:
+  total_panels: 0
+  episodes: 0
+  panels_per_episode: 0
+  rerender_reserve_pct: 20
+  deadline: ""
+  platforms: []           # e.g., [instagram, print-zine]
+
+greenlight:               # all must be true before production starts
+  contract_locked: false
+  world_bible_valid: false
+  dna_templates_derived: false
+  negative_library_nonempty: false
+  style_lock_acknowledged: false
+  vision_statement_registered: false
+  first_shot_plan_ready: false
+  consistency_config_exported: false
+  blocking_list: []       # unmet items, each with an owner
+
+review_cadence:
+  episode_review: true
+  drift_reanchor_every_n_panels: 10
+  max_rerolls_per_panel: 2
+
+production_state:
+  panels_completed: 0
+  panels_rerendered: 0
+  reanchors_this_episode: 0
+  open_issues: []
+  decision_log: []        # mirrored into world bible version_history
+
+signoff:
+  all_gates_passed: false
+  deliverables_match_contract: false
+  exports_generated: false
+  state_document_complete: false
+  version_history_updated: false
+  signed_off_by: ""
+  date: ""

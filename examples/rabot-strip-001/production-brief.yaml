@@ -1,0 +1,59 @@
+# Filled-in instance of comic-direction/comic-producer/assets/templates/production-brief-template.yaml
+
+project:
+  name: "Rabot"
+  premise: "A night-shift maintenance tech and a laconic station AI keep an aging orbital control room alive."
+  audience: "Adult readers of quiet sci-fi slice-of-life"
+  tone: "Warm under fluorescent light - dry humor, small kindnesses"
+
+inputs:
+  reference_images: ["ref/rabot-photo.png", "ref/echo-concept.png"]
+  world_bible: "world-bible.yaml"
+  existing_canon: "none - this is strip 001"
+
+contract:
+  format: "3-panel-horizontal"
+  narrative_pattern: "setup-reinforce-turnaround"
+  style_skill: "retro-hand-inked-manga-comic"
+  reading_direction: "ltr"
+
+scope:
+  total_panels: 36
+  episodes: 12
+  panels_per_episode: 3
+  rerender_reserve_pct: 20
+  deadline: "weekly, Fridays"
+  platforms: ["x-horizontal", "instagram"]
+
+greenlight:
+  contract_locked: true
+  world_bible_valid: true
+  dna_templates_derived: true
+  negative_library_nonempty: true
+  style_lock_acknowledged: true
+  vision_statement_registered: true
+  first_shot_plan_ready: true
+  consistency_config_exported: true
+  blocking_list: []
+
+review_cadence:
+  episode_review: true
+  drift_reanchor_every_n_panels: 10
+  max_rerolls_per_panel: 2
+
+production_state:
+  panels_completed: 3
+  panels_rerendered: 1
+  reanchors_this_episode: 0
+  open_issues: []
+  decision_log:
+    - "strip-001 P3 RETAKE: balloon covered Echo's indicator light (lettering dead-zone violation); placement moved to upper-right"
+
+signoff:
+  all_gates_passed: true
+  deliverables_match_contract: true
+  exports_generated: true
+  state_document_complete: true
+  version_history_updated: true
+  signed_off_by: "producer"
+  date: "2026-06-10"

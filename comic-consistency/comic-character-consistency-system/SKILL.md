@@ -1,8 +1,8 @@
 ---
 name: comic-character-consistency-system
-version: 1.0.0
+version: 1.1.0
 category: comic-consistency
-description: The core engine for maintaining character identity across long sequences. Handles DNA templates, model sheet generation, layered conditioning strategies (LoRA + IP-Adapter + ControlNet), and identity stability vs. expression variation trade-offs.
+description: The core engine for maintaining character identity across long sequences. Handles DNA templates, model sheet generation, layered conditioning strategies (LoRA + IP-Adapter + ControlNet), multi-character scenes, and identity stability vs. expression variation trade-offs.
 ---
 
 # Comic Character Consistency System
@@ -47,6 +47,16 @@ For production reliability, use multiple systems at moderate weights rather than
 - Denoising ladders for action sequences
 - Seed management across related panels
 - Periodic re-anchoring to canonical reference
+
+### 5. Multi-Character Scenes
+
+Two identities in one panel is where consistency systems fail loudest. Rules:
+
+- **DNA stacking order**: inject DNA blocks in fixed screen-position order (reading-direction first); never alternate order between panels of the same scene
+- **Identity bleed prevention**: each character's negative block includes the *other* character's signature marks (Echo's negatives include "scar on cheek" if Rabot has one); contrast anchors — differing silhouette, hair value, and costume value — are mandatory in the bible for any pair that shares scenes
+- **Per-character conditioning**: regional control (per-character IP-Adapter/InstantID masks) where the backend supports it; otherwise reduce per-identity weights ~20% and lean on DNA text + negatives
+- **Two-shot staging**: the 180° axis belongs to the **pair**; screen sides are locked for the scene (see `comic-director`); balloon order follows screen position per `comic-lettering-and-balloons`
+- **Drift checks double**: re-anchor cadence halves (every ~5 panels) for scenes where characters share frames
 
 ## Integration
 - Depends on `comic-world-bible-system`
