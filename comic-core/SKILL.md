@@ -1,8 +1,8 @@
 ---
 name: comic-core
-version: 1.1.0
+version: 1.2.0
 category: comic-core
-description: The foundational operating system for authentic, human-like comic generation. Contains the universal rules, structural contracts, format and narrative-pattern libraries, quality gates, and story derivation methods that every style and pipeline skill builds upon.
+description: The foundational operating system for authentic, human-like comic generation. Contains the universal rules, structural contracts, format and narrative-pattern libraries, lettering craft, quality gates, and story derivation methods that every style and pipeline skill builds upon.
 ---
 
 # Comic Core — Foundational Operating System
@@ -18,7 +18,8 @@ description: The foundational operating system for authentic, human-like comic g
 | `comic-narrative-patterns` | Beat pattern library | Six sanctioned arcs: the default plus kishōtenketsu, gag escalation, slow-burn reveal, parallel action, and silent strip |
 | `comic-format-library` | Format library | Six sanctioned canvases: 3-panel horizontal (default), 4-koma, webtoon scroll, single-panel, 2×2 grid, multi-page chapter |
 | `comic-quality-gates` | Evaluation framework | 6-layer quality system including the critical "Artistic Life" gate that separates human-like work from generic AI output |
-| `comic-story-derivation` | Narrative generation method | Repeatable process for extracting emotional seeds from reference images and building coherent arcs |
+| `comic-lettering-and-balloons` | Lettering craft contract | Balloon taxonomy, placement law, reading-order rules, and SFX policy that every style inherits |
+| `comic-story-derivation` | Narrative generation method | Repeatable process for extracting emotional seeds from reference images (incl. multi-character relationship cues) and building coherent arcs |
 
 ## How the Core Works Together
 
@@ -67,7 +68,7 @@ The extensions originally planned for this layer now live in their own layers:
 - Decision authority and review → `comic-direction/` (`comic-producer`, `comic-director`)
 - Format and pattern variation → `comic-narrative-patterns` and `comic-format-library` (this layer)
 
-Still planned: `comic-emotional-arc-tracking` — tracking character emotional state across multiple strips.
+Emotional state tracking across strips → delivered as `comic-emotional-arc-orchestrator` (pipeline layer).
 
 ## Integration with Higher Layers
 
