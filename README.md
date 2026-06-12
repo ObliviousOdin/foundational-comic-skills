@@ -109,6 +109,39 @@ More visual notes live in [`docs/showcase/README.md`](docs/showcase/README.md).
 
 ---
 
+## Style Gallery Reel
+
+One scene — a robot artist holding up a finished page at midnight — re-rendered through six of the repo's locked style contracts. Same shot plan, same world bible, six different visual grammars. That is the whole thesis of `comic-styles/`: **style is a contract, not a vibe.**
+
+<p align="center">
+  <img src="docs/assets/style-gallery-reel.svg" alt="Animated style gallery reel: one scene rendered in six locked comic styles — Golden Age, Manhwa Webtoon, Ligne Claire, Gekiga, Cyberpunk, Watercolor" width="100%" />
+</p>
+
+Every frame above is drawn from the actual **Prompt Block** and **Style Quality Gates** of its skill:
+
+| Frame | Style skill | Signature locks honored |
+| --- | --- | --- |
+| 1 | [`golden-age-superhero-comic`](comic-styles/western/golden-age-superhero-comic/SKILL.md) | Four-color flats, Ben-Day dots, heavy uniform outlines, yellow caption box, burst balloon |
+| 2 | [`manhwa-color-webtoon`](comic-styles/asian/manhwa-color-webtoon/SKILL.md) | Teal ambient vs warm key light, soft glow, clean closed lineart |
+| 3 | [`ligne-claire-franco-belge`](comic-styles/european/ligne-claire-franco-belge/SKILL.md) | One line weight everywhere, flat color zones, no cast shadows |
+| 4 | [`gekiga-cinematic-manga`](comic-styles/manga/gekiga-cinematic-manga/SKILL.md) | B&W, crosshatch tension, spot blacks by luminance |
+| 5 | [`cyberpunk-sci-fi-comic`](comic-styles/sci-fi/cyberpunk-sci-fi-comic/SKILL.md) | ≤3 neon accents, one readable sign, sourced rim light, scanlines |
+| 6 | [`watercolor-storybook-comic`](comic-styles/decorative/watercolor-storybook-comic/SKILL.md) | Soft blooms, paper grain, hand-wobbled border, reserved highlights |
+
+---
+
+## The Pattern, Performed
+
+The repo's flagship narrative pattern — `setup → reinforce → turnaround` — demonstrated as an animated three-panel strip about what happens when you generate without direction:
+
+<p align="center">
+  <img src="docs/assets/setup-reinforce-turnaround-strip.svg" alt="Animated three-panel comic: a vague prompt causes chaos until the Producer and Director lock the brief, shot plan, and style" width="100%" />
+</p>
+
+Panel 1 is every undirected prompt. Panel 2 is what you get. Panel 3 is why [`comic-producer`](comic-direction/comic-producer/SKILL.md) and [`comic-director`](comic-direction/comic-director/SKILL.md) exist.
+
+---
+
 ## The Stack in One Sentence
 
 `comic-core` defines the laws, `comic-consistency` is memory, `comic-direction` is judgment, `comic-styles` is visual grammar, `comic-pipeline` turns decisions into output, and `comic-production` ships the result.
