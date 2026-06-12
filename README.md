@@ -1,235 +1,289 @@
 # foundational-comic-skills
 
+<p align="center">
+  <img src="docs/assets/foundational-comic-skills-hero.svg" alt="Animated comic hero showing the Producer, Director, World Bible, and publishing gates" width="100%" />
+</p>
+
 **A production-grade, modular skill system for consistent, long-form comic generation.**
 
-This repository provides a complete, layered foundation for building comics with strong character consistency, style control, world coherence, and explicit creative direction — especially for 100+ panel arcs. It is designed to work directly with Hermes agents and other LLM-based creative pipelines.
+`foundational-comic-skills` is the comic-making operating system for Hermes agents and LLM creative pipelines. It gives agents the missing studio discipline: a Producer locks the promise, a Director plans the shots, a World Bible protects continuity, style skills enforce visual grammar, and validators keep the whole stack honest.
 
-**The stack in one sentence**: `comic-core` defines the laws, `comic-consistency` is the memory, `comic-styles` (28 production-grade skills) is the visual grammar, `comic-direction` (Producer + Director) is the judgment, and `comic-pipeline` turns it all into output across six formats and six narrative patterns — with a validator and CI keeping every contract checkable.
+> **Studio law:** no panel without a purpose, no character without a bible, no style without locks, no generation without direction.
 
-**New here?** Read the worked example first: [`examples/rabot-strip-001/WALKTHROUGH.md`](examples/rabot-strip-001/WALKTHROUGH.md) shows one strip travel the entire system — brief → contract → shot plan → assembled prompt → RETAKE → sign-off.
+[![Validate](https://github.com/ObliviousOdin/foundational-comic-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/ObliviousOdin/foundational-comic-skills/actions/workflows/validate.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-## Quick Start (Hermes)
+## What You Can Build
 
-### 1. Clone the Repository
+| Build | Use these layers | Output |
+| --- | --- | --- |
+| **A 3-panel joke strip** | Producer → Director → 3-panel pipeline → one style | Tight setup / reinforce / turnaround strip |
+| **A 4-koma gag** | Format library → 4-koma pipeline → lettering gates | Vertical rhythm with kishōtenketsu timing |
+| **A webtoon scroll segment** | World Bible → emotional arc → webtoon pipeline | Mobile-first sequence with continuity |
+| **A long serialized chapter** | World Bible → character DNA → style memory → chapter pipeline | Multi-page output with traceable canon |
+| **A style-controlled art pack** | Schema v2 style skills → prompt assembly → quality gates | Consistent visual language across generations |
+
+---
+
+## Make a Comic in 10 Minutes
+
+### 1. Clone
 
 ```bash
-cd ~/Documents
 git clone https://github.com/ObliviousOdin/foundational-comic-skills.git
+cd foundational-comic-skills
 ```
 
-### 2. Install the Skills
+### 2. Validate the studio floor
 
 ```bash
-# Install core consistency layer (recommended first)
-hermes skills install ~/Documents/foundational-comic-skills --layer comic-consistency
-
-# Install style skills
-hermes skills install ~/Documents/foundational-comic-skills --layer comic-styles
-
-# Or install everything
-hermes skills install ~/Documents/foundational-comic-skills
+python3 tools/validate.py
 ```
 
-### 3. Verify Installation
+Expected:
 
-```bash
-hermes skills list | grep comic
+```text
+OK: repository contracts hold
 ```
 
-You should see skills such as:
-- `comic-world-bible-system`
-- `comic-character-consistency-system`
-- `comic-long-sequence-orchestrator`
-- `comic-producer` and `comic-director` (the direction layer)
-- `comic-narrative-patterns` and `comic-format-library` (variation libraries)
-- Multiple style skills (e.g., `retro-hand-inked-manga`, `ligne-claire`, etc.)
+### 3. Start with the worked example
+
+Read the full production walkthrough:
+
+```text
+examples/rabot-strip-001/WALKTHROUGH.md
+```
+
+It shows one strip traveling through the complete system:
+
+```text
+brief → production contract → shot plan → assembled prompt → RETAKE → sign-off
+```
+
+### 4. Use the best-practice prompt
+
+```text
+Using the foundational comic skills stack, create a 3-panel comic strip.
+
+Project: [series/title]
+Audience: [reader]
+Format: 3-panel horizontal
+Narrative pattern: setup → reinforce → turnaround
+Style: [choose from comic-styles]
+Characters: [2–4 short descriptions]
+World rules: [canon constraints]
+
+Please run the stack in order:
+1. Producer locks the production brief.
+2. Director creates a shot plan.
+3. World Bible / character DNA checks continuity.
+4. Style skill injects style locks and negative locks.
+5. Pipeline assembles the final panel prompts.
+6. Quality gates return PASS / RETAKE decisions.
+```
+
+---
+
+## Choose Your Path
+
+| If you are... | Start here | Why |
+| --- | --- | --- |
+| **New to the repo** | [`examples/rabot-strip-001/WALKTHROUGH.md`](examples/rabot-strip-001/WALKTHROUGH.md) | Fastest way to understand the complete loop |
+| **Building a series** | [`comic-consistency/comic-world-bible-system/SKILL.md`](comic-consistency/comic-world-bible-system/SKILL.md) | Canon, characters, locations, negative prompts |
+| **Choosing a look** | [`comic-styles/SKILL.md`](comic-styles/SKILL.md) | 28 production-grade Schema v2 style skills |
+| **Directing panels** | [`comic-direction/comic-director/SKILL.md`](comic-direction/comic-director/SKILL.md) | Shot size, camera, staging, pacing, final cut |
+| **Shipping output** | [`comic-production/comic-export-and-publish/SKILL.md`](comic-production/comic-export-and-publish/SKILL.md) | Export specs, delivery contracts, publish checks |
+| **Contributing styles** | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Schema v2 requirements and validator rules |
+
+---
+
+## Visual System Map
+
+<p align="center">
+  <img src="docs/assets/comic-skill-stack-map.svg" alt="Animated system map for foundational comic skills" width="100%" />
+</p>
+
+More visual notes live in [`docs/showcase/README.md`](docs/showcase/README.md).
+
+---
+
+## The Stack in One Sentence
+
+`comic-core` defines the laws, `comic-consistency` is memory, `comic-direction` is judgment, `comic-styles` is visual grammar, `comic-pipeline` turns decisions into output, and `comic-production` ships the result.
 
 ---
 
 ## Core Philosophy
 
-**Every consistency decision must trace back to a single, versioned source of truth — and every creative decision must be made before generation, by a role with authority to make it.**
+The repository is built around one production belief:
 
-This repository treats the **World Bible** as the central nervous system for long-running comic projects. Instead of relying on scattered reference images and ad-hoc prompting, all consistency artifacts (DNA templates, model sheets, negative libraries, LoRA recommendations) are **derived** from a structured, queryable world bible.
+> **Every consistency decision must trace back to a single, versioned source of truth — and every creative decision must be made before generation by a role with authority to make it.**
 
-On top of the bible sits the **direction layer**: a **Producer** who locks every project's contract (format + narrative pattern + style + scope) and a **Director** who plans every panel as a shot — camera, staging, transition, pacing — before anything is rendered, and who owns the final cut.
+The **World Bible** is the central nervous system. It holds canon, character DNA, locations, reference rules, negative prompts, and consistency configuration.
 
----
+The **Direction Layer** is the taste engine. The Producer locks what is being made. The Director decides how each panel reads before generation starts.
 
-## The Direction Layer (Producer + Director)
-
-The biggest failure mode in AI comics is not inconsistency — it is the absence of decisions. The `comic-direction/` layer makes the decisions explicit:
-
-| Role | Authority | Key Artifacts |
-|------|-----------|---------------|
-| `comic-producer` | What gets made, when it ships | Project contract (`production-brief.yaml`), greenlight gate, review cadence, sign-off |
-| `comic-director` | How it looks and reads | Vision statement, per-strip shot plans (`shot-plan-template.yaml`), final cut verdicts |
-
-**Every pipeline run follows the same shape:**
-
-```
-Producer locks the contract → Director plans the shots → consistency stack generates
-→ Director cuts (flow → words → everything → Artistic Life) → Producer signs off
-```
-
-Pipelines refuse to run without a locked contract, and nothing generates without a shot plan. See `comic-direction/SKILL.md` for the chain of authority.
+The **Validator** is the studio safety rail. It prevents the repo from drifting into vague prompts, broken references, or uncheckable style contracts.
 
 ---
 
-## Variation: Formats × Patterns × Styles
+## Direction Layer: Producer + Director
 
-A project composes one choice from each library — locked in the contract, disciplined by the core:
+The biggest failure mode in AI comics is not only inconsistency. It is the absence of decisions.
+
+| Role | Authority | Key artifacts |
+| --- | --- | --- |
+| [`comic-producer`](comic-direction/comic-producer/SKILL.md) | What gets made, why it exists, when it ships | `production-brief.yaml`, contract, greenlight gate, sign-off |
+| [`comic-director`](comic-direction/comic-director/SKILL.md) | How it looks and reads panel by panel | vision statement, shot plan, final cut verdicts |
+
+Every serious run follows this studio chain:
+
+```text
+Producer locks the contract
+→ Director plans the shots
+→ Consistency stack checks canon
+→ Style skill injects visual grammar
+→ Pipeline assembles output
+→ Director cuts: flow → words → everything → Artistic Life
+→ Producer signs off
+```
+
+---
+
+## Variation Engine: Formats × Patterns × Styles
+
+A project composes one choice from each library. The Producer locks those choices before generation.
 
 | Library | Options |
-|---------|---------|
-| `comic-core/comic-format-library` | 3-panel horizontal (default), 4-koma vertical, webtoon scroll segment, single-panel gag, 2×2 grid page, multi-page chapter |
-| `comic-core/comic-narrative-patterns` | Setup→Reinforce→Turnaround (default), kishōtenketsu, gag escalation, slow-burn reveal, parallel action, silent strip |
-| `comic-styles/` | 28 style skills across 12 categories |
-| `comic-pipeline/` | One pipeline per format family: 3-panel, 4-koma/grid, webtoon scroll, multi-page chapter |
+| --- | --- |
+| [`comic-format-library`](comic-core/comic-format-library/SKILL.md) | 3-panel horizontal, 4-koma vertical, webtoon scroll, single-panel gag, 2×2 grid, multi-page chapter |
+| [`comic-narrative-patterns`](comic-core/comic-narrative-patterns/SKILL.md) | setup→reinforce→turnaround, kishōtenketsu, gag escalation, slow-burn reveal, parallel action, silent strip |
+| [`comic-styles/`](comic-styles/SKILL.md) | 28 style skills across 12 categories |
+| [`comic-pipeline/`](comic-pipeline/SKILL.md) | 3-panel, 4-koma, webtoon scroll, multi-page chapter, emotional arc orchestration |
 
 ---
 
 ## Primary Skill: `comic-world-bible-system`
 
-This is the foundational skill. All other consistency systems depend on it.
+This is the foundational consistency skill. All long-form work should start here.
 
-### How to Use It
+### Best-practice prompt template
 
-**Best Practice Prompt Template:**
-
-```
+```text
 Using the `comic-world-bible-system` skill, create a production-ready world bible for a new comic series.
 
 Project name: [Your Series Name]
-Target length: [e.g., 500–1000+ panels]
-Style direction: [e.g., retro hand-inked manga with gekiga influences]
+Target length: [e.g. 500–1000+ panels]
+Style direction: [e.g. retro hand-inked manga with gekiga influences]
 Main characters: [List 2–4 characters with brief descriptions]
 Key locations: [List recurring environments]
-Special requirements: [Any specific constraints or themes]
+Special requirements: [Any constraints, motifs, or themes]
 
 Please:
-1. Generate a complete `world-bible.yaml` following the defined schema.
+1. Generate a complete `world-bible.yaml` following the schema.
 2. Create the corresponding folder structure.
-3. Generate the initial DNA templates for each character.
+3. Generate initial DNA templates for each character.
 4. Provide the negative prompt library.
 5. Output the recommended consistency configuration.
 ```
 
-### Concrete Example
+Expected artifacts:
 
-**User Prompt:**
-
-```
-Using the `comic-world-bible-system` skill, initialize a world bible for a series called "Rabot".
-
-- Style: Clean retro manga with strong linework and subtle screentone
-- Main character: Rabot – young man, sharp features, navy jacket, small scar on left cheek
-- Supporting character: Echo – female, silver hair, tech aesthetic
-- Primary location: A dimly lit control room with cool fluorescent lighting
-- Target: 1000+ panel serialized story
-```
-
-**Expected Output from the skill:**
-- A validated `world-bible.yaml`
-- DNA template blocks ready for prompt injection
-- Negative prompt library
-- Consistency configuration (LoRA/IP-Adapter weights)
-- Folder structure ready for asset organization
-
----
-
-## Best Practices
-
-### 1. Always Start with a World Bible
-Never begin generating panels without first establishing (or updating) the world bible. This is the single highest-leverage practice for long-sequence consistency.
-
-### 2. Version Everything
-Treat the world bible as version-controlled source code. Every significant change (new character, style rule update, location addition) should bump the version and include rationale.
-
-### 3. Derive, Don’t Duplicate
-Use the derivation capabilities of the system:
-- Generate DNA templates from the bible instead of writing them manually
-- Generate model sheet prompts from character entries
-- Generate negative libraries by combining global + per-character rules
-
-### 4. Human-in-the-Loop for Conflicts
-When the system detects character conflicts or bible violations, escalate to human review rather than letting the model resolve them autonomously.
-
-### 5. Keep Canonical References Sacred
-The reference images and descriptions in the world bible are the single source of truth. Generated variations should never override canonical references.
-
-### 6. Use Layered Conditioning
-Combine multiple techniques (IP-Adapter + LoRA + negative prompting + style memory) rather than relying on a single method.
-
-### 7. No Generation Without a Shot Plan
-Prompts are the last step, not the first. Let the Director decide beat role, shot size, angle, staging, transition, and pacing for every panel before anything renders. Re-rolling a failed panel without changing the shot plan is gambling, not directing.
-
-### 8. Lock the Contract Before the First Panel
-Format, narrative pattern, and style are chosen once per project by the Producer and recorded. Mid-project changes are re-locks with rationale — never silent drift.
+- validated `world-bible.yaml`
+- character DNA templates
+- negative prompt library
+- style memory entries
+- prompt assembly blocks
+- generation log metadata
 
 ---
 
 ## Repository Structure
 
-```
+```text
 foundational-comic-skills/
 ├── README.md / CONTRIBUTING.md / CHANGELOG.md
-├── tools/validate.py              # Repo validator — run before every commit
-├── .github/workflows/validate.yml # CI: validator on every push/PR
-├── comic-core/                    # Laws: contracts, gates, patterns, formats, lettering
-│   ├── comic-universal-operating-rule/   comic-structural-contract/
-│   ├── comic-narrative-patterns/         comic-format-library/
-│   ├── comic-lettering-and-balloons/     comic-quality-gates/
-│   └── comic-story-derivation/
-├── comic-consistency/             # Memory: world bible, character DNA, style memory,
-│   │                              #   long-sequence orchestration, prompt assembly
-├── comic-styles/                  # 28 production-grade style skills (Schema v2, 12 categories)
-├── comic-direction/               # Judgment: Producer (contract/sign-off) + Director (shots/cut)
-├── comic-pipeline/                # Workflows: 3-panel, 4-koma, webtoon scroll, chapter,
-│   │                              #   emotional arc orchestrator
-├── comic-production/              # Delivery: export & publish specs, tool adapters
-├── examples/                      # Complete worked projects (start here)
-├── research/                      # 6 studies + traceability map (research/README.md)
-├── skills/                        # Original portable harness pack (repo skill tree is canonical)
-└── exports/                       # Generated artifacts (derived, never hand-edited)
+├── tools/validate.py              # repo validator — run before every commit
+├── .github/workflows/validate.yml # CI validator on push/PR
+├── docs/                          # visual showcase and operator-facing docs
+├── comic-core/                    # laws: contracts, gates, patterns, formats, lettering
+├── comic-consistency/             # memory: world bible, DNA, style memory, orchestration
+├── comic-direction/               # judgment: Producer + Director
+├── comic-styles/                  # 28 Schema v2 style skills across 12 categories
+├── comic-pipeline/                # workflows: strips, 4-koma, webtoon, chapters, arcs
+├── comic-production/              # delivery: export and publish specs
+├── examples/                      # complete worked projects
+├── research/                      # research mapped to enforcing skills
+├── skills/                        # original portable harness pack
+└── exports/                       # generated artifacts; derived, not hand-edited
 ```
+
+---
+
+## Best Practices
+
+1. **Always start with a World Bible.** Long-form consistency begins with canon, not prompt vibes.
+2. **Version everything.** Bible, DNA, style memory, production brief, shot plan, and final prompts are source artifacts.
+3. **Derive, do not duplicate.** Character DNA, model sheet prompts, and negative libraries should derive from the bible.
+4. **Lock the contract before the first panel.** Format, narrative pattern, style, scope, and success criteria must be explicit.
+5. **No generation without a shot plan.** Re-rolling without direction is gambling, not directing.
+6. **Use layered conditioning.** Combine bible constraints, DNA, style memory, negative locks, and quality gates.
+7. **Escalate canon conflicts.** If the bible and prompt disagree, stop and ask for a creative decision.
+8. **Use RETAKE as a feature.** A failed panel should return a precise reason and a revised instruction, not vague disappointment.
+
+---
 
 ## Sustainability
 
 The repository enforces its own discipline:
 
-- **Validator**: `python3 tools/validate.py` checks frontmatter, the Style Skill Schema v2, style-index↔directory sync, cross-reference resolution, and YAML health. CI runs it on every push and PR.
-- **Schema v2**: every style skill carries negative locks, an injectable prompt block, direction and consistency notes, and style-specific gates — uniform, testable, and validator-enforced (see `CONTRIBUTING.md`).
-- **Versioning**: skills use semver in frontmatter; repository milestones live in `CHANGELOG.md`.
-- **Traceability**: `research/README.md` maps every research finding to the skill that enforces it; generation logs trace every panel back to bible version + shot plan.
+- **Validator:** `python3 tools/validate.py` checks frontmatter, Schema v2, style-index sync, cross-reference resolution, and YAML health.
+- **CI:** `.github/workflows/validate.yml` runs the validator on every push and PR.
+- **Schema v2:** every style skill includes negative locks, prompt blocks, direction notes, consistency notes, and style-specific gates.
+- **Traceability:** `research/README.md` maps every research finding to the skill that enforces it.
+- **Examples:** `examples/rabot-strip-001/` demonstrates how production artifacts connect.
 
 ---
 
 ## Research Foundation
 
-This system is grounded in six core research documents. **Every finding is mapped to the skill that operationalizes it in [`research/README.md`](research/README.md)** — research that no skill enforces is treated as trivia.
+Every serious claim in this repo should become an enforcing skill or stay in research until it does.
 
 | Document | Focus | Path |
-|----------|-------|------|
-| Advanced Consistency Systems | IP-Adapter, InstantID, LoRA orchestration, world bible architecture | `research/ADVANCED-CONSISTENCY-SYSTEMS.md` |
-| Style-Specific Technical Mastery | Screentone simulation, ligne claire, gekiga framing, ink physics | `research/STYLE-SPECIFIC-TECHNICAL-MASTERY.md` |
-| Comic Art Evaluation Frameworks | Professional rubrics, failure modes, human vs AI signals | `research/COMIC-ART-EVALUATION-FRAMEWORKS.md` |
-| Artistic Decision-Making Process Modeling | Micro-decisions, PINS model, the manga *name* system | `research/ARTISTIC-DECISION-MAKING-PROCESS-MODELING.md` |
-| Panel Composition Theory | McCloud transitions, gutters, Golden Ratio, eyelines | `research/PANEL-COMPOSITION-THEORY.md` |
-| Comic Timing and Pacing | Setup–Reinforce–Turnaround, gutter rhythm | `research/COMIC-TIMING-AND-PACING.md` |
+| --- | --- | --- |
+| Advanced Consistency Systems | IP-Adapter, InstantID, LoRA orchestration, world bible architecture | [`research/ADVANCED-CONSISTENCY-SYSTEMS.md`](research/ADVANCED-CONSISTENCY-SYSTEMS.md) |
+| Style-Specific Technical Mastery | Screentone simulation, ligne claire, gekiga framing, ink physics | [`research/STYLE-SPECIFIC-TECHNICAL-MASTERY.md`](research/STYLE-SPECIFIC-TECHNICAL-MASTERY.md) |
+| Comic Art Evaluation Frameworks | Professional rubrics, failure modes, human vs AI signals | [`research/COMIC-ART-EVALUATION-FRAMEWORKS.md`](research/COMIC-ART-EVALUATION-FRAMEWORKS.md) |
+| Artistic Decision-Making Process Modeling | Micro-decisions, PINS model, manga *name* systems | [`research/ARTISTIC-DECISION-MAKING-PROCESS-MODELING.md`](research/ARTISTIC-DECISION-MAKING-PROCESS-MODELING.md) |
+| Panel Composition Theory | McCloud transitions, gutters, Golden Ratio, eyelines | [`research/PANEL-COMPOSITION-THEORY.md`](research/PANEL-COMPOSITION-THEORY.md) |
+| Comic Timing and Pacing | Setup–reinforce–turnaround, gutter rhythm | [`research/COMIC-TIMING-AND-PACING.md`](research/COMIC-TIMING-AND-PACING.md) |
+
+---
+
+## Contributing
+
+Run the full local gate before opening a PR:
+
+```bash
+python3 tools/validate.py
+python3 -m pytest tests/test_readme_showcase.py -q
+git diff --check
+```
+
+When adding style skills, follow [`CONTRIBUTING.md`](CONTRIBUTING.md) and keep Schema v2 sections in order.
 
 ---
 
 ## Goals
 
-- Provide a **single source of truth** for long-form comic consistency
-- Make every creative decision **explicit, owned, and made before generation** (the direction layer)
-- Enable **derivable, versioned** consistency artifacts
-- Support **disciplined variation**: six formats × six narrative patterns × 28 styles
-- Support **Hermes agents** and other LLM pipelines with clear, structured skills
-- Bridge research and production with practical, implementable systems
+- Provide a single source of truth for long-form comic consistency.
+- Make every creative decision explicit, owned, and made before generation.
+- Enable derivable, versioned consistency artifacts.
+- Support disciplined variation: formats × narrative patterns × 28 styles.
+- Give Hermes agents and other LLM pipelines clear, structured comic skills.
+- Bridge research and production with practical, validator-backed systems.
 
 ---
 
