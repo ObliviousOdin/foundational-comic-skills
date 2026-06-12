@@ -1,0 +1,153 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" font-family="Verdana, 'DejaVu Sans', sans-serif" role="img" aria-label="Animated three-panel comic demonstrating the setup, reinforce, turnaround narrative pattern">
+  <title>setup → reinforce → turnaround, performed live</title>
+  <desc>A three-panel strip about prompting without direction: panel one prompts vibes, panel two gets chaos, panel three the Producer and Director fix it. The strip demonstrates the repo's flagship narrative pattern.</desc>
+  <style>
+    .panel { opacity: 0; transform: translateY(10px); animation: drop 12s ease-out infinite; }
+    .p1 { animation-delay: 0.4s; }
+    .p2 { animation-delay: 2.4s; }
+    .p3 { animation-delay: 4.4s; }
+    @keyframes drop {
+      0% { opacity: 0; transform: translateY(10px); }
+      4% { opacity: 1; transform: translateY(0); }
+      88% { opacity: 1; transform: translateY(0); }
+      94% { opacity: 0; transform: translateY(-6px); }
+      100% { opacity: 0; transform: translateY(10px); }
+    }
+    .label { opacity: 0; animation: lbl 12s linear infinite; }
+    .l1 { animation-delay: 1.0s; }
+    .l2 { animation-delay: 3.0s; }
+    .l3 { animation-delay: 5.0s; }
+    @keyframes lbl {
+      0% { opacity: 0; }
+      5% { opacity: 1; }
+      88% { opacity: 1; }
+      93% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .shake { animation: shake 0.7s ease-in-out 6.2s 3; transform-origin: center; transform-box: fill-box; }
+    @keyframes shake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-2.4deg); }
+      75% { transform: rotate(2.4deg); }
+    }
+    .stamp { opacity: 0; animation: stamp 12s ease-out infinite; animation-delay: 6.0s; transform-origin: center; transform-box: fill-box; }
+    @keyframes stamp {
+      0% { opacity: 0; transform: scale(2.6) rotate(-18deg); }
+      3% { opacity: 1; transform: scale(1) rotate(-12deg); }
+      80% { opacity: 1; transform: scale(1) rotate(-12deg); }
+      88% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .balloon-txt { font-size: 15px; fill: #14213d; }
+    .cap { font-size: 12.5px; font-weight: bold; fill: #1a1208; }
+    @media (prefers-reduced-motion: reduce) {
+      .panel, .label, .stamp { animation: none; opacity: 1; transform: none; }
+      .shake { animation: none; }
+    }
+  </style>
+
+  <rect x="0" y="0" width="1200" height="460" fill="#101019"/>
+  <text x="600" y="36" text-anchor="middle" fill="#ffd23f" font-size="24" font-weight="bold" letter-spacing="2.5">SETUP → REINFORCE → TURNAROUND</text>
+  <text x="600" y="60" text-anchor="middle" fill="#9aa3b2" font-size="14">The repo's flagship narrative pattern — performed by the repo itself</text>
+
+  <!-- ============ PANEL 1 · SETUP ============ -->
+  <g class="panel p1">
+    <rect x="36" y="84" width="360" height="280" fill="#fdf6e3" stroke="#14213d" stroke-width="6"/>
+    <rect x="48" y="96" width="150" height="26" fill="#ffd23f" stroke="#1a1208" stroke-width="3"/>
+    <text class="cap" x="56" y="114">FRIDAY, 4:58 PM.</text>
+    <!-- writer at keyboard -->
+    <circle cx="150" cy="240" r="40" fill="#e8553d" stroke="#14213d" stroke-width="3"/>
+    <rect x="126" y="224" width="48" height="20" rx="10" fill="#bde6f2" stroke="#14213d" stroke-width="3"/>
+    <circle cx="140" cy="234" r="4" fill="#14213d"/>
+    <circle cx="160" cy="234" r="4" fill="#14213d"/>
+    <path d="M136 258 Q150 266 164 258" fill="none" stroke="#14213d" stroke-width="3" stroke-linecap="round"/>
+    <rect x="96" y="288" width="120" height="14" rx="4" fill="#2a9d8f" stroke="#14213d" stroke-width="3"/>
+    <!-- typed prompt balloon -->
+    <g>
+      <rect x="196" y="140" width="178" height="74" rx="12" fill="#ffffff" stroke="#14213d" stroke-width="3"/>
+      <polygon points="226,214 218,238 248,214" fill="#ffffff" stroke="#14213d" stroke-width="3"/>
+      <text class="balloon-txt" x="208" y="166">"make me a cool</text>
+      <text class="balloon-txt" x="208" y="186">comic. you know…</text>
+      <text class="balloon-txt" x="208" y="206">vibes ✨"</text>
+    </g>
+    <text x="216" y="332" font-size="12" font-family="'Courier New', monospace" fill="#8d96a6" text-anchor="middle">no brief · no shot plan · no style lock</text>
+  </g>
+  <text class="label l1" x="216" y="396" text-anchor="middle" fill="#ffd23f" font-size="16" font-weight="bold" letter-spacing="2">1 · SETUP</text>
+
+  <!-- ============ PANEL 2 · REINFORCE ============ -->
+  <g class="panel p2">
+    <g class="shake">
+      <rect x="420" y="84" width="360" height="280" fill="#1c1326" stroke="#14213d" stroke-width="6"/>
+      <!-- chaos output: mismatched panels -->
+      <rect x="444" y="116" width="92" height="92" fill="#d62828" stroke="#000" stroke-width="4" transform="rotate(-7 490 162)"/>
+      <text x="490" y="170" text-anchor="middle" font-size="30" font-weight="bold" fill="#ffd23f" transform="rotate(-7 490 162)">?!</text>
+      <rect x="556" y="104" width="100" height="100" fill="#0a0a14" stroke="#00f0ff" stroke-width="3" transform="rotate(5 606 154)"/>
+      <circle cx="606" cy="154" r="26" fill="none" stroke="#ff2bd6" stroke-width="3" transform="rotate(5 606 154)"/>
+      <rect x="672" y="120" width="84" height="84" fill="#fbf7ee" stroke="#6b5b4a" stroke-width="3" transform="rotate(-4 714 162)"/>
+      <circle cx="714" cy="162" r="22" fill="#ef9595" opacity="0.5" transform="rotate(-4 714 162)"/>
+      <!-- six-fingered hand gag -->
+      <g transform="translate(470,250)">
+        <rect x="0" y="10" width="56" height="40" rx="14" fill="#f2c9a0" stroke="#000" stroke-width="3"/>
+        <line x1="6" y1="10" x2="2" y2="-12" stroke="#000" stroke-width="3"/>
+        <line x1="16" y1="8" x2="14" y2="-16" stroke="#000" stroke-width="3"/>
+        <line x1="26" y1="8" x2="26" y2="-18" stroke="#000" stroke-width="3"/>
+        <line x1="36" y1="8" x2="38" y2="-16" stroke="#000" stroke-width="3"/>
+        <line x1="46" y1="10" x2="50" y2="-12" stroke="#000" stroke-width="3"/>
+        <line x1="54" y1="14" x2="62" y2="-6" stroke="#000" stroke-width="3"/>
+      </g>
+      <text x="560" y="282" font-size="13" fill="#ff6b6b" font-family="'Courier New', monospace">finger_count: 6</text>
+      <text x="560" y="300" font-size="13" fill="#ff6b6b" font-family="'Courier New', monospace">style_drift: 312%</text>
+      <text x="560" y="318" font-size="13" fill="#ff6b6b" font-family="'Courier New', monospace">canon: not found</text>
+      <!-- burst -->
+      <g transform="translate(682,186) rotate(8)">
+        <polygon points="0,18 14,10 16,-6 30,4 48,-12 50,6 70,4 58,22 76,32 52,36 58,52 36,44 24,58 18,38 -6,42 6,26" fill="#ffd23f" stroke="#000" stroke-width="3"/>
+        <text x="36" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#d62828">CHAOS!</text>
+      </g>
+    </g>
+  </g>
+  <text class="label l2" x="600" y="396" text-anchor="middle" fill="#ff6b6b" font-size="16" font-weight="bold" letter-spacing="2">2 · REINFORCE</text>
+
+  <!-- ============ PANEL 3 · TURNAROUND ============ -->
+  <g class="panel p3">
+    <rect x="804" y="84" width="360" height="280" fill="#fdf6e3" stroke="#14213d" stroke-width="6"/>
+    <!-- producer with clipboard -->
+    <circle cx="884" cy="226" r="36" fill="#2a9d8f" stroke="#14213d" stroke-width="3"/>
+    <rect x="864" y="212" width="40" height="16" rx="8" fill="#fdf6e3" stroke="#14213d" stroke-width="3"/>
+    <circle cx="876" cy="220" r="3.4" fill="#14213d"/>
+    <circle cx="892" cy="220" r="3.4" fill="#14213d"/>
+    <path d="M872 240 Q884 247 896 240" fill="none" stroke="#14213d" stroke-width="3" stroke-linecap="round"/>
+    <rect x="838" y="256" width="34" height="46" rx="4" fill="#fff" stroke="#14213d" stroke-width="3"/>
+    <line x1="844" y1="268" x2="866" y2="268" stroke="#2a9d8f" stroke-width="3"/>
+    <line x1="844" y1="278" x2="866" y2="278" stroke="#2a9d8f" stroke-width="3"/>
+    <line x1="844" y1="288" x2="860" y2="288" stroke="#2a9d8f" stroke-width="3"/>
+    <text x="884" y="190" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#14213d">PRODUCER</text>
+    <!-- director with megaphone + beret -->
+    <circle cx="986" cy="226" r="36" fill="#e8553d" stroke="#14213d" stroke-width="3"/>
+    <path d="M958 204 Q986 184 1014 204 L1008 196 Q986 178 964 196 Z" fill="#14213d"/>
+    <rect x="966" y="212" width="40" height="16" rx="8" fill="#fdf6e3" stroke="#14213d" stroke-width="3"/>
+    <circle cx="978" cy="220" r="3.4" fill="#14213d"/>
+    <circle cx="994" cy="220" r="3.4" fill="#14213d"/>
+    <path d="M974 240 Q986 247 998 240" fill="none" stroke="#14213d" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="1014,236 1052,222 1052,258 1014,248" fill="#ffd23f" stroke="#14213d" stroke-width="3"/>
+    <text x="986" y="190" text-anchor="middle" font-size="11.5" font-weight="bold" fill="#14213d">DIRECTOR</text>
+    <!-- dialogue -->
+    <g>
+      <rect x="824" y="100" width="200" height="52" rx="12" fill="#fff" stroke="#14213d" stroke-width="3"/>
+      <polygon points="874,152 866,172 896,152" fill="#fff" stroke="#14213d" stroke-width="3"/>
+      <text class="balloon-txt" x="836" y="122">"Brief locked. Style</text>
+      <text class="balloon-txt" x="836" y="142">locked. Shot plan in."</text>
+    </g>
+    <!-- artifacts -->
+    <text x="1064" y="290" font-size="12" font-family="'Courier New', monospace" fill="#2a9d8f" text-anchor="middle">production-brief.yaml ✓</text>
+    <text x="1064" y="308" font-size="12" font-family="'Courier New', monospace" fill="#2a9d8f" text-anchor="middle">shot-plan.yaml ✓</text>
+    <text x="1064" y="326" font-size="12" font-family="'Courier New', monospace" fill="#2a9d8f" text-anchor="middle">style locks ✓</text>
+    <!-- PASS stamp -->
+    <g class="stamp">
+      <rect x="1042" y="108" width="104" height="46" rx="6" fill="none" stroke="#2a9d8f" stroke-width="5"/>
+      <text x="1094" y="141" text-anchor="middle" font-size="26" font-weight="bold" fill="#2a9d8f" letter-spacing="2">PASS</text>
+    </g>
+  </g>
+  <text class="label l3" x="984" y="396" text-anchor="middle" fill="#7fd1c0" font-size="16" font-weight="bold" letter-spacing="2">3 · TURNAROUND</text>
+
+  <text x="600" y="440" text-anchor="middle" fill="#5d6675" font-size="12.5" font-family="'Courier New', monospace">no panel without a purpose · no generation without direction · RETAKE is a feature</text>
+</svg>

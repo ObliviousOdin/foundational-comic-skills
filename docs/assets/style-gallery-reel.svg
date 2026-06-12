@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" font-family="Verdana, 'DejaVu Sans', sans-serif" role="img" aria-label="Animated style gallery reel for foundational-comic-skills: one scene rendered in six locked comic styles">
+  <title>foundational-comic-skills — Style Gallery Reel</title>
+  <desc>One scene, six style contracts: Golden Age, Manhwa Webtoon, Ligne Claire, Gekiga, Cyberpunk, Watercolor.</desc>
+  <style>
+    .frame { opacity: 0; animation: reel 30s linear infinite; }
+    .f1 { animation-delay: 0s; }
+    .f2 { animation-delay: 5s; }
+    .f3 { animation-delay: 10s; }
+    .f4 { animation-delay: 15s; }
+    .f5 { animation-delay: 20s; }
+    .f6 { animation-delay: 25s; }
+    @keyframes reel {
+      0% { opacity: 0; }
+      1.6% { opacity: 1; }
+      15.2% { opacity: 1; }
+      16.8% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .dot { opacity: 0.22; animation: dotpulse 30s linear infinite; }
+    .d1 { animation-delay: 0s; }
+    .d2 { animation-delay: 5s; }
+    .d3 { animation-delay: 10s; }
+    .d4 { animation-delay: 15s; }
+    .d5 { animation-delay: 20s; }
+    .d6 { animation-delay: 25s; }
+    @keyframes dotpulse {
+      0% { opacity: 0.22; }
+      1.6% { opacity: 1; }
+      15.2% { opacity: 1; }
+      16.8% { opacity: 0.22; }
+      100% { opacity: 0.22; }
+    }
+    .nameplate { font-size: 21px; font-weight: bold; letter-spacing: 1.5px; }
+    .platepath { font-size: 12.5px; font-family: 'Courier New', monospace; }
+    @media (prefers-reduced-motion: reduce) {
+      .frame, .dot { animation: none; }
+      .f1, .d1 { opacity: 1; }
+    }
+  </style>
+  <defs>
+    <!-- ===== shared scene drawn with CSS variables so each style frame can re-skin it ===== -->
+    <g id="scene">
+      <rect x="0" y="0" width="1120" height="330" fill="var(--bg)"/>
+      <rect x="0" y="252" width="1120" height="78" fill="var(--floor)"/>
+      <!-- window + skyline -->
+      <rect x="700" y="34" width="270" height="176" fill="var(--sky)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <rect x="724" y="120" width="38" height="90" fill="var(--bld)"/>
+      <rect x="772" y="92" width="46" height="118" fill="var(--bld)"/>
+      <rect x="828" y="132" width="34" height="78" fill="var(--bld)"/>
+      <rect x="872" y="104" width="48" height="106" fill="var(--bld)"/>
+      <circle cx="922" cy="74" r="20" fill="var(--moon)"/>
+      <line x1="835" y1="34" x2="835" y2="210" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <line x1="700" y1="122" x2="970" y2="122" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <!-- desk -->
+      <rect x="120" y="202" width="400" height="20" fill="var(--desk)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <rect x="146" y="222" width="16" height="68" fill="var(--desk)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <rect x="478" y="222" width="16" height="68" fill="var(--desk)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <!-- ink pot + brushes -->
+      <rect x="160" y="178" width="30" height="24" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <line x1="172" y1="178" x2="184" y2="156" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <line x1="180" y1="178" x2="196" y2="160" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <!-- lamp -->
+      <rect x="452" y="190" width="40" height="12" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <line x1="472" y1="190" x2="448" y2="130" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <line x1="448" y1="130" x2="404" y2="112" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <polygon points="404,112 380,128 412,142" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <polygon points="384,130 410,140 360,210 320,196" fill="var(--cone)" opacity="var(--coneo)"/>
+      <!-- robot artist -->
+      <line x1="300" y1="118" x2="300" y2="98" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <circle cx="300" cy="92" r="7" fill="var(--accent)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <circle cx="300" cy="160" r="52" fill="var(--bot)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <rect x="268" y="138" width="64" height="26" rx="13" fill="var(--visor)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <circle cx="286" cy="151" r="5" fill="var(--ink)"/>
+      <circle cx="314" cy="151" r="5" fill="var(--ink)"/>
+      <path d="M282 184 Q300 196 318 184" fill="none" stroke="var(--ink)" stroke-width="var(--lw)" stroke-linecap="round"/>
+      <!-- raised arm + page -->
+      <line x1="340" y1="132" x2="408" y2="84" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <rect x="396" y="36" width="116" height="84" fill="var(--page)" stroke="var(--ink)" stroke-width="var(--lw)"/>
+      <line x1="410" y1="56" x2="498" y2="56" stroke="var(--scrib)" stroke-width="3"/>
+      <line x1="410" y1="74" x2="486" y2="74" stroke="var(--scrib)" stroke-width="3"/>
+      <line x1="410" y1="92" x2="494" y2="92" stroke="var(--scrib)" stroke-width="3"/>
+      <!-- second arm resting on desk -->
+      <line x1="262" y1="178" x2="220" y2="202" stroke="var(--ink)" stroke-width="var(--lw)"/>
+    </g>
+
+    <pattern id="halftone" width="14" height="14" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="2.4" fill="#1a1208" opacity="0.16"/>
+    </pattern>
+    <pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+      <line x1="0" y1="0" x2="0" y2="12" stroke="#111" stroke-width="2.4"/>
+    </pattern>
+    <pattern id="scanlines" width="6" height="6" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="1" x2="6" y2="1" stroke="#00f0ff" stroke-width="1" opacity="0.10"/>
+    </pattern>
+    <pattern id="grain" width="22" height="22" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="8" r="1.1" fill="#6b5b4a" opacity="0.14"/>
+      <circle cx="16" cy="18" r="1.1" fill="#6b5b4a" opacity="0.11"/>
+    </pattern>
+    <linearGradient id="tealNight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c2733"/>
+      <stop offset="1" stop-color="#17434f"/>
+    </linearGradient>
+    <radialGradient id="lampGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffb347" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#ffb347" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+    <filter id="wcBlur">
+      <feGaussianBlur stdDeviation="1.1"/>
+    </filter>
+    <filter id="neon" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ===== chrome ===== -->
+  <rect x="0" y="0" width="1200" height="500" fill="#101019"/>
+  <text x="600" y="34" text-anchor="middle" fill="#ffd23f" font-size="26" font-weight="bold" letter-spacing="3">STYLE GALLERY REEL</text>
+  <text x="600" y="58" text-anchor="middle" fill="#9aa3b2" font-size="15">Same shot plan. Same world bible. Six locked style contracts from <tspan font-family="'Courier New', monospace" fill="#7fd1c0">comic-styles/</tspan></text>
+
+  <!-- panel frame backdrop -->
+  <rect x="36" y="66" width="1128" height="338" fill="#000" opacity="0.35"/>
+
+  <!-- ===== FRAME 1 · GOLDEN AGE ===== -->
+  <g class="frame f1">
+    <g transform="translate(40,70)" style="--bg:#f5e7c8; --floor:#e3cd96; --sky:#27418f; --bld:#16295e; --moon:#f2d24b; --desk:#b5651d; --accent:#d62828; --bot:#d62828; --visor:#ffd23f; --page:#fff8e1; --scrib:#2b50bd; --cone:#ffd23f; --coneo:0.5; --ink:#1a1208; --lw:5">
+      <use href="#scene"/>
+      <rect x="0" y="0" width="1120" height="330" fill="url(#halftone)"/>
+      <rect x="18" y="16" width="330" height="44" fill="#ffd23f" stroke="#1a1208" stroke-width="4"/>
+      <text x="34" y="45" font-size="20" font-weight="bold" fill="#1a1208">THE STUDIO NEVER SLEEPS!</text>
+      <g transform="translate(560,52) rotate(-8)">
+        <polygon points="0,22 16,12 18,-8 36,4 58,-14 60,8 84,6 70,26 92,38 64,42 70,62 44,52 30,70 22,46 -8,50 8,32" fill="#ffd23f" stroke="#1a1208" stroke-width="4"/>
+        <text x="44" y="34" text-anchor="middle" font-size="20" font-weight="bold" fill="#d62828">INK'D!</text>
+      </g>
+      <rect x="2" y="2" width="1116" height="326" fill="none" stroke="#1a1208" stroke-width="9"/>
+    </g>
+    <text class="nameplate" x="68" y="438" fill="#ffd23f">GOLDEN AGE SUPERHERO</text>
+    <text class="platepath" x="68" y="458" fill="#8d96a6">comic-styles/western/golden-age-superhero-comic</text>
+  </g>
+
+  <!-- ===== FRAME 2 · MANHWA COLOR WEBTOON ===== -->
+  <g class="frame f2">
+    <g transform="translate(40,70)" style="--bg:url(#tealNight); --floor:#0d2e39; --sky:#06181f; --bld:#123743; --moon:#cfe9f2; --desk:#1e4a57; --accent:#2c6b7d; --bot:#4aa3c0; --visor:#ffe9c2; --page:#fff4dd; --scrib:#3b7e93; --cone:#ffb347; --coneo:0.45; --ink:#081820; --lw:2.5">
+      <use href="#scene"/>
+      <circle cx="404" cy="124" r="84" fill="url(#lampGlow)" filter="url(#softGlow)"/>
+      <circle cx="454" cy="78" r="64" fill="url(#lampGlow)" filter="url(#softGlow)" opacity="0.8"/>
+      <circle cx="922" cy="74" r="30" fill="#cfe9f2" opacity="0.22" filter="url(#softGlow)"/>
+      <rect x="2" y="2" width="1116" height="326" fill="none" stroke="#0a2129" stroke-width="3"/>
+    </g>
+    <text class="nameplate" x="68" y="438" fill="#7fd1c0">MANHWA COLOR WEBTOON</text>
+    <text class="platepath" x="68" y="458" fill="#8d96a6">comic-styles/asian/manhwa-color-webtoon</text>
+  </g>
+
+  <!-- ===== FRAME 3 · LIGNE CLAIRE ===== -->
+  <g class="frame f3">
+    <g transform="translate(40,70)" style="--bg:#fdf6e3; --floor:#f0d9a8; --sky:#aee1f5; --bld:#e07a5f; --moon:#f4d35e; --desk:#c98a4b; --accent:#2a9d8f; --bot:#e8553d; --visor:#bde6f2; --page:#ffffff; --scrib:#14213d; --cone:#fff; --coneo:0; --ink:#14213d; --lw:3">
+      <use href="#scene"/>
+      <rect x="2" y="2" width="1116" height="326" fill="none" stroke="#14213d" stroke-width="3"/>
+    </g>
+    <text class="nameplate" x="68" y="438" fill="#aee1f5">LIGNE CLAIRE FRANCO-BELGE</text>
+    <text class="platepath" x="68" y="458" fill="#8d96a6">comic-styles/european/ligne-claire-franco-belge</text>
+  </g>
+
+  <!-- ===== FRAME 4 · GEKIGA ===== -->
+  <g class="frame f4">
+    <g transform="translate(40,70)" style="--bg:#efe9df; --floor:#111111; --sky:#161616; --bld:#000000; --moon:#efe9df; --desk:#2a2a2a; --accent:#3a3a3a; --bot:#d8d2c6; --visor:#efe9df; --page:#ffffff; --scrib:#111; --cone:#fff; --coneo:0.16; --ink:#000; --lw:4.5">
+      <use href="#scene"/>
+      <polygon points="0,0 250,0 0,180" fill="url(#hatch)"/>
+      <polygon points="1120,330 1120,140 880,330" fill="#000"/>
+      <rect x="0" y="222" width="1120" height="30" fill="url(#hatch)"/>
+      <rect x="2" y="2" width="1116" height="326" fill="none" stroke="#000" stroke-width="6"/>
+    </g>
+    <text class="nameplate" x="68" y="438" fill="#efe9df">GEKIGA CINEMATIC MANGA</text>
+    <text class="platepath" x="68" y="458" fill="#8d96a6">comic-styles/manga/gekiga-cinematic-manga</text>
+  </g>
+
+  <!-- ===== FRAME 5 · CYBERPUNK ===== -->
+  <g class="frame f5">
+    <g transform="translate(40,70)" style="--bg:#0a0a14; --floor:#0d0d1c; --sky:#05050c; --bld:#141432; --moon:#00f0ff; --desk:#181830; --accent:#222246; --bot:#1f2335; --visor:#00f0ff; --page:#d8f9ff; --scrib:#ff2bd6; --cone:#ff2bd6; --coneo:0.22; --ink:#02020a; --lw:3">
+      <use href="#scene"/>
+      <circle cx="300" cy="160" r="52" fill="none" stroke="#ff2bd6" stroke-width="2.5" filter="url(#neon)"/>
+      <rect x="396" y="36" width="116" height="84" fill="none" stroke="#00f0ff" stroke-width="2" filter="url(#neon)"/>
+      <g filter="url(#neon)">
+        <rect x="742" y="58" width="118" height="34" fill="none" stroke="#ff2bd6" stroke-width="2.5"/>
+        <text x="801" y="82" text-anchor="middle" font-size="19" font-weight="bold" fill="#ff2bd6">ネオン STUDIO</text>
+      </g>
+      <line x1="120" y1="0" x2="60" y2="330" stroke="#9fdcff" stroke-width="1.4" opacity="0.18"/>
+      <line x1="620" y1="0" x2="560" y2="330" stroke="#9fdcff" stroke-width="1.4" opacity="0.14"/>
+      <line x1="1040" y1="0" x2="980" y2="330" stroke="#9fdcff" stroke-width="1.4" opacity="0.16"/>
+      <rect x="0" y="0" width="1120" height="330" fill="url(#scanlines)"/>
+      <rect x="2" y="2" width="1116" height="326" fill="none" stroke="#00f0ff" stroke-width="2" filter="url(#neon)"/>
+    </g>
+    <text class="nameplate" x="68" y="438" fill="#00f0ff">CYBERPUNK SCI-FI</text>
+    <text class="platepath" x="68" y="458" fill="#8d96a6">comic-styles/sci-fi/cyberpunk-sci-fi-comic</text>
+  </g>
+
+  <!-- ===== FRAME 6 · WATERCOLOR STORYBOOK ===== -->
+  <g class="frame f6">
+    <g transform="translate(40,70)">
+      <g style="--bg:#fbf7ee; --floor:#e8dcc8; --sky:#b8d8d8; --bld:#a3bfb4; --moon:#f3e2b3; --desk:#c9a87c; --accent:#ef9595; --bot:#ef9595; --visor:#fdf3df; --page:#fffdf6; --scrib:#8aa6a0; --cone:#f7e3a1; --coneo:0.4; --ink:#6b5b4a; --lw:2" filter="url(#wcBlur)">
+        <use href="#scene"/>
+      </g>
+      <circle cx="220" cy="70" r="70" fill="#ef9595" opacity="0.14" filter="url(#softGlow)"/>
+      <circle cx="640" cy="260" r="86" fill="#8aa6a0" opacity="0.16" filter="url(#softGlow)"/>
+      <circle cx="980" cy="120" r="60" fill="#f7e3a1" opacity="0.2" filter="url(#softGlow)"/>
+      <rect x="0" y="0" width="1120" height="330" fill="url(#grain)"/>
+      <path d="M6 8 Q 280 -2 560 7 T 1114 6 Q 1118 160 1113 324 Q 840 332 560 325 T 7 323 Q 2 166 6 8 Z" fill="none" stroke="#6b5b4a" stroke-width="3"/>
+    </g>
+    <text class="nameplate" x="68" y="438" fill="#f7e3a1">WATERCOLOR STORYBOOK</text>
+    <text class="platepath" x="68" y="458" fill="#8d96a6">comic-styles/decorative/watercolor-storybook-comic</text>
+  </g>
+
+  <!-- ===== progress dots + footer ===== -->
+  <g>
+    <circle class="dot d1" cx="1010" cy="446" r="7" fill="#ffd23f"/>
+    <circle class="dot d2" cx="1034" cy="446" r="7" fill="#7fd1c0"/>
+    <circle class="dot d3" cx="1058" cy="446" r="7" fill="#aee1f5"/>
+    <circle class="dot d4" cx="1082" cy="446" r="7" fill="#efe9df"/>
+    <circle class="dot d5" cx="1106" cy="446" r="7" fill="#00f0ff"/>
+    <circle class="dot d6" cx="1130" cy="446" r="7" fill="#f7e3a1"/>
+  </g>
+  <text x="600" y="487" text-anchor="middle" fill="#5d6675" font-size="12.5" font-family="'Courier New', monospace">28 style skills · 12 categories · every frame above honors its SKILL.md style locks</text>
+</svg>
