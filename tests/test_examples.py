@@ -6,6 +6,7 @@ can run, using a style or format that may no longer exist.
 """
 
 import importlib.util
+import re
 from pathlib import Path
 
 import pytest
@@ -92,6 +93,52 @@ def test_shot_plan_agrees_with_the_brief(project):
             f"{project.name}: shot plan {field} `{plan[field]}` contradicts the "
             f"contract's `{contract[field]}`"
         )
+
+
+# Blocks 1-7 of the assembly contract, in order. CONSISTENCY ANCHORS (6) is a
+# backend-dialect section and does not appear in every worked prompt, so the
+# check enforces relative order rather than presence of all seven.
+CANONICAL_BLOCKS = [
+    "STYLE",
+    "FORMAT",
+    "CHARACTER",
+    "PANEL",
+    "SCENE",
+    "NEGATIVE",
+]
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_assembled_prompt_follows_canonical_block_order(project):
+    """Layer 0 checks this before a render is paid for; the examples must model it."""
+    path = project / "assembled-prompt.md"
+    if not path.is_file():
+        pytest.skip(f"{project.name} carries no assembled prompt")
+
+    text = path.read_text(encoding="utf-8")
+    # Only bracketed block headers at line start, inside the fenced prompt.
+    found = re.findall(r"^\[([A-Z][A-Z ]*)", text, re.MULTILINE)
+    assert found, f"{project.name}: no [BLOCK] headers found in the assembled prompt"
+
+    seen = [b for b in found if b.split()[0] in CANONICAL_BLOCKS]
+    order = [CANONICAL_BLOCKS.index(b.split()[0]) for b in seen]
+    assert order == sorted(order), (
+        f"{project.name}: assembled prompt blocks are out of canonical order — "
+        f"got {seen}. comic-image-generation-adapter fixes this order so two "
+        f"panels never differ because their prompts were organized differently"
+    )
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_assembled_prompt_opens_with_the_style_block(project):
+    """Style lock is block 1 and is never truncated by the budget rule."""
+    path = project / "assembled-prompt.md"
+    if not path.is_file():
+        pytest.skip(f"{project.name} carries no assembled prompt")
+    found = re.findall(r"^\[([A-Z][A-Z ]*)", path.read_text(encoding="utf-8"), re.MULTILINE)
+    assert found[0].strip() == "STYLE", (
+        f"{project.name}: assembled prompt opens with [{found[0].strip()}], not [STYLE]"
+    )
 
 
 def test_world_bibles_in_examples_validate():
