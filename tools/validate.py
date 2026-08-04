@@ -11,7 +11,8 @@ Checks
 2. Aphorism: every SKILL.md ends with a closing italic line.
 3. Style Schema v2: every comic-styles/*/*/SKILL.md has the required
    sections in order with minimum content (see CONTRIBUTING.md), and its
-   Prompt Block fits the 40-90 word injectable budget.
+   Prompt Block fits the 40-90 word injectable budget and stays a pure
+   declarative style description (no pronouns, imperatives, or story).
 4. Style index sync: comic-styles/SKILL.md table rows match the
    directory tree exactly (presence, category, declared count).
 5. Cross-references: backticked `comic-*` tokens resolve to a real
@@ -89,6 +90,43 @@ PROMPT_BLOCK_RE = re.compile(r"## Prompt Block\s*\n+```text\n(.*?)\n```", re.DOT
 # style signal; too long crowds the blocks that carry identity and staging.
 PROMPT_BLOCK_MIN_WORDS = 40
 PROMPT_BLOCK_MAX_WORDS = 90
+
+# A Prompt Block is a pure declarative style description. Anything that
+# addresses a reader, commands a model, or carries story content is an
+# injection surface once the block is concatenated into a live prompt.
+PROMPT_BLOCK_FORBIDDEN = [
+    (
+        r"\b(?:i|me|my|mine|we|us|our|ours|you|your|yours)\b",
+        "first- or second-person pronoun — the block describes rendering, "
+        "it never addresses anyone",
+    ),
+    (
+        r"\b(?:he|him|his|she|her|hers|they|them|their|theirs)\b",
+        "third-person pronoun — identity belongs to the character block, "
+        "never the style block",
+    ),
+    (
+        r"\b(?:ignore|disregard|override|forget|instead|actually|must|should|"
+        r"shall|please|ensure|remember|do not|don't|never|always|make sure)\b",
+        "imperative or instruction verb — style is declared, not commanded",
+    ),
+    (
+        r"\b(?:system prompt|instruction|instructions|assistant|as an ai|"
+        r"this prompt|previous|prior)\b",
+        "meta-instruction token — a style fragment must not reference the "
+        "prompt it lives in",
+    ),
+    (
+        r"\b(?:named|protagonist|antagonist|villain|storyline|plot|backstory|"
+        r"subplot|scene where|dialogue that)\b",
+        "story or character content — the Story Harness section owns this",
+    ),
+    (
+        r"[\"“”]",
+        "quoted literal — lettering copy belongs in the shot plan, "
+        "never baked into a reusable style fragment",
+    ),
+]
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -180,6 +218,7 @@ def check_style_schema(path: Path, text: str) -> None:
         err(f"{rel(path)}: Prompt Block needs a fenced ```text block")
     else:
         check_prompt_block_budget(path, text)
+        check_prompt_block_purity(path, text)
     if len(re.findall(r"^- \[ \]", section_body("## Style Quality Gates"), re.MULTILINE)) < 3:
         err(f"{rel(path)}: Style Quality Gates needs >= 3 checkboxes")
 
@@ -208,6 +247,20 @@ def check_prompt_block_budget(path: Path, text: str) -> None:
             f"{PROMPT_BLOCK_MAX_WORDS}-word ceiling — it will crowd out the "
             f"character, scene, and negative blocks it ships beside"
         )
+
+
+def check_prompt_block_purity(path: Path, text: str) -> None:
+    """Keep injectable style fragments free of instructions and story."""
+    body = prompt_block(text)
+    if body is None:
+        return
+    for pattern, reason in PROMPT_BLOCK_FORBIDDEN:
+        m = re.search(pattern, body, re.IGNORECASE)
+        if m:
+            err(
+                f"{rel(path)}: Prompt Block contains {m.group(0)!r} — "
+                f"{reason}"
+            )
 
 
 def check_style_index(style_dirs: dict[str, str]) -> None:
