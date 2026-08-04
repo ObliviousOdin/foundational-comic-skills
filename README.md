@@ -280,6 +280,7 @@ foundational-comic-skills/
 
 The repository enforces its own discipline:
 
+- **Agent load order:** [`docs/AGENT-INTEGRATION.md`](docs/AGENT-INTEGRATION.md) states what an agent reads, in what order, and which layer wins when two disagree — a permission never overrides a lock.
 - **Validator:** `python3 tools/validate.py` checks frontmatter, Schema v2, style-index sync, cross-reference resolution, native-habitat routing, world-bible provenance, and YAML health. `--style` and `--bible` narrow it to one file.
 - **Prompt Block trust boundary:** style fragments reach a generation backend verbatim, so the validator holds them to a 40–90 word budget, rejects injection surfaces (pronouns, imperatives, meta-instruction tokens, story content, quoted copy), and fails any two styles that collapse into the same fragment. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 - **CI:** `.github/workflows/validate.yml` runs the validator *and* the test suite on every push and PR.
