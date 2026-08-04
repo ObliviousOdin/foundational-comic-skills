@@ -88,7 +88,17 @@ FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 REF_RE = re.compile(r"`(comic-[a-z0-9-]+)`")
 PROMPT_BLOCK_RE = re.compile(r"## Prompt Block\s*\n+```text\n(.*?)\n```", re.DOTALL)
 WHEN_NOT_RE = re.compile(r"## When Not to Use\n(.*?)\n## ", re.DOTALL)
+INTEGRATION_RE = re.compile(r"## Integration\n(.*?)(?:\n---|\Z)", re.DOTALL)
 BACKTICK_RE = re.compile(r"`([^`]+)`")
+LIB_ENTRY_RE = re.compile(r"^### \d+\. `([a-z0-9-]+)`", re.MULTILINE)
+
+# Canvases and beat arcs are defined once, in the core libraries. Native
+# habitat vocabulary is read from them rather than restated here, so the
+# check cannot drift from the thing it validates.
+LIBRARY_PATHS = (
+    "comic-core/comic-format-library/SKILL.md",
+    "comic-core/comic-narrative-patterns/SKILL.md",
+)
 
 # The Prompt Block is injected verbatim into a generation prompt alongside
 # character, scene, and negative blocks. Too short starves the backend of
@@ -271,6 +281,42 @@ def check_prompt_block_purity(path: Path, text: str) -> None:
             err(
                 f"{rel(path)}: Prompt Block contains {m.group(0)!r} — "
                 f"{reason}"
+            )
+
+
+def library_vocabulary() -> set[str]:
+    """Sanctioned format and pattern names, read from the core libraries."""
+    vocab: set[str] = set()
+    for rel_path in LIBRARY_PATHS:
+        path = ROOT / rel_path
+        if path.is_file():
+            vocab |= set(LIB_ENTRY_RE.findall(path.read_text(encoding="utf-8")))
+    return vocab
+
+
+def check_native_habitats(style_texts: dict[Path, str]) -> None:
+    """A style's Integration line must route to canvases that exist.
+
+    "Native habitat" tells the Producer which format and pattern a style
+    is strongest in, so an unrecognised name routes a project to a canvas
+    the pipelines cannot build.
+    """
+    vocab = library_vocabulary()
+    if not vocab:
+        warn("core libraries unreadable - skipping native-habitat checks")
+        return
+    for path, text in sorted(style_texts.items()):
+        m = INTEGRATION_RE.search(text)
+        if not m:
+            continue
+        for token in sorted(set(BACKTICK_RE.findall(m.group(1)))):
+            # `comic-*` skills are resolved by the cross-reference pass.
+            if token.startswith("comic-") or token in vocab:
+                continue
+            err(
+                f"{rel(path)}: Integration names native habitat `{token}`, "
+                f"which is neither a format in comic-format-library nor a "
+                f"pattern in comic-narrative-patterns"
             )
 
 
@@ -530,6 +576,7 @@ def main() -> int:
 
     check_style_index(style_dirs)
     check_style_redirects(style_texts, set(style_dirs), known_skills)
+    check_native_habitats(style_texts)
     check_prompt_block_collisions(style_texts)
     check_cross_references(known_skills)
     check_yaml_health()
