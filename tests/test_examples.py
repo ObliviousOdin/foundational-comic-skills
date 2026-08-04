@@ -81,17 +81,79 @@ def test_every_project_contract_names_things_that_exist(project):
 
 @pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
 def test_shot_plan_agrees_with_the_brief(project):
-    """The Director works inside the Producer's contract, not beside it."""
-    brief_path, plan_path = project / "production-brief.yaml", project / "shot-plan.yaml"
-    if not (brief_path.is_file() and plan_path.is_file()):
+    """The Director works inside the Producer's contract, not beside it.
+
+    Format must always match. Pattern is format-dependent: most formats lock
+    one pattern per project, but `multi-page-chapter` assigns a pattern per
+    scene, so a page plan legitimately differs from the contract's spine and
+    is checked against the chapter map instead.
+    """
+    brief_path = project / "production-brief.yaml"
+    plans = sorted(project.glob("shot-plan*.yaml"))
+    if not (brief_path.is_file() and plans):
         pytest.skip(f"{project.name} does not carry both artifacts")
 
     contract = yaml.safe_load(brief_path.read_text(encoding="utf-8"))["contract"]
-    plan = yaml.safe_load(plan_path.read_text(encoding="utf-8"))["shot_plan"]
-    for field in ("format", "narrative_pattern"):
-        assert plan[field] == contract[field], (
-            f"{project.name}: shot plan {field} `{plan[field]}` contradicts the "
-            f"contract's `{contract[field]}`"
+    scene_patterns = chapter_scene_patterns(project)
+
+    for plan_path in plans:
+        plan = yaml.safe_load(plan_path.read_text(encoding="utf-8"))["shot_plan"]
+        assert plan["format"] == contract["format"], (
+            f"{project.name}/{plan_path.name}: shot plan format `{plan['format']}` "
+            f"contradicts the contract's `{contract['format']}`"
+        )
+
+        pattern = plan["narrative_pattern"]
+        if contract["format"] == "multi-page-chapter":
+            assert scene_patterns, (
+                f"{project.name}: a chapter must carry a chapter-map.yaml — the "
+                f"pipeline requires it before any page is planned"
+            )
+            assert pattern in scene_patterns, (
+                f"{project.name}/{plan_path.name}: page pattern `{pattern}` is not "
+                f"assigned to any scene in the chapter map {sorted(scene_patterns)}"
+            )
+        else:
+            assert pattern == contract["narrative_pattern"], (
+                f"{project.name}/{plan_path.name}: shot plan pattern `{pattern}` "
+                f"contradicts the contract's `{contract['narrative_pattern']}`"
+            )
+
+
+def chapter_scene_patterns(project: Path) -> set[str]:
+    """Patterns the chapter map assigns across scenes, empty if not a chapter."""
+    path = project / "chapter-map.yaml"
+    if not path.is_file():
+        return set()
+    scenes = yaml.safe_load(path.read_text(encoding="utf-8")).get("scenes") or []
+    return {s["narrative_pattern"] for s in scenes if s.get("narrative_pattern")}
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_chapter_map_patterns_resolve(project):
+    """Every pattern a chapter map assigns must exist in the pattern library."""
+    patterns = chapter_scene_patterns(project)
+    if not patterns:
+        pytest.skip(f"{project.name} is not a chapter project")
+    vocabulary = validate.library_vocabulary()
+    for pattern in sorted(patterns):
+        assert pattern in vocabulary, (
+            f"{project.name}: chapter map assigns `{pattern}`, which "
+            f"comic-narrative-patterns does not define"
+        )
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_chapter_grants_at_most_one_splash(project):
+    """The pipeline caps a chapter at one splash, granted only by the map."""
+    path = project / "chapter-map.yaml"
+    if not path.is_file():
+        pytest.skip(f"{project.name} is not a chapter project")
+    chapter_map = yaml.safe_load(path.read_text(encoding="utf-8"))
+    climax = chapter_map.get("climax") or {}
+    if climax.get("splash"):
+        assert climax.get("justification"), (
+            f"{project.name}: the chapter map grants a splash with no justification"
         )
 
 
