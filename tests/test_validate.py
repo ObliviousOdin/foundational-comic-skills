@@ -114,6 +114,19 @@ def test_section_out_of_order_is_reported():
     assert any("out of order" in e for e in validate.errors)
 
 
+@pytest.mark.parametrize(
+    "section,following",
+    [("## When to Use", "## When Not to Use"), ("## When Not to Use", "## Story Harness")],
+)
+def test_routing_sections_need_at_least_two_bullets(section, following):
+    text = GOLD.read_text(encoding="utf-8")
+    head, rest = text.split(section, 1)
+    _, tail = rest.split(following, 1)
+    thinned = f"{head}{section}\n\n- Only one reason given\n\n{following}{tail}"
+    validate.check_style_schema(GOLD, thinned)
+    assert any("needs >= 2 bullets" in e for e in validate.errors)
+
+
 def test_style_lock_bullet_floor_is_enforced():
     text = GOLD.read_text(encoding="utf-8")
     body_start = text.index("**Style Lock (do not deviate)**")

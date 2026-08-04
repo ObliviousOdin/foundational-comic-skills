@@ -244,6 +244,13 @@ def check_style_schema(path: Path, text: str) -> None:
         err(f"{rel(path)}: Style Lock needs >= 5 bullets")
     if bullet_count("## Negative Locks") < 3:
         err(f"{rel(path)}: Negative Locks needs >= 3 bullets")
+    # Routing sections: one bullet cannot express a choice between styles.
+    for section in ("## When to Use", "## When Not to Use"):
+        if bullet_count(section) < 2:
+            err(
+                f"{rel(path)}: `{section.lstrip('# ')}` needs >= 2 bullets — "
+                f"a single line cannot route a Producer between styles"
+            )
     if "```text" not in section_body("## Prompt Block"):
         err(f"{rel(path)}: Prompt Block needs a fenced ```text block")
     else:
