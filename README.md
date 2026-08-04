@@ -45,7 +45,15 @@ python3 tools/validate.py
 Expected:
 
 ```text
-OK: repository contracts hold
+Checked 56 skills (30 styles).
+All repository contracts hold.
+```
+
+Authoring a single style? Skip the full sweep:
+
+```bash
+python3 tools/validate.py --style comic-styles/noir/noir-expressionist-comic/SKILL.md
+python3 tools/validate.py --bible examples/rabot-strip-001/world-bible.yaml
 ```
 
 ### 3. Start with the worked example
@@ -272,8 +280,9 @@ foundational-comic-skills/
 
 The repository enforces its own discipline:
 
-- **Validator:** `python3 tools/validate.py` checks frontmatter, Schema v2, style-index sync, cross-reference resolution, and YAML health.
-- **CI:** `.github/workflows/validate.yml` runs the validator on every push and PR.
+- **Validator:** `python3 tools/validate.py` checks frontmatter, Schema v2, style-index sync, cross-reference resolution, native-habitat routing, world-bible provenance, and YAML health. `--style` and `--bible` narrow it to one file.
+- **Prompt Block trust boundary:** style fragments reach a generation backend verbatim, so the validator holds them to a 40–90 word budget, rejects injection surfaces (pronouns, imperatives, meta-instruction tokens, story content, quoted copy), and fails any two styles that collapse into the same fragment. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
+- **CI:** `.github/workflows/validate.yml` runs the validator *and* the test suite on every push and PR.
 - **Schema v2:** every style skill includes negative locks, prompt blocks, direction notes, consistency notes, and style-specific gates.
 - **Traceability:** `research/README.md` maps every research finding to the skill that enforces it.
 - **Examples:** `examples/rabot-strip-001/` demonstrates how production artifacts connect.
@@ -301,7 +310,7 @@ Run the full local gate before opening a PR:
 
 ```bash
 python3 tools/validate.py
-python3 -m pytest tests/test_readme_showcase.py -q
+python3 -m pytest tests/ -q
 git diff --check
 ```
 
