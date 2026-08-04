@@ -1,0 +1,115 @@
+# Filled-in instance of comic-direction/comic-director/assets/templates/shot-plan-template.yaml
+# Small Hours 002: "One Window" - kishotenketsu in four equal panels.
+
+shot_plan:
+  project: "Rabot — Small Hours"
+  episode: "side-season-1"
+  strip_id: "4koma-002"
+  format: "4koma-vertical"
+  narrative_pattern: "kishotenketsu"
+  reading_direction: "ltr"
+  panel_flow: "top-to-bottom"
+  vision_check: "fond, small, quietly enormous at the turn"
+
+# Cues extracted (comic-story-derivation):
+#   MOOD: sleepy contentment      WARDROBE: chibi work clothes
+#   SETTING: control room         PROP: dented thermos (chibi-round)
+#   RELATIONSHIP (Rabot+Echo): settled company, no longer negotiating it
+#
+# 4-koma constraint (comic-format-library): panels are EQUAL height and gutters are
+# uniform. Tempo cannot come from panel size the way it did in strip-001 - it has to
+# come from content density. Panel 3 is the emptiest drawing in the strip; that is
+# the pacing mechanism.
+
+panels:
+  - panel: 1
+    beat_role: "KI"           # introduce
+    shot_size: "medium full"
+    camera_angle: "eye-level"
+    staging: "chibi Rabot centred on a flat mint field, both hands around the toy-round thermos, squint-arc eyes"
+    eyeline_vector: "downward into the thermos - reader settles, no exit vector yet"
+    transition_in: "n/a"
+    pacing_weight: "equal"    # 4-koma: every panel carries the same weight
+    gutter_before: "n/a"
+    dialogue:
+      bubbles: 1
+      lines: ["Still warm."]
+      placement: "upper-left, clear of the head silhouette"
+    crop_check:
+      action_legible: true
+      context_present: true
+      mood_served: true
+      composition_satisfying: true
+    notes: "One toy-round prop carries the premise, per the chibi harness"
+
+  - panel: 2
+    beat_role: "SHO"          # develop
+    shot_size: "medium full"
+    camera_angle: "eye-level"
+    transition_in: "subject"
+    staging: "chibi Echo enters frame right on the same mint field, sparkle-O eyes, holding a second cup with both hands"
+    eyeline_vector: "Echo looks toward Rabot, left; Rabot has not noticed"
+    pacing_weight: "equal"
+    gutter_before: "uniform"
+    dialogue:
+      bubbles: 1
+      lines: ["Mine's cold."]
+      placement: "upper-right, clear of the temple light"
+    crop_check:
+      action_legible: true
+      context_present: true
+      mood_served: true
+      composition_satisfying: true
+    notes: "Develops the situation without complicating it - kishotenketsu has no conflict to raise"
+
+  - panel: 3
+    beat_role: "TEN"          # unexpected recontextualization
+    shot_size: "extreme wide"
+    camera_angle: "distant exterior"
+    transition_in: "scene"
+    staging: "the whole station from outside, tiny against dark hull field; one small lit window; no figures visible at all"
+    eyeline_vector: "none - the reader is removed from the scene entirely"
+    pacing_weight: "equal"
+    gutter_before: "uniform"
+    dialogue:
+      bubbles: 0
+      lines: []
+      placement: "silent - a caption here would explain the shift and kill it"
+    crop_check:
+      action_legible: true
+      context_present: true
+      mood_served: true
+      composition_satisfying: true
+    notes: "The ten is a SCALE shift, not a punchline. Nothing is revealed and nothing goes wrong; the reader is simply moved somewhere they did not expect, and both prior panels change meaning. Locked silent before generation."
+
+  - panel: 4
+    beat_role: "KETSU"        # reconcile
+    shot_size: "medium full"
+    camera_angle: "eye-level, from behind"
+    transition_in: "scene"
+    staging: "back inside on the mint field: both chibis side by side seen from behind, two cups, facing the same small window that was lit from outside in panel 3"
+    eyeline_vector: "both face away into the window - shared direction closes the strip"
+    pacing_weight: "equal"
+    gutter_before: "uniform"
+    dialogue:
+      bubbles: 0
+      lines: []
+      placement: "silent"
+    crop_check:
+      action_legible: true
+      context_present: true
+      mood_served: true
+      composition_satisfying: true
+    notes: "Reconciles both threads without explaining the joke - there is no joke. The window makes the exterior shot and the interior scene the same place, and smallness reads as cosiness rather than isolation. 180 axis held from panel 1: Rabot screen-left, Echo screen-right."
+
+name_criteria:
+  strong_first_panel: true
+  layout_effortless: true
+  action_always_clear: true
+  shifts_convincing: true
+  emotion_legible: true
+
+final_cut:
+  verdict: "ACCEPT"
+  corrective_field: ""
+  artistic_life_note: "The ten earns its silence and the ketsu does not explain it. Chibi proportion held across the scale change, which was the real risk. Signed."

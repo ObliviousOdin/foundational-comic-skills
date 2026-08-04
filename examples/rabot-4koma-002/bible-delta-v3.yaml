@@ -1,0 +1,49 @@
+# Bible DELTA, not a bible.
+#
+# The canonical world bible lives at ../rabot-strip-001/world-bible.yaml and stays
+# the single source of truth. Copying it here would create a second canon that
+# drifts, which comic-world-bible-system forbids. This file records only what the
+# side series adds, and is merged into the canonical bible at v3.0.0.
+#
+# Deliberately not named world-bible*.yaml: the validator treats that pattern as a
+# complete bible and would rightly reject a partial document.
+
+merges_into: "../rabot-strip-001/world-bible.yaml"
+target_version: "3.0.0"
+
+visual_grammar_additions:
+  chibi_mode:
+    applies_to: "Small Hours side series only"
+    proportion_lock: "2-head chibi for every character in every panel"
+    palette_anchors:
+      - name: "blossom-pink"
+        hex: "#F6C9D3"
+      - name: "cream"
+        hex: "#F7F0E1"
+      - name: "mint"
+        hex: "#C8E6D8"
+      - name: "powder-blue"
+        hex: "#BFD8EA"
+    linework_rules: "thick uniform rounded outlines in soft charcoal, never pure black"
+    note: "Chibi mode does NOT replace the main series grammar; it is a registered variant so the style memory system can hold both without bleed"
+
+character_deltas:
+  - name: "Rabot"
+    chibi_dna_template: "2-head chibi young man, short dark hair, navy work jacket, dot eyes, tiny cheek scar mark"
+    signature_marks_in_chibi: "cheek scar reduced to a single short stroke; collar still up"
+    negative_prompt_additions: "realistic proportions, adult body ratio, silver hair"
+  - name: "Echo"
+    chibi_dna_template: "2-head chibi android girl, short silver hair, round temple light, matte gray coverall"
+    signature_marks_in_chibi: "temple indicator light stays a full circle - it is the identity anchor and never shrinks to a dot"
+    negative_prompt_additions: "realistic proportions, adult body ratio, facial scar, navy jacket"
+
+world_register_additions:
+  location_reference_sheets:
+    - name: "Station Exterior"
+      lighting: "one lit window against dark hull; no starfield glare"
+      note: "Added for the ten beat - the scale shift needs a canonical exterior or it drifts every episode"
+
+version_history:
+  - date: "2026-08-04"
+    change: "Registered chibi mode as a visual-grammar variant; added chibi DNA per character; added Station Exterior location"
+    rationale: "Small Hours needs a second rendering grammar over the same identities. Registering it as a variant rather than a new bible keeps one canon and lets the style memory system prevent chibi/main bleed in either direction."
