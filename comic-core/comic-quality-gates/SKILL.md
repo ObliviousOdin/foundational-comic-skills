@@ -1,6 +1,6 @@
 ---
 name: comic-quality-gates
-version: 1.2.0
+version: 1.3.0
 category: comic-core
 description: A rigorous, multi-layer quality evaluation system that prevents generic AI output and enforces human-like artistic standards across all comic skills.
 ---
@@ -38,7 +38,10 @@ Every other layer judges an image. This one judges the **prompt**, and it runs b
 - [ ] Panel borders are clean and consistent with style
 
 ### Layer 2: Character Consistency Gate
-- [ ] Same face structure across all three panels
+
+Checked across **every panel in the locked format** — three in the default strip, four in a 4-koma, five to eight in a webtoon segment, a full page count in a chapter. Drift scales with panel count, so the longer formats need this gate most.
+
+- [ ] Same face structure in every panel
 - [ ] Same hairstyle and hair volume
 - [ ] Same outfit silhouette (not just color)
 - [ ] Consistent line weight and rendering style for the character
