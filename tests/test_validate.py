@@ -152,6 +152,49 @@ def test_every_style_prompt_block_is_within_budget_and_pure():
     assert validate.errors == []
 
 
+# --- Prompt Block collisions --------------------------------------------
+
+
+NOIR = ROOT / "comic-styles" / "noir" / "noir-expressionist-comic" / "SKILL.md"
+GOLDEN = ROOT / "comic-styles" / "western" / "golden-age-superhero-comic" / "SKILL.md"
+SILVER = ROOT / "comic-styles" / "western" / "silver-age-pop-comic" / "SKILL.md"
+
+
+def test_live_corpus_has_no_prompt_block_collisions():
+    styles = {p: p.read_text(encoding="utf-8") for p in ROOT.glob("comic-styles/*/*/SKILL.md")}
+    validate.check_prompt_block_collisions(styles)
+    assert validate.errors == []
+
+
+def test_identical_prompt_blocks_collide():
+    shared = GOLD.read_text(encoding="utf-8")
+    validate.check_prompt_block_collisions({GOLD: shared, NOIR: shared})
+    assert any("collapse into one visual grammar" in e for e in validate.errors)
+
+
+def test_distinct_styles_do_not_collide():
+    validate.check_prompt_block_collisions(
+        {
+            GOLD: GOLD.read_text(encoding="utf-8"),
+            NOIR: NOIR.read_text(encoding="utf-8"),
+        }
+    )
+    assert validate.errors == []
+
+
+def test_threshold_leaves_headroom_over_the_closest_real_pair():
+    """Adjacent styles must survive; only copy-paste authorship should fail."""
+    words = [
+        set(re.findall(r"[a-z0-9]+", validate.prompt_block(p.read_text(encoding="utf-8")).lower()))
+        for p in (GOLDEN, SILVER)
+    ]
+    ratio = len(words[0] & words[1]) / len(words[0] | words[1])
+    assert ratio < validate.PROMPT_BLOCK_COLLISION_RATIO, (
+        "golden-age and silver-age are the most similar real styles; a "
+        "threshold that fires on them would reject legitimate neighbours"
+    )
+
+
 # --- Frontmatter and aphorism -------------------------------------------
 
 
