@@ -105,10 +105,27 @@ present tense, no character or story content — pure style.>
 *<One-line closing aphorism in italics.>*
 ```
 
+### The Prompt Block Is a Trust Boundary
+
+The Prompt Block is the only part of a style skill that reaches a generation backend, and it is concatenated **verbatim** beside the character, scene, and negative blocks. Every contributed block is therefore untrusted input the moment it merges. Four rules are validator-enforced:
+
+| Rule | Why |
+|------|-----|
+| **40–90 words** | Under the floor the style loses to backend defaults; over the ceiling it crowds out the blocks carrying identity and staging |
+| **No pronouns** (first, second, or third person) | A style block describes rendering. It never addresses a reader, and identity belongs to the character block |
+| **No imperatives or meta-instruction tokens** | `ignore`, `must`, `instead`, `never`, `system prompt`, `instructions` — these turn a style fragment into a command the backend will obey |
+| **No story content or quoted literals** | Named subjects, plot, and baked-in lettering copy make a fragment unreusable, and quoted copy is the usual shape of smuggled dialogue |
+
+Write declaratively and the rules cost nothing: comma-separated noun phrases naming technique, palette, era, and finish. Craft vocabulary is unaffected — `scroll reading`, `character poses`, `on-model`, and `no gradients` all pass today.
+
+Two styles may not resolve to near-identical fragments either; 60% vocabulary overlap fails the build. A collision usually means the honest contribution is a delta on the existing style, not a new skill.
+
 ### Adding a New Style — Checklist
 
 - [ ] Directory: `comic-styles/<category>/<skill-name>/SKILL.md` (categories: adventure, asian, cartoon, decorative, european, horror, literary, manga, noir, pop-art, sci-fi, western)
 - [ ] File follows Schema v2 exactly
+- [ ] Prompt Block clears the trust-boundary rules above
+- [ ] Every `When Not to Use` bullet redirects to a style skill that exists — these are routing instructions an agent follows, and the validator resolves them
 - [ ] Row added to the index table in `comic-styles/SKILL.md` with category matching the folder and a native-habitat entry
 - [ ] `python3 tools/validate.py` passes
 - [ ] `CHANGELOG.md` entry added
