@@ -5,10 +5,11 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 7 complete — next cycle starts at 8
-**Commits this session:** 40 (cycles 1–6 merged via PRs #4, #5, #6, #7)
+**Current cycle:** 8 complete — next cycle starts at 9
+**Commits this session:** 46 (cycles 1–7 merged via PRs #4–#8)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), 3 worked examples, validator green, 80 pytest tests passing
+**Current state:** 56 skills (30 styles), 4 worked examples, validator green, 89 pytest tests passing
+**Formats built:** 4 of 6 sanctioned — `3-panel-horizontal`, `4koma-vertical`, `webtoon-scroll-segment`, `multi-page-chapter`
 
 **Commit identity:** commits are authored `obliviousodin <11676741+ObliviousOdin@users.noreply.github.com>`
 with no AI co-author trailer, by owner instruction. `main` history was rewritten once
@@ -31,13 +32,14 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 1. Style index `Native Habitat` column is prose ("strip or chapter") while `Integration` uses canonical names — reconcile so the column is checkable too
 2. Consider a validator heuristic for the format-scope defect class: flag unqualified "per strip" / "all three panels" phrasing in `comic-core`/`comic-direction`. Semantic, so it would have to be a WARN, not a FAIL — judge whether the false-positive rate is tolerable before building it
-3. `arc-ledger.yaml` is now a worked artifact but `tests/test_examples.py` does not check it — a ledger whose `exit_actual` contradicts its `proof_panel`, or whose steps skip an episode, would pass silently
+3. `arc-ledger.yaml` is now a worked artifact but nothing checks it — a ledger whose `exit_actual` contradicts its `proof_panel`, or whose steps skip an episode, would pass silently
+4. `chapter-map.yaml` page grammar is unchecked: nothing verifies recto/verso alternation, that `page_grammar` pages match the `scenes` page lists, or that panel counts sit in the 4–9 range the format library mandates
 
-### Examples & Worked Proof (outranks style coverage — every new format has surfaced a real defect, 3 for 3)
+### Examples & Worked Proof (outranks style coverage — every new format has surfaced a real defect, now 4 for 4)
 
-4. Multi-page chapter worked project — the last unbuilt format, and page-turn beats have no filled-in artifact anywhere. Highest-value item in the backlog on the evidence so far
-5. Silent-strip worked project (the hardest directorial test, undemonstrated)
-6. `2x2-grid-page` and `single-panel-gag` remain unbuilt; the lettering exemption for `single-panel-gag` is untested by any artifact
+4. `single-panel-gag` worked project — the smallest format and the one carrying an explicit exemption (the lettering silence rule) that no artifact has ever exercised. On the 4-for-4 record, the exemption is the most likely place a defect is hiding
+5. `2x2-grid-page` worked project — the last unbuilt format after that; shares the locked-geometry constraint with 4-koma but adds the T-rule and Z-path reading
+6. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
@@ -132,6 +134,15 @@ Built the serialized format; it surfaced two defects, holding the pattern at 3 f
 - `test(tests)`: assembled-prompt canonical block order + STYLE-first, parametrized per project
 - Test count 69→80; the parametrized example suite picked up the new project automatically
 
+**Cycle 8 (2026-08-04) — 5 commits, validator and tests green throughout**
+
+Built the last unbuilt format. It surfaced two defects, holding the pattern at 4 for 4.
+
+- `feat(pipeline)`: **chapter-map template** — the pipeline mandated the artifact three times and shipped no template; 1.0.0→1.1.0, CONTRIBUTING inventory updated
+- `test(tests)`: the shot-plan/brief pattern check assumed one pattern per project, which chapters contradict by design — **the format-scope defect class, found inside the test suite**
+- `feat(examples)`: `lamplighter-chapter-001` — cold start in a new world, 3 scenes composing 3 patterns, page-turn beats, the single rationed splash
+- Test count 80→89
+
 ## Notes for the Next Cycle
 
 - `pytest` is not installed in a fresh container: `python3 -m pip install pytest pyyaml` before running the suite.
@@ -144,11 +155,17 @@ Built the serialized format; it surfaced two defects, holding the pattern at 3 f
   pattern added to `PROMPT_BLOCK_FORBIDDEN` must be re-scanned against all styles first —
   `tests/test_validate.py::test_every_style_prompt_block_is_within_budget_and_pure` is the
   backstop, but scan before committing rather than after.
-- **Building in an unused format has now surfaced a defect three times out of three.**
+- **Building in an unused format has now surfaced a defect four times out of four.**
   4-koma found the pacing rule; webtoon found two (an arc-ledger field with no procedure
-  behind it, and an eyeline rule with no exception clause). This is the single most
-  productive activity in the backlog and should stay at the top until a format comes back
-  clean. `multi-page-chapter` is the last unbuilt sanctioned format.
+  behind it, and an eyeline rule with no exception clause); chapter found two more (a
+  mandated artifact with no template, and the pattern-agreement test asserting a rule that
+  only held for the formats built so far). This remains the single most productive activity
+  in the backlog. Two sanctioned formats are still unbuilt: `single-panel-gag` and
+  `2x2-grid-page`.
+- **The defect class is not confined to skills.** Cycle 8 found an instance in
+  `tests/test_examples.py` — a check written against the three formats that existed at the
+  time and stated as universal. Apply ground rule 6's diagnostic to tests and templates too,
+  not only to skill prose.
 - Both cycle-7 defects were found by *writing a filled-in artifact and hitting a rule that
   the artifact had to argue around in a note*. That is the tell: if a worked example needs
   a footnote explaining why it is allowed to do something, the rule is missing a clause.
