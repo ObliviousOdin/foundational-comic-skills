@@ -1,0 +1,64 @@
+# Filled-in instance of comic-direction/comic-producer/assets/templates/production-brief-template.yaml
+# The last unbuilt sanctioned format, in the Lamplighter world.
+
+project:
+  name: "The Lamplighter — Grid Pieces"
+  premise: "Single-page companion pieces to the chapter: two hands of the same night, side by side."
+  audience: "Print collection back matter; square social crop"
+  tone: "Reverent, unsentimental - same register as the chapter"
+
+inputs:
+  reference_images: ["ref/ada-photo.png", "ref/perrin-photo.png", "ref/kell-bridge.png"]
+  world_bible: "../lamplighter-chapter-001/world-bible.yaml"   # canonical bible, not copied
+  existing_canon: "chapter 001, Eleven Standards"
+
+contract:
+  format: "2x2-grid-page"
+  narrative_pattern: "parallel-action"
+  style_skill: "ligne-claire-franco-belge"
+  reading_direction: "ltr"
+  panel_flow: "z-path"          # 2x2 reads across then down, not column-wise
+
+scope:
+  total_panels: 4
+  episodes: 1
+  panels_per_episode: 4
+  rerender_reserve_pct: 20
+  deadline: "single delivery"
+  platforms: ["print", "instagram"]
+
+greenlight:
+  contract_locked: true
+  world_bible_valid: true
+  dna_templates_derived: true
+  negative_library_nonempty: true
+  style_lock_acknowledged: true
+  vision_statement_registered: true
+  first_shot_plan_ready: true
+  consistency_config_exported: true
+  blocking_list: []
+
+review_cadence:
+  episode_review: true
+  drift_reanchor_every_n_panels: 4
+  max_rerolls_per_panel: 2
+
+production_state:
+  panels_completed: 4
+  panels_rerendered: 1
+  reanchors_this_episode: 0
+  open_issues: []
+  decision_log:
+    - "Style switched from the chapter's painted-prestige to ligne-claire for the companion pieces - a second registered grammar over the same cast, and the style whose Direction Notes already describe waffle-grid discipline"
+    - "2x2-grid-page had NO style claiming it as native habitat before this project; ligne-claire and chibi-kawaii now do. Fixed upstream before planning"
+    - "T-rule: the vertical gutter is staggered 6mm between the upper and lower rows, so the four panels never meet at a clean cross"
+    - "P3 RETAKE: first render aligned the gutters into a perfect plus, which reads as four unrelated pictures rather than one page"
+
+signoff:
+  all_gates_passed: true
+  deliverables_match_contract: true
+  exports_generated: true
+  state_document_complete: true
+  version_history_updated: true
+  signed_off_by: "producer"
+  date: "2026-08-04"

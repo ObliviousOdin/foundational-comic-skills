@@ -1,6 +1,6 @@
 ---
 name: ligne-claire-franco-belge
-version: 2.0.0
+version: 2.1.0
 category: comic-styles
 description: Hergé-school ligne claire — one uniform line weight, zero hatching, flat unmodulated color zones, and documentary-precise backgrounds in the Franco-Belgian album tradition.
 ---
@@ -96,7 +96,7 @@ print feel, maximum clear-line readability.
 ## Integration
 
 - Loads `comic-core` and `comic-consistency`; rendered via `comic-image-generation-adapter`
-- Native habitat: `3-panel-horizontal` or `multi-page-chapter`; patterns `setup-reinforce-turnaround`, `parallel-action`
+- Native habitat: `3-panel-horizontal`, `multi-page-chapter`, or `2x2-grid-page` — the waffle-grid discipline in Direction Notes is this format's native temperament; patterns `setup-reinforce-turnaround`, `parallel-action`
 
 ---
 

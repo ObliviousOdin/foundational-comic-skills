@@ -5,11 +5,11 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 9 complete — next cycle starts at 10
-**Commits this session:** 54 (cycles 1–8 merged via PRs #4–#9)
+**Current cycle:** 10 complete — next cycle starts at 11
+**Commits this session:** 62 (cycles 1–9 merged via PRs #4–#10)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), 5 worked examples, validator green, 103 pytest tests passing
-**Formats built:** 5 of 6 sanctioned — only `2x2-grid-page` remains unbuilt
+**Current state:** 56 skills (30 styles), 6 worked examples, validator green, 112 pytest tests passing
+**Formats built:** 6 of 6 sanctioned — every format in `comic-format-library` now has a worked project
 
 **Commit identity:** commits are authored `obliviousodin <11676741+ObliviousOdin@users.noreply.github.com>`
 with no AI co-author trailer, by owner instruction. `main` history was rewritten once
@@ -34,32 +34,31 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Examples & Worked Proof (outranks style coverage — every new format has surfaced a real defect, now 4 for 4)
 
-2. `2x2-grid-page` worked project — the last unbuilt format after that; shares the locked-geometry constraint with 4-koma but adds the T-rule and Z-path reading
-3. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
+2. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
-4. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
-5. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
-6. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
-7. Marcinelle-school *gros nez* humour BD (European — only two European styles)
-8. Atomic-age retro-futurism (Sci-Fi)
-9. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
-10. Illuminated-manuscript marginalia (Decorative)
-11. Silhouette cut-paper theatre (Decorative)
+3. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
+4. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
+5. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
+6. Marcinelle-school *gros nez* humour BD (European — only two European styles)
+7. Atomic-age retro-futurism (Sci-Fi)
+8. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
+9. Illuminated-manuscript marginalia (Decorative)
+10. Silhouette cut-paper theatre (Decorative)
 
 ### Layer Depth
 
-12. **Documentary/comics-journalism research study** — `research/README.md` now names this as the one enforced contract resting on assumed practice rather than a cite-able source
-13. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
-14. `comic-production/comic-export-and-publish`: print CMYK gate refinement
-15. `research/`: color and palette science for sequential art, mapped into the traceability table
-16. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+11. **Documentary/comics-journalism research study** — `research/README.md` now names this as the one enforced contract resting on assumed practice rather than a cite-able source
+12. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
+13. `comic-production/comic-export-and-publish`: print CMYK gate refinement
+14. `research/`: color and palette science for sequential art, mapped into the traceability table
+15. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
 
 ### Documentation Accuracy
 
-17. Hermes integration notes: how an agent loads the layers in order
-18. `docs/showcase/README.md` accuracy pass against the 30-style tree
+16. Hermes integration notes: how an agent loads the layers in order
+17. `docs/showcase/README.md` accuracy pass against the 30-style tree
 
 ## Recently Completed
 
@@ -151,6 +150,17 @@ Built the second-smallest format; it found a contradiction, holding the pattern 
 
 Test count 89→103.
 
+**Cycle 10 (2026-08-04) — 5 commits, validator and tests green throughout**
+
+Last unbuilt format. **All six sanctioned formats now have a worked project**, and
+the pattern held: building it found a defect before a panel was planned.
+
+- `test(tests)`: the semver test hardcoded the gold file's version, so a routine bump made its mutation a no-op — now derived from the file
+- `fix(styles)`: **zero of thirty styles claimed `2x2-grid-page`** — a fully specified, pipelined format nothing pointed at. Homed in `ligne-claire-franco-belge` (its Direction Notes already said "waffle-grid discipline") and `chibi-kawaii-comic`; both 2.0.0→2.1.0
+- `feat(examples)`: `kell-grid-002` — Z-path putting parallel threads on the diagonal, T-rule as a recorded layout decision, convergence of meaning without the characters meeting
+- `feat(tools)`: every sanctioned format and pattern must be claimed by some style — the inverse of habitat resolution, and the check that would have caught the gap
+- Test count 103→112
+
 ## Notes for the Next Cycle
 
 - `pytest` is not installed in a fresh container: `python3 -m pip install pytest pyyaml` before running the suite.
@@ -163,13 +173,18 @@ Test count 89→103.
   pattern added to `PROMPT_BLOCK_FORBIDDEN` must be re-scanned against all styles first —
   `tests/test_validate.py::test_every_style_prompt_block_is_within_budget_and_pure` is the
   backstop, but scan before committing rather than after.
-- **Building in an unused format has now surfaced a defect five times out of five.**
+- **Building in an unused format surfaced a defect six times out of six, and the run is now complete** — every sanctioned format has been built. The technique cannot be repeated for formats; the nearest equivalent left is building an unused *pattern* (silent-strip) or an unused pipeline path.
   4-koma found the pacing rule; webtoon found two (an arc-ledger field with no procedure
   behind it, and an eyeline rule with no exception clause); chapter found two more (a
   mandated artifact with no template, and the pattern-agreement test asserting a rule that
   only held for the formats built so far). This remains the single most productive activity
   in the backlog. Two sanctioned formats are still unbuilt: `single-panel-gag` and
   `2x2-grid-page`.
+- **Two distinct gap shapes now have checks.** Rules stated too broadly (seven instances,
+  ground rule 6, semantic and uncheckable) and *sanctioned options nothing references*
+  (one instance, now validator-enforced by `check_library_coverage`). When adding any new
+  enumerated thing — a format, a pattern, a template, a gate layer — ask both questions:
+  is it stated at the right scope, and does anything actually point at it?
 - **The defect class is not confined to skills.** Cycle 8 found an instance in
   `tests/test_examples.py` — a check written against the three formats that existed at the
   time and stated as universal. Apply ground rule 6's diagnostic to tests and templates too,

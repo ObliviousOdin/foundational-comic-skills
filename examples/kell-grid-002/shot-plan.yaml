@@ -1,0 +1,127 @@
+# Filled-in instance of comic-direction/comic-director/assets/templates/shot-plan-template.yaml
+# Grid Pieces 002: "Both Hands" - one 2x2 page, parallel action on the diagonal.
+
+shot_plan:
+  project: "The Lamplighter — Grid Pieces"
+  episode: "grid-002"
+  strip_id: "kell-grid-002"
+  format: "2x2-grid-page"
+  narrative_pattern: "parallel-action"
+  reading_direction: "ltr"
+  panel_flow: "z-path"
+  vision_check: "reverent, unsentimental, exact"
+
+# Two constraints define this format and neither exists in any other:
+#
+# 1. Z-PATH, not a column. The reader goes TL -> TR -> BL -> BR. Parallel action
+#    therefore runs on the DIAGONAL: thread A holds TL and BR, thread B holds TR
+#    and BL. Each thread is read, interrupted, and resumed - which is the whole
+#    reason the format library names parallel-action native here.
+#
+# 2. The T-RULE. Four panels in a grid want to meet at a clean "+", and a clean
+#    "+" reads as four unrelated pictures rather than one page. The vertical
+#    gutter is staggered between the upper and lower rows so no four corners
+#    ever touch. This is a LAYOUT decision the Director owns, recorded here
+#    rather than left to whoever assembles the page.
+#
+# Geometry is locked in this format (comic-director pacing table), so tempo comes
+# from content density. Panel 4 is the emptiest.
+
+layout:
+  grid: "2x2"
+  canvas: "1:1 square"
+  t_rule:
+    satisfied: true
+    method: "vertical gutter staggered 6mm right between the upper and lower rows"
+    note: "no four panel corners meet at a point anywhere on the page"
+  gutters: "even 5mm, uniform width; only the vertical alignment is offset"
+
+threads:
+  A: "Ada, on the bridge, finishing the round she no longer needs to finish"
+  B: "Perrin, in the hut, filling in the decommission form he already delivered"
+
+panels:
+  - panel: 1
+    position: "top-left"
+    thread: "A"
+    beat_role: "THREAD A"
+    shot_size: "medium"
+    camera_angle: "eye-level"
+    staging: "Ada at the ninth standard, lamp key raised, the arc lamps already lit behind her; every object equally inked, background architecture as precise as the figure"
+    eyeline_vector: "she looks up at the mantle; the reader exits right along the top row"
+    transition_in: "n/a - page opening"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "Thread A established. Uniform line weight means the arc lamps behind her get the same nib as her hands - the style refuses to rank them, which is the point of the piece"
+
+  - panel: 2
+    position: "top-right"
+    thread: "B"
+    beat_role: "THREAD B"
+    shot_size: "medium"
+    camera_angle: "eye-level"
+    staging: "Perrin at the hut table, pen above the form, the drawer of eleven notices closed beside him"
+    eyeline_vector: "he looks down at the page; the reader drops to the lower-left panel"
+    transition_in: "scene"
+    dialogue:
+      bubbles: 1
+      lines: ["Effective the fourteenth."]
+      placement: "upper-right, clear of the window"
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "Thread B established. The one spoken line on the page, and it is administrative - the register the whole piece is measured against"
+
+  - panel: 3
+    position: "bottom-left"
+    thread: "B"
+    beat_role: "THREAD B"
+    shot_size: "close-up"
+    camera_angle: "eye-level"
+    staging: "Perrin's hand, the pen stopped, a small blot spreading where the nib has rested too long"
+    eyeline_vector: "none - the reader exits right along the bottom row"
+    transition_in: "action"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: >-
+      Thread B resumed after one panel away, which is the diagonal doing its work: the
+      interruption is what makes the stopped pen read as hesitation rather than a pause.
+      The blot is the ink stain the bible already gives him on the right cuff - established
+      canon paying off, not a new detail.
+
+  - panel: 4
+    position: "bottom-right"
+    thread: "A"
+    beat_role: "CONVERGE"
+    shot_size: "wide"
+    camera_angle: "eye-level"
+    staging: "Ada from behind, small against the bridge, the ninth standard now dark; the widest and emptiest panel on the page"
+    eyeline_vector: "she faces away down the span; the page ends"
+    transition_in: "scene"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: >-
+      Convergence without a meeting. Parallel action requires the final beat to change the
+      meaning of BOTH threads, and it does: she put the lamp out herself, which makes his
+      form a record of something already done rather than an order being carried out.
+      Emptiest panel on the page - the only tempo instrument available when geometry is locked.
+
+grid_check:
+  z_path_legible: true
+  threads_on_diagonal: true
+  t_rule_satisfied: true
+  convergence_changes_both_threads: true
+
+name_criteria:
+  strong_first_panel: true
+  layout_effortless: true
+  action_always_clear: true
+  shifts_convincing: true
+  emotion_legible: true
+
+final_cut:
+  verdict: "ACCEPT"
+  corrective_field: ""
+  artistic_life_note: >-
+    The diagonal is doing the work it is supposed to do - Perrin's stopped pen only reads
+    as hesitation because a panel of Ada sits between the two halves of his thread. First
+    render had the gutters in a clean cross and the page fell apart into four pictures;
+    the 6mm stagger fixed it, which is a startlingly small change for the effect. Signed.
