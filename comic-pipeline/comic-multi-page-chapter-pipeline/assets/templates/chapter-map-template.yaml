@@ -1,0 +1,56 @@
+# Chapter Map Template
+# One file per chapter. Authored by the Director BEFORE any page shot plan.
+# See comic-multi-page-chapter-pipeline SKILL.md.
+#
+# A chapter is the only format that composes several narrative patterns across
+# scenes, and the only one whose reading experience is shaped by the physical
+# page turn. Neither decision belongs in a per-page shot plan: by the time you
+# are planning page 4 it is too late to decide what page 3 should have withheld.
+
+chapter:
+  project: ""
+  chapter_id: ""
+  title: ""
+  bible_version: ""
+  style_skill: ""              # locked by the Producer; one per project
+  page_count: 0                # 4-9 panels per page, per comic-format-library
+  first_page_side: recto       # comics convention: page 1 is right-hand
+
+scenes:
+  - scene: 1
+    pages: []                  # e.g. [1, 2]
+    narrative_pattern: ""      # from comic-narrative-patterns; scenes may differ
+    location: ""               # must exist in the world bible world_register
+    axis: ""                   # 180-degree action axis for THIS scene
+    axis_reestablished: true   # required true for every scene after the first
+    purpose: ""                # what the reader knows at scene end that they did not at scene start
+
+page_grammar:
+  # One entry per page. The turn is the instrument: a recto ends on a question
+  # the reader must physically turn to answer; the verso opposite it opens with
+  # the consequence. Never split an action-to-action pair across a turn.
+  - page: 1
+    side: recto                # recto (right-hand) | verso (left-hand)
+    scene: 1
+    panel_count: 0             # 4-9
+    opens_with: ""             # versos open with a consequence
+    ends_on: ""                # rectos end on a question
+    turn_protected: true       # false only if this page's last beat continues onto the next
+    silent_panels: []          # >= 1 wordless panel per spread (chapter silence rhythm)
+
+climax:
+  page: 0
+  scene: 0
+  splash: false                # at most ONE full-page/splash per chapter
+  justification: ""            # required when splash is true; the map is the only authority that may grant it
+
+review_gates:
+  # The Producer schedules human review at every scene boundary, not per page.
+  - after_scene: 1
+    reviewer: ""
+    status: pending            # pending | passed | changes-requested
+
+revisions:
+  - date: ""
+    change: ""
+    rationale: ""
