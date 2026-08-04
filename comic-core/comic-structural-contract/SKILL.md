@@ -1,6 +1,6 @@
 ---
 name: comic-structural-contract
-version: 1.1.0
+version: 1.2.0
 category: comic-core
 description: Defines the default 3-panel horizontal narrative structure, panel relationships, and emotional arc requirements — and governs how sanctioned format and pattern variations extend it.
 ---
@@ -39,8 +39,9 @@ This skill codifies the structural grammar that gives short-form comics their po
    - Panel 3 delivers a meaningful shift (not random)
 
 3. **Visual Rhythm**
-   - Panel sizes can vary slightly for pacing (e.g., wider Panel 3 for impact)
-   - Avoid perfectly equal panels unless the style demands uniformity
+   - In variable-geometry formats, panel sizes can vary for pacing (e.g., wider Panel 3 for impact), and perfectly equal panels should be avoided
+   - **Uniformity is mandated by the format, not chosen by the style**: `4koma-vertical` and `2x2-grid-page` fix panel geometry outright, and varying it there breaks the format contract rather than improving the rhythm
+   - When geometry is locked, rhythm comes from content density instead — see the pacing instruments in `comic-director`
 
 4. **Gutter Meaning**
    - The space between panels is active — it represents time, emotional transition, or withheld information
