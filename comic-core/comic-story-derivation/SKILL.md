@@ -1,6 +1,6 @@
 ---
 name: comic-story-derivation
-version: 1.1.0
+version: 1.2.0
 category: comic-core
 description: A systematic method for extracting narrative seeds from reference images and transforming them into emotionally coherent panel stories — including multi-character and serialized derivation.
 ---
@@ -49,11 +49,24 @@ Rules:
 Before committing to an arc, verify it is not a repeat: if the last three strips used the same inciting-detail type (animal / object / stranger / weather), the same turnaround mechanism (gift / realization / reunion / reversal), or the same setting family, **change at least one**. Track these three axes in the production state. The cues guarantee the story fits the image; this check guarantees the *series* doesn't converge to one story wearing different clothes.
 
 ### Step 2: Emotional Arc Construction
-Map the four cues to the three-panel structure:
 
-- **Panel 1 (SETUP)**: Place the character in a situation that externalizes the **mood cue** + **wardrobe cue**. Introduce the **prop/companion cue** as a small inciting detail.
-- **Panel 2 (REINFORCE)**: Have the character **engage** with that detail. Deepen the emotional state using visual storytelling appropriate to the style.
-- **Panel 3 (TURNAROUND)**: Deliver an emotional reframing that feels earned. The turnaround should feel like a natural (but surprising) extension of the mood cue.
+Map the four cues to **the beats of the locked pattern** — not to a panel count. The default pattern is `setup-reinforce-turnaround` in three panels, mapped below; when the contract locks a different pattern, the cues attach to that pattern's beats instead.
+
+- **SETUP**: Place the character in a situation that externalizes the **mood cue** + **wardrobe cue**. Introduce the **prop/companion cue** as a small inciting detail.
+- **REINFORCE**: Have the character **engage** with that detail. Deepen the emotional state using visual storytelling appropriate to the style.
+- **TURNAROUND**: Deliver an emotional reframing that feels earned. The turnaround should feel like a natural (but surprising) extension of the mood cue.
+
+**Under another locked pattern**, the cue mapping changes shape rather than stretching:
+
+| Pattern | Where the cues attach |
+|---------|-----------------------|
+| `kishotenketsu` | Mood + wardrobe in *ki*; prop engaged in *shō*; **the *ten* is not a cue beat at all** — it steps outside the established frame, so forcing a cue into it produces a twist instead of a perspective shift; *ketsu* reconciles the *ten* with the prop or setting |
+| `gag-escalation` | The prop carries the repeated pattern; mood sets the register; the BREAK violates the expectation the first two beats built |
+| `slow-burn-reveal` | The setting cue does the withholding; the prop is the hint; the reveal recontextualizes the mood cue |
+| `parallel-action` | Cues split across threads — one thread owns the prop, the other the setting; the convergence beat must change what both mean |
+| `silent-strip` | Every cue must be carried by staging and expression alone; a cue that only survives in dialogue means the wrong cue was picked |
+
+The rule underneath: **panels are the container, beats are the structure.** A pattern with four beats in a four-panel format does not turn the cue mapping into four steps — it changes which beats exist.
 
 ### Step 3: Style Translation
 Once the emotional arc exists, translate it into the visual language of the chosen style:
@@ -69,7 +82,7 @@ Once the emotional arc exists, translate it into the visual language of the chos
 - Dialogue should advance the emotional arc, not explain it
 
 ### Anti-Patterns to Avoid
-- Using the same three-panel structure regardless of the reference image
+- Using the same beat structure regardless of the reference image or the locked pattern
 - Making the story about the prop instead of the character's emotional state
 - Choosing a turnaround that contradicts the mood cue
 - Writing dialogue that sounds like it came from a template
