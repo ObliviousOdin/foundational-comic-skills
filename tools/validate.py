@@ -16,7 +16,8 @@ Checks
 4. Style index sync: comic-styles/SKILL.md table rows match the
    directory tree exactly (presence, category, declared count).
 5. Cross-references: backticked `comic-*` tokens resolve to a real
-   skill or the planned-skills allowlist.
+   skill or the planned-skills allowlist, and every `When Not to Use`
+   redirect names a style that exists.
 6. YAML health: all template/example YAML files and fenced ```yaml
    blocks inside SKILL.md files parse.
 """
@@ -84,6 +85,8 @@ SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+$")
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 REF_RE = re.compile(r"`(comic-[a-z0-9-]+)`")
 PROMPT_BLOCK_RE = re.compile(r"## Prompt Block\s*\n+```text\n(.*?)\n```", re.DOTALL)
+WHEN_NOT_RE = re.compile(r"## When Not to Use\n(.*?)\n## ", re.DOTALL)
+BACKTICK_RE = re.compile(r"`([^`]+)`")
 
 # The Prompt Block is injected verbatim into a generation prompt alongside
 # character, scene, and negative blocks. Too short starves the backend of
@@ -263,6 +266,37 @@ def check_prompt_block_purity(path: Path, text: str) -> None:
             )
 
 
+def check_style_redirects(
+    style_texts: dict[Path, str], style_names: set[str], known: set[str]
+) -> None:
+    """`When Not to Use` must name a style that exists.
+
+    Schema v2 defines the section as honest mismatches plus the style to
+    use instead. A redirect is a routing instruction an agent follows, so
+    a typo sends it nowhere: `REF_RE` only covers `comic-*` tokens, and
+    style names do not carry that prefix.
+    """
+    allowed = style_names | PLANNED_SKILLS
+    for path, text in sorted(style_texts.items()):
+        m = WHEN_NOT_RE.search(text)
+        if not m:
+            continue  # a missing section is already reported by the schema check
+        for token in sorted(set(BACKTICK_RE.findall(m.group(1)))):
+            if token in allowed:
+                continue
+            if token in known:
+                err(
+                    f"{rel(path)}: `When Not to Use` redirects to `{token}`, "
+                    f"which is a skill but not a style — the section names the "
+                    f"style to use instead"
+                )
+            else:
+                err(
+                    f"{rel(path)}: `When Not to Use` redirects to `{token}`, "
+                    f"which resolves to no skill in this repository"
+                )
+
+
 def check_style_index(style_dirs: dict[str, str]) -> None:
     """style_dirs: skill-name -> category folder."""
     index_path = ROOT / "comic-styles" / "SKILL.md"
@@ -408,6 +442,7 @@ def main() -> int:
 
     known_skills: set[str] = set()
     style_dirs: dict[str, str] = {}
+    style_texts: dict[Path, str] = {}
 
     for path in skill_files():
         text = path.read_text(encoding="utf-8")
@@ -417,11 +452,13 @@ def main() -> int:
         parts = path.relative_to(ROOT).parts
         if parts[0] == "comic-styles" and len(parts) == 4:
             style_dirs[parts[2]] = parts[1]
+            style_texts[path] = text
             check_style_schema(path, text)
             if parts[1] not in STYLE_CATEGORY_NAMES:
                 err(f"{rel(path)}: unknown style category folder `{parts[1]}`")
 
     check_style_index(style_dirs)
+    check_style_redirects(style_texts, set(style_dirs), known_skills)
     check_cross_references(known_skills)
     check_yaml_health()
     check_example_bibles()
