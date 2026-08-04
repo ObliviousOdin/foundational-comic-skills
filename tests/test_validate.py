@@ -176,6 +176,50 @@ def test_missing_closing_aphorism_is_reported():
     assert any("closing italic aphorism" in e for e in validate.errors)
 
 
+# --- When Not to Use redirects ------------------------------------------
+
+
+def gold_redirect_targets() -> set[str]:
+    """The styles the gold-standard file actually redirects to."""
+    m = validate.WHEN_NOT_RE.search(GOLD.read_text(encoding="utf-8"))
+    return set(validate.BACKTICK_RE.findall(m.group(1)))
+
+
+def redirect_case(target: str) -> tuple[dict, set[str]]:
+    """Gold file with its first redirect swapped, plus the still-valid targets."""
+    replaced = "noir-expressionist-comic"
+    text = GOLD.read_text(encoding="utf-8").replace(f"`{replaced}`", f"`{target}`", 1)
+    intact = (gold_redirect_targets() - {replaced}) | {"ligne-claire-franco-belge"}
+    return {GOLD: text}, intact
+
+
+def test_every_style_redirect_resolves_in_the_live_corpus():
+    styles = {p: p.read_text(encoding="utf-8") for p in ROOT.glob("comic-styles/*/*/SKILL.md")}
+    names = {p.parent.name for p in styles}
+    known = {p.parent.name for p in ROOT.rglob("SKILL.md")}
+    validate.check_style_redirects(styles, names, known)
+    assert validate.errors == []
+
+
+def test_typo_in_redirect_is_reported():
+    texts, intact = redirect_case("noir-expressionist-comix")
+    validate.check_style_redirects(texts, intact, intact)
+    assert any("resolves to no skill" in e for e in validate.errors)
+
+
+def test_redirect_to_a_non_style_skill_is_reported():
+    texts, intact = redirect_case("comic-format-library")
+    validate.check_style_redirects(texts, intact, intact | {"comic-format-library"})
+    assert any("is a skill but not a style" in e for e in validate.errors)
+
+
+def test_redirect_to_a_real_style_is_accepted():
+    texts, intact = redirect_case("sin-city-graphic-noir")
+    styles = intact | {"sin-city-graphic-noir"}
+    validate.check_style_redirects(texts, styles, styles)
+    assert validate.errors == []
+
+
 # --- Style index synchronisation ----------------------------------------
 
 
