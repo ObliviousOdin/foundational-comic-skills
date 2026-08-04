@@ -192,10 +192,16 @@ Applied the build-an-unused-thing technique to a **pattern** rather than a forma
   pattern added to `PROMPT_BLOCK_FORBIDDEN` must be re-scanned against all styles first —
   `tests/test_validate.py::test_every_style_prompt_block_is_within_budget_and_pure` is the
   backstop, but scan before committing rather than after.
-- **Build-an-unused-thing is now 7 for 7** (six formats + one pattern). Five sanctioned
-  patterns remain unbuilt: `kishotenketsu` and `parallel-action` and `slow-burn-reveal` and
-  `gag-escalation` appear inside built projects but never as the *primary* lock of a project
-  designed around them. The technique is not exhausted — it moved from formats to patterns.
+- **Build-an-unused-thing finished 7 for 7, and is now genuinely exhausted.** A cycle-12
+  note claimed four patterns had never been a primary lock. That was wrong and was checked
+  in cycle 13: all six sanctioned patterns *and* all six sanctioned formats have been the
+  primary lock of a worked project. Verify with the loop in this file's cycle-13 entry
+  before assuming a seam exists.
+- **The remaining coverage seam is combinations, not items.** Seven projects cover 6 formats
+  and 6 patterns, but only 7 of the 36 format×pattern pairs. Most of the untried pairs are
+  uninteresting (the libraries already name which pairings are native), so this is a seam to
+  mine selectively — pick a pair the libraries call native and nobody has built — not a
+  matrix to fill.
 - **A file audited once is not cleared.** `comic-story-derivation` yielded a defect in cycle 5
   and another in cycle 12. The first audit grepped for panel-count phrasing; the second
   instance never mentions panels. Audit by *diagnostic*, not by keyword.
