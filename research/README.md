@@ -1,6 +1,6 @@
 # Research Foundation — Traceability Map
 
-Seven studies ground the system. Research is only useful here when a skill operationalizes it; this map shows where each finding became a contract.
+Eight studies ground the system. Research is only useful here when a skill operationalizes it; this map shows where each finding became a contract.
 
 | Research Document | Key Findings | Operationalized In |
 |-------------------|--------------|--------------------|
@@ -10,6 +10,7 @@ Seven studies ground the system. Research is only useful here when a skill opera
 | `COMIC-ART-EVALUATION-FRAMEWORKS.md` | Flow-first editorial rubric; 180° rule; gesture > polish; AI failure tells | `comic-director` (final cut order), `comic-quality-gates` (Layer 6 Artistic Life), `comic-producer` (review policy) |
 | `ADVANCED-CONSISTENCY-SYSTEMS.md` | Layered conditioning, IP-Adapter/LoRA orchestration, world bible architecture | `comic-world-bible-system`, `comic-character-consistency-system`, `comic-image-generation-adapter` (assembly contract) |
 | `COMICS-JOURNALISM-AND-DEPICTION-ETHICS.md` | Drawing has no negative, so provenance is recorded or lost; three registers (observed / reconstructed / represented); confidence grading; consent as distinct from sourcing; angle as editorial claim | `comic-world-bible-system` (§6 `source_register`, `source_note`), `reportage-comics-journalism` (negative locks, eye-level default, no invented interiority), `comic-producer` (consent is a publisher decision) |
+| `COLOR-AND-PALETTE-FOR-SEQUENTIAL-ART.md` | Value carries readability and hue carries meaning; the limited set makes drift visible; reserved colours work by scarcity and erode silently; local colour is identity while lighting colour is scene state | `comic-world-bible-system` (`color_palette_anchors`, `reserved_swatches`), `comic-quality-gates` (Layer 4 greyscale test), `comic-character-consistency-system` (contrast anchors separate in value) |
 | `STYLE-SPECIFIC-TECHNICAL-MASTERY.md` | Screentone physics, ligne claire doctrine, gekiga framing, ink behavior | Style skills (Schema v2 locks & consistency notes), `comic-style-memory-system` |
 
 ## Contracts That Trace to No Study
