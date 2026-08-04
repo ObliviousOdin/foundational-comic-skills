@@ -203,6 +203,147 @@ def test_assembled_prompt_opens_with_the_style_block(project):
     )
 
 
+# --- Arc ledger -----------------------------------------------------------
+
+
+def arc_ledger(project: Path) -> dict | None:
+    path = project / "arc-ledger.yaml"
+    return yaml.safe_load(path.read_text(encoding="utf-8")) if path.is_file() else None
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_arc_ledger_steps_prove_their_exit_states(project):
+    """A recorded exit state without a proof panel is tracking by vibes."""
+    ledger = arc_ledger(project)
+    if ledger is None:
+        pytest.skip(f"{project.name} carries no arc ledger")
+
+    for line in ledger["throughlines"]:
+        for step in line.get("steps") or []:
+            if not step.get("exit_actual"):
+                continue  # not yet delivered
+            assert step.get("proof_panel"), (
+                f"{project.name}: {line['character']} episode {step['episode']} "
+                f"records exit_actual `{step['exit_actual']}` with no proof_panel — "
+                f"the orchestrator requires a panel reference, not vibes"
+            )
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_arc_ledger_records_debt_when_a_target_is_missed(project):
+    """A miss is a continuity debt the next episode owes; silence is drift."""
+    ledger = arc_ledger(project)
+    if ledger is None:
+        pytest.skip(f"{project.name} carries no arc ledger")
+
+    for line in ledger["throughlines"]:
+        for step in line.get("steps") or []:
+            actual, target = step.get("exit_actual"), step.get("exit_target")
+            if not actual or actual == target:
+                continue
+            assert step.get("debt"), (
+                f"{project.name}: {line['character']} episode {step['episode']} "
+                f"exited at `{actual}` against a target of `{target}` and records "
+                f"no debt — an unrecorded miss is how an arc drifts silently"
+            )
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_arc_ledger_states_exist_in_the_bible(project):
+    """States must reference the world bible's expression library."""
+    ledger = arc_ledger(project)
+    if ledger is None:
+        pytest.skip(f"{project.name} carries no arc ledger")
+
+    known: set[str] = set()
+    for bible in EXAMPLES.glob("**/world-bible*.yaml"):
+        for entry in yaml.safe_load(bible.read_text(encoding="utf-8"))["character_compendium"]:
+            known |= set(entry.get("expression_library") or [])
+
+    for line in ledger["throughlines"]:
+        for field in ("baseline_state", "destination_state"):
+            assert line[field] in known, (
+                f"{project.name}: {line['character']} {field} `{line[field]}` is not "
+                f"in any world bible expression library"
+            )
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_arc_ledger_moves_one_step_per_episode(project):
+    """An episode moves each character at most one step; jumps are finales."""
+    ledger = arc_ledger(project)
+    if ledger is None:
+        pytest.skip(f"{project.name} carries no arc ledger")
+
+    for line in ledger["throughlines"]:
+        episodes = [s["episode"] for s in line.get("steps") or []]
+        assert len(episodes) == len(set(episodes)), (
+            f"{project.name}: {line['character']} has more than one step in a "
+            f"single episode — the orchestrator caps it at one"
+        )
+
+
+# --- Chapter map page grammar --------------------------------------------
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_chapter_pages_alternate_recto_and_verso(project):
+    """Page turns only work if sides alternate; the turn is the instrument."""
+    path = project / "chapter-map.yaml"
+    if not path.is_file():
+        pytest.skip(f"{project.name} is not a chapter project")
+
+    pages = yaml.safe_load(path.read_text(encoding="utf-8"))["page_grammar"]
+    for entry in pages:
+        expected = "recto" if entry["page"] % 2 else "verso"
+        assert entry["side"] == expected, (
+            f"{project.name}: page {entry['page']} is marked {entry['side']}; "
+            f"with page 1 on the recto, odd pages are recto and even are verso"
+        )
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_chapter_page_grammar_matches_the_scene_list(project):
+    """Every page belongs to exactly one scene, and every scene page is planned."""
+    path = project / "chapter-map.yaml"
+    if not path.is_file():
+        pytest.skip(f"{project.name} is not a chapter project")
+
+    chapter_map = yaml.safe_load(path.read_text(encoding="utf-8"))
+    scene_pages = {p for s in chapter_map["scenes"] for p in s["pages"]}
+    grammar_pages = {e["page"] for e in chapter_map["page_grammar"]}
+    assert scene_pages == grammar_pages, (
+        f"{project.name}: scenes cover pages {sorted(scene_pages)} but page "
+        f"grammar covers {sorted(grammar_pages)}"
+    )
+    assert grammar_pages == set(range(1, chapter_map["chapter"]["page_count"] + 1)), (
+        f"{project.name}: page grammar does not cover 1..{chapter_map['chapter']['page_count']}"
+    )
+
+
+@pytest.mark.parametrize("project", example_dirs(), ids=lambda p: p.name)
+def test_chapter_panel_counts_sit_inside_the_format_range(project):
+    """comic-format-library sets 4-9 panels per chapter page; a splash is 1."""
+    path = project / "chapter-map.yaml"
+    if not path.is_file():
+        pytest.skip(f"{project.name} is not a chapter project")
+
+    chapter_map = yaml.safe_load(path.read_text(encoding="utf-8"))
+    splash_page = (chapter_map.get("climax") or {}).get("page")
+    for entry in chapter_map["page_grammar"]:
+        count = entry["panel_count"]
+        if entry["page"] == splash_page and (chapter_map["climax"] or {}).get("splash"):
+            assert count == 1, (
+                f"{project.name}: page {entry['page']} is the designated splash "
+                f"but declares {count} panels"
+            )
+            continue
+        assert 1 <= count <= 9, (
+            f"{project.name}: page {entry['page']} declares {count} panels; "
+            f"the format library allows 4-9 (1 only for the designated splash)"
+        )
+
+
 def test_world_bibles_in_examples_validate():
     bibles = sorted(EXAMPLES.glob("**/world-bible*.yaml"))
     assert bibles, "at least one example must carry a canonical world bible"
