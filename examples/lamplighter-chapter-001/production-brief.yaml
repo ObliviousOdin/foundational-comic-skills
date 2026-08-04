@@ -1,0 +1,65 @@
+# Filled-in instance of comic-direction/comic-producer/assets/templates/production-brief-template.yaml
+
+project:
+  name: "The Lamplighter"
+  premise: "On the night Kell Bridge is electrified, its last lamplighter hands over a job that has already ended."
+  audience: "Prestige single-issue readers; print-first"
+  tone: "Reverent, unsentimental - a craft ending without anyone being at fault"
+
+inputs:
+  reference_images: ["ref/ada-photo.png", "ref/perrin-photo.png", "ref/kell-bridge.png"]
+  world_bible: "world-bible.yaml"
+  existing_canon: "none - cold start, first chapter"
+
+contract:
+  format: "multi-page-chapter"
+  narrative_pattern: "slow-burn-reveal"   # chapter-level spine; scenes vary, see chapter-map.yaml
+  style_skill: "painted-prestige-comic"
+  reading_direction: "ltr"
+
+scope:
+  total_panels: 29
+  episodes: 1
+  panels_per_episode: 29
+  rerender_reserve_pct: 25          # painted work re-renders more; reserve raised from the 20% default
+  deadline: "single delivery"
+  platforms: ["print", "pdf"]
+
+greenlight:
+  contract_locked: true
+  world_bible_valid: true
+  dna_templates_derived: true
+  negative_library_nonempty: true
+  style_lock_acknowledged: true
+  vision_statement_registered: true
+  first_shot_plan_ready: true
+  consistency_config_exported: true
+  chapter_map_registered: true      # chapter format: the map precedes every page plan
+  blocking_list: []
+
+review_cadence:
+  episode_review: true
+  scene_boundary_review: true       # chapter rule: human review at scene boundaries, not per page
+  drift_reanchor_every_n_panels: 8  # painted faces drift faster than line work
+  max_rerolls_per_panel: 2
+
+production_state:
+  panels_completed: 29
+  panels_rerendered: 4
+  reanchors_this_episode: 3
+  open_issues: []
+  decision_log:
+    - "Chapter-level pattern recorded as slow-burn-reveal, but the map assigns a pattern per scene - a chapter composes patterns, and the brief field holds the spine only"
+    - "Kell Bridge registered twice in the bible (gas-lit and electrified) so the final scene is not generated as the same place slightly brighter"
+    - "Splash spent on page 6 per the chapter map; no other full-page panel anywhere in the chapter"
+    - "Page 5 planned wholly silent - four panels, no text. Chapter silence rhythm requires one wordless panel per spread; this spends far more, deliberately"
+    - "p4.3 RETAKE x2: the drawer of eleven notices rendered as a neat stack, which read as filing rather than as years. Corrective field staging; third render has them loose and differently aged"
+
+signoff:
+  all_gates_passed: true
+  deliverables_match_contract: true
+  exports_generated: true
+  state_document_complete: true
+  version_history_updated: true
+  signed_off_by: "producer"
+  date: "2026-08-04"
