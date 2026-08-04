@@ -1,0 +1,64 @@
+# Filled-in instance of comic-direction/comic-producer/assets/templates/production-brief-template.yaml
+# The first worked project locking a PATTERN nobody had built.
+
+project:
+  name: "Tidepool"
+  premise: "A child and a stranded starfish, told entirely without words."
+  audience: "All-ages print and feed; wordless work travels across languages"
+  tone: "Patient, tender, unsentimental about the sea"
+
+inputs:
+  reference_images: ["ref/child.png", "ref/tidepool.png"]
+  world_bible: "world-bible.yaml"
+  existing_canon: "none - first strip"
+
+contract:
+  format: "3-panel-horizontal"
+  narrative_pattern: "silent-strip"
+  style_skill: "ink-wash-storybook-manga"
+  reading_direction: "ltr"          # RTL-eligible style, LTR chosen for the target market
+
+scope:
+  total_panels: 3
+  episodes: 1
+  panels_per_episode: 3
+  rerender_reserve_pct: 25          # wash work re-renders more than line work
+  deadline: "single delivery"
+  platforms: ["print", "instagram"]
+
+greenlight:
+  contract_locked: true
+  world_bible_valid: true
+  dna_templates_derived: true
+  negative_library_nonempty: true
+  style_lock_acknowledged: true
+  vision_statement_registered: true
+  first_shot_plan_ready: true
+  consistency_config_exported: true
+  gesture_seeding_complete: true    # silent-strip: Step 4 seeds gestures, not lines
+  blocking_list: []
+
+review_cadence:
+  episode_review: true
+  drift_reanchor_every_n_panels: 3
+  max_rerolls_per_panel: 2
+
+production_state:
+  panels_completed: 3
+  panels_rerendered: 2
+  reanchors_this_episode: 0
+  open_issues: []
+  decision_log:
+    - "comic-story-derivation Step 4 previously said 'generate 1-2 lines per panel' unconditionally, which contradicts this pattern's defining rule. Raised and fixed upstream (1.2.0 -> 1.3.0) before planning"
+    - "Gesture seeding replaced dialogue seeding: each beat records the body movement that would have carried the line"
+    - "P2 RETAKE x2: first two renders gave the child an open-mouthed reaction, which reads as a sound and imports the dialogue this pattern removes. Third render closes the mouth and moves the beat into the shoulders"
+    - "No SFX. The style sanctions sparse SFX, but a sound effect in a silent strip is dialogue wearing a different font"
+
+signoff:
+  all_gates_passed: true
+  deliverables_match_contract: true
+  exports_generated: true
+  state_document_complete: true
+  version_history_updated: true
+  signed_off_by: "producer"
+  date: "2026-08-04"

@@ -5,10 +5,10 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 11 complete — next cycle starts at 12
-**Commits this session:** 68 (cycles 1–10 merged via PRs #4–#11)
+**Current cycle:** 12 complete — next cycle starts at 13
+**Commits this session:** 74 (cycles 1–11 merged via PRs #4–#12)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), 6 worked examples, 7 research studies, validator green, 116 pytest tests passing
+**Current state:** 56 skills (30 styles), 7 worked examples, 7 research studies, validator green, 123 pytest tests passing
 **Formats built:** 6 of 6 sanctioned — every format in `comic-format-library` now has a worked project
 
 **Commit identity:** commits are authored `obliviousodin <11676741+ObliviousOdin@users.noreply.github.com>`
@@ -34,29 +34,26 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Examples & Worked Proof (outranks style coverage — every new format has surfaced a real defect, now 4 for 4)
 
-2. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
-3. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
-4. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
-5. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
-6. Marcinelle-school *gros nez* humour BD (European — only two European styles)
-7. Atomic-age retro-futurism (Sci-Fi)
-8. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
-9. Illuminated-manuscript marginalia (Decorative)
-10. Silhouette cut-paper theatre (Decorative)
+2. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
+3. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
+4. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
+5. Marcinelle-school *gros nez* humour BD (European — only two European styles)
+6. Atomic-age retro-futurism (Sci-Fi)
+7. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
+8. Illuminated-manuscript marginalia (Decorative)
+9. Silhouette cut-paper theatre (Decorative)
 
 ### Layer Depth
 
-11. `comic-production/comic-export-and-publish`: print CMYK gate refinement
-12. `research/`: color and palette science for sequential art, mapped into the traceability table
-13. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+10. `comic-production/comic-export-and-publish`: print CMYK gate refinement
+11. `research/`: color and palette science for sequential art, mapped into the traceability table
+12. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
 
 ### Documentation Accuracy
 
-14. Hermes integration notes: how an agent loads the layers in order
-15. `docs/showcase/README.md` accuracy pass against the 30-style tree
 
 ## Recently Completed
 
@@ -173,6 +170,16 @@ The cycle is worth remembering as a shape: study → named gaps → schema → e
 docs, inside one cycle. A study that ends with "gaps this leaves open" gives the next
 commits their agenda for free.
 
+**Cycle 12 (2026-08-04) — 5 commits, validator and tests green throughout**
+
+Applied the build-an-unused-thing technique to a **pattern** rather than a format. Held.
+
+- `fix(core)`: `comic-story-derivation` Step 4 seeded dialogue unconditionally, which `silent-strip` forbids by definition — **defect 9**, in a file cycle 5 had already audited; 1.2.0→1.3.0
+- `feat(examples)`: `tidepool-silent-004` — gesture seeding (the line that would have been, recorded beside the movement replacing it); the defining retake was an open mouth, which imports speech without a letter
+- `feat(consistency)`: **contract bleed** named as the fifth negative class, once three projects showed it; 1.4.0→1.5.0
+- `docs(docs)`: `docs/AGENT-INTEGRATION.md` — load order and precedence, resolving to *a permission never overrides a lock*
+- `docs(docs)`: stale counts corrected and a research-map claim that had become false (three "cannot express" gaps closed in cycle 11)
+
 ## Notes for the Next Cycle
 
 - `pytest` is not installed in a fresh container: `python3 -m pip install pytest pyyaml` before running the suite.
@@ -185,7 +192,13 @@ commits their agenda for free.
   pattern added to `PROMPT_BLOCK_FORBIDDEN` must be re-scanned against all styles first —
   `tests/test_validate.py::test_every_style_prompt_block_is_within_budget_and_pure` is the
   backstop, but scan before committing rather than after.
-- **Building in an unused format surfaced a defect six times out of six, and the run is now complete** — every sanctioned format has been built. The technique cannot be repeated for formats; the nearest equivalent left is building an unused *pattern* (silent-strip) or an unused pipeline path.
+- **Build-an-unused-thing is now 7 for 7** (six formats + one pattern). Five sanctioned
+  patterns remain unbuilt: `kishotenketsu` and `parallel-action` and `slow-burn-reveal` and
+  `gag-escalation` appear inside built projects but never as the *primary* lock of a project
+  designed around them. The technique is not exhausted — it moved from formats to patterns.
+- **A file audited once is not cleared.** `comic-story-derivation` yielded a defect in cycle 5
+  and another in cycle 12. The first audit grepped for panel-count phrasing; the second
+  instance never mentions panels. Audit by *diagnostic*, not by keyword.
   4-koma found the pacing rule; webtoon found two (an arc-ledger field with no procedure
   behind it, and an eyeline rule with no exception clause); chapter found two more (a
   mandated artifact with no template, and the pattern-agreement test asserting a rule that

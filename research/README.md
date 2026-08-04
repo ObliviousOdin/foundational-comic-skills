@@ -1,6 +1,6 @@
 # Research Foundation — Traceability Map
 
-Six studies ground the system. Research is only useful here when a skill operationalizes it; this map shows where each finding became a contract.
+Seven studies ground the system. Research is only useful here when a skill operationalizes it; this map shows where each finding became a contract.
 
 | Research Document | Key Findings | Operationalized In |
 |-------------------|--------------|--------------------|
@@ -20,7 +20,7 @@ The table above runs one direction: research is trivia unless a skill enforces i
 |----------|--------------|---------|
 | **Prompt Block trust boundary** (`tools/validate.py`, quality-gates Layer 0) | Engineering, not art. The block is concatenated verbatim into a live generation prompt, so every contributed style skill is an untrusted-input boundary | **Legitimate.** No comics study could ground this — it is a property of the generation pipeline, not of comics. Cite the threat model |
 | **Prompt Block collision threshold (0.60)** | Measured across this corpus: the closest legitimately adjacent pair sits at 0.27 | **Legitimate but local.** The number describes these 30 styles and should be re-measured, not inherited, if the corpus changes character |
-| **Format-scope rule** (`CONTRIBUTING.md`) | Five defects found and fixed, not a study | **Legitimate.** An internal finding, labelled as one |
+| **Format-scope rule** (`CONTRIBUTING.md`) | Nine defects found and fixed, not a study | **Legitimate.** An internal finding, labelled as one |
 | **Nonfiction `source_register`** (`comic-world-bible-system`) | `COMICS-JOURNALISM-AND-DEPICTION-ETHICS.md` | **Closed.** Was the one enforced contract resting on assumed practice; the study now grounds it, and names three sourcing distinctions the schema still cannot express |
 
 ## Gaps the Research Names That Remain Open
@@ -28,7 +28,7 @@ The table above runs one direction: research is trivia unless a skill enforces i
 - Real-time micro-decision capture during execution (the *name* → final-art translation) — partially mitigated by the Director's decision log
 - Cross-cultural production differences (manga vs. Western vs. BD planning) — reading-direction rule covers the structural piece only
 - Statistical aesthetics residuals (~25–50% of judgment unexplained) — Layer 6 stays a human/Director call by design
-- **Three sourcing distinctions the schema cannot express**, all raised by the new ethics study: a panel's register (observed / reconstructed / represented), the identifiability gradient an artist chooses for a real subject, and composite-character disclosure. The study is cite-able; the enforcement is not yet complete
+- ~~Three sourcing distinctions the schema cannot express~~ — **closed the same cycle they were raised.** `register`, `identifiability`, and `composite_disclosure` are schema fields and validator-enforced. What remains open is narrower: no worked example yet carries a nonfiction bible, so the fields are enforced but undemonstrated
 
 ---
 

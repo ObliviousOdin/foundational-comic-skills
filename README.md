@@ -100,7 +100,7 @@ Please run the stack in order:
 | --- | --- | --- |
 | **New to the repo** | [`examples/rabot-strip-001/WALKTHROUGH.md`](examples/rabot-strip-001/WALKTHROUGH.md) | Fastest way to understand the complete loop |
 | **Building a series** | [`comic-consistency/comic-world-bible-system/SKILL.md`](comic-consistency/comic-world-bible-system/SKILL.md) | Canon, characters, locations, negative prompts |
-| **Choosing a look** | [`comic-styles/SKILL.md`](comic-styles/SKILL.md) | 28 production-grade Schema v2 style skills |
+| **Choosing a look** | [`comic-styles/SKILL.md`](comic-styles/SKILL.md) | 30 production-grade Schema v2 style skills |
 | **Directing panels** | [`comic-direction/comic-director/SKILL.md`](comic-direction/comic-director/SKILL.md) | Shot size, camera, staging, pacing, final cut |
 | **Shipping output** | [`comic-production/comic-export-and-publish/SKILL.md`](comic-production/comic-export-and-publish/SKILL.md) | Export specs, delivery contracts, publish checks |
 | **Contributing styles** | [`CONTRIBUTING.md`](CONTRIBUTING.md) | Schema v2 requirements and validator rules |
@@ -201,7 +201,7 @@ A project composes one choice from each library. The Producer locks those choice
 | --- | --- |
 | [`comic-format-library`](comic-core/comic-format-library/SKILL.md) | 3-panel horizontal, 4-koma vertical, webtoon scroll, single-panel gag, 2×2 grid, multi-page chapter |
 | [`comic-narrative-patterns`](comic-core/comic-narrative-patterns/SKILL.md) | setup→reinforce→turnaround, kishōtenketsu, gag escalation, slow-burn reveal, parallel action, silent strip |
-| [`comic-styles/`](comic-styles/SKILL.md) | 28 style skills across 12 categories |
+| [`comic-styles/`](comic-styles/SKILL.md) | 30 style skills across 12 categories |
 | [`comic-pipeline/`](comic-pipeline/SKILL.md) | 3-panel, 4-koma, webtoon scroll, multi-page chapter, emotional arc orchestration |
 
 ---
@@ -252,7 +252,7 @@ foundational-comic-skills/
 ├── comic-core/                    # laws: contracts, gates, patterns, formats, lettering
 ├── comic-consistency/             # memory: world bible, DNA, style memory, orchestration
 ├── comic-direction/               # judgment: Producer + Director
-├── comic-styles/                  # 28 Schema v2 style skills across 12 categories
+├── comic-styles/                  # 30 Schema v2 style skills across 12 categories
 ├── comic-pipeline/                # workflows: strips, 4-koma, webtoon, chapters, arcs
 ├── comic-production/              # delivery: export and publish specs
 ├── examples/                      # complete worked projects
@@ -280,6 +280,7 @@ foundational-comic-skills/
 
 The repository enforces its own discipline:
 
+- **Agent load order:** [`docs/AGENT-INTEGRATION.md`](docs/AGENT-INTEGRATION.md) states what an agent reads, in what order, and which layer wins when two disagree — a permission never overrides a lock.
 - **Validator:** `python3 tools/validate.py` checks frontmatter, Schema v2, style-index sync, cross-reference resolution, native-habitat routing, world-bible provenance, and YAML health. `--style` and `--bible` narrow it to one file.
 - **Prompt Block trust boundary:** style fragments reach a generation backend verbatim, so the validator holds them to a 40–90 word budget, rejects injection surfaces (pronouns, imperatives, meta-instruction tokens, story content, quoted copy), and fails any two styles that collapse into the same fragment. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 - **CI:** `.github/workflows/validate.yml` runs the validator *and* the test suite on every push and PR.
@@ -323,7 +324,7 @@ When adding style skills, follow [`CONTRIBUTING.md`](CONTRIBUTING.md) and keep S
 - Provide a single source of truth for long-form comic consistency.
 - Make every creative decision explicit, owned, and made before generation.
 - Enable derivable, versioned consistency artifacts.
-- Support disciplined variation: formats × narrative patterns × 28 styles.
+- Support disciplined variation: formats × narrative patterns × 30 styles.
 - Give Hermes agents and other LLM pipelines clear, structured comic skills.
 - Bridge research and production with practical, validator-backed systems.
 
