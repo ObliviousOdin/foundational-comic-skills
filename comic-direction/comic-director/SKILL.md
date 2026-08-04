@@ -1,6 +1,6 @@
 ---
 name: comic-director
-version: 1.0.0
+version: 1.1.0
 category: comic-direction
 description: The creative authority for every comic project. Owns the directorial vision, per-panel shot planning (the digital "name"), camera grammar, staging, transition selection, pacing, and the final cut. Operationalizes the repository's research on artistic decision-making and editorial evaluation.
 ---
@@ -60,9 +60,21 @@ A shot plan passes the **five *name* criteria** before generation:
 ### 4. Pacing & Emotional Modulation
 
 - Map the strip's **beat rhythm** before sizing panels: fast → build → release is the default curve
-- The emotional peak gets the **largest panel and the widest preceding gutter**; silence lands harder than dialogue at the peak
+- Where the format permits variable geometry, the emotional peak gets the **largest panel and the widest preceding gutter**; silence lands harder than dialogue at the peak
 - Modulate rendering intensity with emotion where the style permits: crop tighter, increase hatching/spot-black density, or open negative space as the beat demands (per `STYLE-SPECIFIC-TECHNICAL-MASTERY`)
 - One **breathing panel** (low detail, low text) per strip is a feature, not waste
+
+**Pacing when geometry is locked.** Two sanctioned formats forbid the move above: `4koma-vertical` fixes equal panel heights and uniform gutters, and `2x2-grid-page` fixes the grid. In those formats, reaching for a bigger panel is not a directorial choice — it breaks the format contract, and Layer 1 rejects it. Tempo must come from **content density** instead:
+
+| Instrument | How it slows a beat | Available when geometry is locked |
+|---|---|---|
+| Panel size and gutter width | The peak panel is physically larger, the pause before it wider | No — variable-geometry formats only |
+| Content density | The pause panel holds the least: fewer figures, emptier field, no text | **Yes** |
+| Shot-size jump | A sudden extreme wide or extreme close reads as a gear change | **Yes** |
+| Silence | Removing dialogue lengthens the beat without changing the frame | **Yes** |
+| Subject removal | Cutting away from the cast entirely (a place, an object, an exterior) | **Yes** |
+
+The emptiest drawing in an equal-panel strip is its longest beat. `examples/rabot-4koma-002/` builds a *ten* this way: no figures, no text, one lit window.
 
 ### 5. The Final Cut (Flow-First Review)
 

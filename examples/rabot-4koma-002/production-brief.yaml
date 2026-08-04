@@ -1,0 +1,63 @@
+# Filled-in instance of comic-direction/comic-producer/assets/templates/production-brief-template.yaml
+# Side series parked during strip-001 intake, now greenlit.
+
+project:
+  name: "Rabot — Small Hours"
+  premise: "Chibi side strips from the same station: tiny wants, huge feelings, four panels at a time."
+  audience: "Existing Rabot readers; standalone-friendly on vertical feeds"
+  tone: "Sweet, low-stakes, quietly fond - the main strip's warmth with none of its fatigue"
+
+inputs:
+  reference_images: ["ref/rabot-photo.png", "ref/echo-concept.png"]
+  world_bible: "../rabot-strip-001/world-bible.yaml"   # canonical bible, not copied
+  existing_canon: "strips 001-004 of the main series; arc ledger season-1"
+
+contract:
+  format: "4koma-vertical"
+  narrative_pattern: "kishotenketsu"
+  style_skill: "chibi-kawaii-comic"
+  reading_direction: "ltr"      # moot within the format - vertical reads top-to-bottom
+  panel_flow: "top-to-bottom"   # comic-format-library reading-direction rule, clause 3
+
+scope:
+  total_panels: 32
+  episodes: 8
+  panels_per_episode: 4
+  rerender_reserve_pct: 20
+  deadline: "fortnightly, alternating with the main strip"
+  platforms: ["instagram", "webtoon-vertical"]
+
+greenlight:
+  contract_locked: true
+  world_bible_valid: true
+  dna_templates_derived: true
+  negative_library_nonempty: true
+  style_lock_acknowledged: true
+  vision_statement_registered: true
+  first_shot_plan_ready: true
+  consistency_config_exported: true
+  blocking_list: []
+
+review_cadence:
+  episode_review: true
+  drift_reanchor_every_n_panels: 8    # tighter than the main strip: chibi proportion drifts fast
+  max_rerolls_per_panel: 2
+
+production_state:
+  panels_completed: 4
+  panels_rerendered: 0
+  reanchors_this_episode: 0
+  open_issues: []
+  decision_log:
+    - "Pattern: kishotenketsu chosen over the style's listed gag-escalation habitat - the side series is fond, not punchy; native habitat is guidance, the contract decides"
+    - "Panel 3 (ten) locked silent before generation - the format library notes the ten is often strongest wordless"
+    - "Bible referenced, not copied: strip-001 holds canon; this project contributes bible-delta-v3.yaml"
+
+signoff:
+  all_gates_passed: true
+  deliverables_match_contract: true
+  exports_generated: true
+  state_document_complete: true
+  version_history_updated: true
+  signed_off_by: "producer"
+  date: "2026-08-04"
