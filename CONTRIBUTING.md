@@ -9,11 +9,11 @@ This repository is a **contract library**: skills are specifications that agents
 3. **Semantic versioning per skill.** Patch = clarification; minor = new rules or sections that don't break consumers; major = schema or contract changes. Every bump is reflected in `CHANGELOG.md`.
 4. **Derive, don't duplicate.** If content exists in a library skill (formats, patterns, lettering), reference it — never paste a second copy that can drift.
 5. **No vapor.** A skill marked ✅ must be fully written. Planned skills live only in layer-index tables, marked `Planned`, and are listed in the validator's planned-skills allowlist.
-6. **Every rule names its scope.** See below — this one has cost the repository five defects.
+6. **Every rule names its scope.** See below — this one has cost the repository nine defects.
 
 ## Rules Must Name Their Scope
 
-The default format is a 3-panel horizontal strip, and it is easy to write a rule *about* that default while phrasing it as though it governed everything. Five such defects have been found and fixed, all the same shape:
+The default format is a 3-panel horizontal strip, and it is easy to write a rule *about* that default while phrasing it as though it governed everything. Nine such defects have been found and fixed, all the same shape:
 
 | Skill | Said | Could not be obeyed in |
 |-------|------|------------------------|
@@ -22,10 +22,20 @@ The default format is a 3-panel horizontal strip, and it is easy to write a rule
 | `comic-quality-gates` | Same face across **all three panels** | An 8-panel segment passes by holding 3 |
 | `comic-story-derivation` | Map the four cues to **the three-panel structure** | Any 4-beat pattern; the *ten* is not a cue beat |
 | `comic-lettering-and-balloons` | One silent panel **per strip** | `single-panel-gag` — forbids the text the format allows |
+| `minimalist-line-webcomic` | Caption boxes **remain forbidden** | `single-panel-gag`, which the style claims as habitat, grants a caption |
+| `elegant-art-nouveau-comic` | Caption boxes **remain forbidden** | Same — both styles refused an element their own format grants |
+| `comic-story-derivation` (Step 4) | Generate **1–2 lines per panel** | `silent-strip`, whose defining rule is zero dialogue |
+| `tests/test_examples.py` | Shot plan pattern **equals** the brief's | `multi-page-chapter` assigns a pattern per scene |
 
 **The diagnostic.** Before committing any rule stated without qualification, ask: *can `4koma-vertical` and `webtoon-scroll-segment` obey this?* If not, the rule is scoped wrong — not the format. Fix it by naming the scope ("in variable-geometry formats…"), by deriving the unit from the locked format, or by stating the exemption outright.
 
-These defects are invisible to the validator because they are semantic, and they are dangerous precisely because they produce plausible output: an agent obeys the rule, ships a legal-looking strip, and violates the format contract it was also obeying. The cheapest way to find them is to build a worked example in a format nobody has used yet — that is how four of the five surfaced.
+These defects are invisible to the validator because they are semantic, and they are dangerous precisely because they produce plausible output: an agent obeys the rule, ships a legal-looking strip, and violates the format contract it was also obeying. The cheapest way to find them is to build a worked example in a format or pattern nobody has used yet — that is how most of them surfaced.
+
+Three things the list teaches that the diagnostic alone does not:
+
+- **The class is not confined to skill prose.** One instance lived in the test suite, written against the formats that existed at the time.
+- **A file being audited once does not clear it.** `comic-story-derivation` appears twice. The first audit scanned for panel-count phrasing; Step 4 is the same mistake wearing different words and never mentions panels.
+- **Patterns count too.** Substitute `silent-strip` into the diagnostic alongside the two formats: a pattern defined by the *absence* of something is the sharpest test of a rule that assumes its presence.
 
 ## Repository Layers (where things go)
 
