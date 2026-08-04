@@ -323,7 +323,13 @@ def test_frontmatter_name_must_match_directory():
 
 
 def test_non_semver_version_is_reported():
-    text = GOLD.read_text(encoding="utf-8").replace("version: 2.0.0", "version: 2.0", 1)
+    # Derive the current version rather than hardcoding it: a routine version
+    # bump on the gold-standard file must not silently disarm this test.
+    current = re.search(r"^version: (\S+)$", GOLD.read_text(encoding="utf-8"), re.MULTILINE)
+    assert current, "gold-standard style has no version line"
+    text = GOLD.read_text(encoding="utf-8").replace(
+        f"version: {current.group(1)}", "version: 2.0", 1
+    )
     validate.check_frontmatter_and_aphorism(GOLD, text)
     assert any("is not semver" in e for e in validate.errors)
 
