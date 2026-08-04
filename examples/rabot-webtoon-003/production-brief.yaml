@@ -1,0 +1,65 @@
+# Filled-in instance of comic-direction/comic-producer/assets/templates/production-brief-template.yaml
+# Third format in the Rabot world: a serialized vertical-scroll arc.
+
+project:
+  name: "Rabot — Long Night"
+  premise: "A serialized scroll arc: the station loses contact with ground control, and two people who share a room learn how much they rely on each other."
+  audience: "Vertical-feed serial readers; existing Rabot readers get the payoff"
+  tone: "Held breath - quiet dread that resolves warm, never bleak"
+
+inputs:
+  reference_images: ["ref/rabot-photo.png", "ref/echo-concept.png"]
+  world_bible: "../rabot-strip-001/world-bible.yaml"   # canonical bible, not copied
+  existing_canon: "main series strips 001-012; Small Hours side series; arc ledger season-1"
+
+contract:
+  format: "webtoon-scroll-segment"
+  narrative_pattern: "slow-burn-reveal"
+  style_skill: "manhwa-color-webtoon"
+  reading_direction: "ltr"
+  panel_flow: "top-to-bottom"    # comic-format-library reading-direction rule, clause 3
+
+scope:
+  total_panels: 42
+  episodes: 6
+  panels_per_episode: 7          # one scroll segment per episode
+  rerender_reserve_pct: 20
+  deadline: "weekly"
+  platforms: ["webtoon-vertical", "instagram"]
+
+greenlight:
+  contract_locked: true
+  world_bible_valid: true
+  dna_templates_derived: true
+  negative_library_nonempty: true
+  style_lock_acknowledged: true
+  vision_statement_registered: true
+  first_shot_plan_ready: true
+  consistency_config_exported: true
+  arc_ledger_registered: true    # serialized work: the arc is greenlit, not just the episode
+  blocking_list: []
+
+review_cadence:
+  episode_review: true
+  drift_reanchor_every_n_panels: 10
+  max_rerolls_per_panel: 2
+
+production_state:
+  panels_completed: 7
+  panels_rerendered: 1
+  reanchors_this_episode: 0
+  open_issues: []
+  decision_log:
+    - "Color: this arc is the first Rabot work in full color. Registered as a bible variant (webtoon color mode), not a replacement - the main series stays black and white"
+    - "Segment = one episode = one budget unit for scarce lettering elements, per comic-lettering-and-balloons. NOT the arc"
+    - "ep-01 P5 RETAKE: bubble straddled the scroll boundary between screens 2 and 3; moved wholly above the fold"
+    - "Arc ledger owns Echo's throughline; the episode shot plan may not move her exit state without an entry there first"
+
+signoff:
+  all_gates_passed: true
+  deliverables_match_contract: true
+  exports_generated: true
+  state_document_complete: true
+  version_history_updated: true
+  signed_off_by: "producer"
+  date: "2026-08-04"

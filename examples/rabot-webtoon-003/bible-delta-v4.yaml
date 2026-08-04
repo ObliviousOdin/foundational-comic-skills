@@ -1,0 +1,68 @@
+# Bible DELTA, not a bible. See rabot-4koma-002/bible-delta-v3.yaml for the pattern.
+#
+# Canon lives at ../rabot-strip-001/world-bible.yaml. This file records only what the
+# Long Night arc adds, and merges into the canonical bible at v4.0.0.
+#
+# Deliberately not named world-bible*.yaml: the validator treats that pattern as a
+# complete bible and would rightly reject a partial document.
+
+merges_into: "../rabot-strip-001/world-bible.yaml"
+target_version: "4.0.0"
+
+visual_grammar_additions:
+  webtoon_color_mode:
+    applies_to: "Long Night arc only"
+    note: >-
+      The first Rabot work in color. Registered as a third variant alongside the main
+      series black-and-white grammar and Small Hours chibi mode. Three registered
+      grammars over one cast is the point of a variant system: the style memory system
+      holds them separately and prevents bleed in any direction.
+    color_grading: "cool teal ambient against warm practical key; amber reserved"
+    linework_rules: "clean even digital lineart with subtle color holds, no swell"
+    lighting_grammar: "soft volumetric, colored shadows, painterly-soft backgrounds behind crisp figures"
+    reserved_color:
+      hex: "#E8A33D"
+      name: "alert-amber"
+      rule: >-
+        Amber appears ONLY on the ground-link status board and light cast by it. It is
+        the arc's dread signal, and a warm prop lit amber for decoration would spend it.
+        Registered as a reserved swatch so later episodes cannot quietly reuse it.
+
+character_deltas:
+  - name: "Rabot"
+    webtoon_dna_template: "young man, short dark hair, navy work jacket over white shirt, small scar on left cheek, clean digital lineart, cool ambient with warm key"
+    negative_prompt_additions: "black and white, screentone, chibi proportions, silver hair"
+  - name: "Echo"
+    webtoon_dna_template: "compact android with feminine silhouette, short silver hair, round indicator light at the left temple, matte gray coverall, clean digital lineart"
+    signature_marks_in_color: >-
+      The temple indicator reads cool white in this mode and must never render amber -
+      amber is the board's reserved signal, and an amber temple light would make her
+      look like the alarm.
+    negative_prompt_additions: "black and white, screentone, chibi proportions, facial scar, navy jacket, amber temple light"
+
+world_register_additions:
+  location_reference_sheets:
+    - name: "Ground-Link Status Board"
+      lighting: "self-lit; amber row across full width when degraded, cool white when nominal"
+      note: >-
+        Added because the arc's central object was previously scenery. Six episodes of
+        withholding and revealing it require a canonical sheet, or it redraws differently
+        every week and the slow burn stops being legible.
+    - name: "Service Corridor (dark state)"
+      lighting: "maintenance strips unlit; readable only as silhouette against the doorway"
+
+expression_library_gaps:
+  - character: "Echo"
+    gap: "no state between attentive and quiet-warm covering concern for a person rather than a system"
+    proposed: "concerned"
+    raised_by: "arc-ledger.yaml ep-01 debt"
+    status: "open - blocks the ep-02 shot plan"
+
+version_history:
+  - date: "2026-08-04"
+    change: "Registered webtoon color mode as a third visual-grammar variant; added per-character color DNA; reserved alert-amber; added Ground-Link Status Board and dark-state corridor"
+    rationale: >-
+      Long Night is serialized and in color over a cast established in black and white.
+      Registering the grammar as a variant keeps one canon across three rendering modes.
+      Amber is reserved rather than merely described because a six-episode slow burn
+      depends on the dread signal staying scarce.
