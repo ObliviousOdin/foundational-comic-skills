@@ -19,9 +19,10 @@ Checks
    Prompt Block fits the 40-90 word injectable budget and stays a pure
    declarative style description (no pronouns, imperatives, or story).
 4. Style index sync: comic-styles/SKILL.md table rows match the
-   directory tree exactly (presence, category, declared count), no two
-   styles inject near-identical Prompt Blocks, and every native-habitat
-   name resolves against the core libraries.
+   directory tree exactly (presence, category, declared count), the
+   index habitat column agrees with each skill's Integration line, no
+   two styles inject near-identical Prompt Blocks, and every
+   native-habitat name resolves against the core libraries.
 5. Cross-references: backticked `comic-*` tokens resolve to a real
    skill or the planned-skills allowlist, and every `When Not to Use`
    redirect names a style that exists.
@@ -308,6 +309,44 @@ def library_vocabulary() -> set[str]:
         if path.is_file():
             vocab |= set(LIB_ENTRY_RE.findall(path.read_text(encoding="utf-8")))
     return vocab
+
+
+def check_index_habitats(style_texts: dict[Path, str]) -> None:
+    """The index's habitat column must agree with each skill's Integration line.
+
+    The column is the Producer's routing table — it is read to pick a style
+    for a locked format. Two descriptions of one fact drift apart unless
+    something holds them together, and the skill is the authority.
+    """
+    index_path = ROOT / "comic-styles" / "SKILL.md"
+    if not index_path.is_file():
+        return
+    index = index_path.read_text(encoding="utf-8")
+
+    integration: dict[str, set[str]] = {}
+    for path, text in style_texts.items():
+        m = INTEGRATION_RE.search(text)
+        integration[path.parent.name] = set(BACKTICK_RE.findall(m.group(1))) if m else set()
+
+    vocab = library_vocabulary()
+    rows = re.findall(
+        r"^\| [A-Za-z -]+ \| `([a-z0-9-]+)` \| ([^|]*) \|", index, re.MULTILINE
+    )
+    for skill, cell in rows:
+        if skill not in integration:
+            continue  # missing-directory case is reported by check_style_index
+        for token in sorted(set(BACKTICK_RE.findall(cell))):
+            if token not in vocab:
+                err(
+                    f"comic-styles/SKILL.md: `{skill}` habitat names `{token}`, "
+                    f"which is neither a sanctioned format nor a pattern"
+                )
+            elif token not in integration[skill]:
+                err(
+                    f"comic-styles/SKILL.md: `{skill}` habitat names `{token}`, "
+                    f"which its own Integration line does not list — the skill "
+                    f"is the authority, the index follows it"
+                )
 
 
 def check_native_habitats(style_texts: dict[Path, str]) -> None:
@@ -650,6 +689,7 @@ def main() -> int:
     check_style_index(style_dirs)
     check_style_redirects(style_texts, set(style_dirs), known_skills)
     check_native_habitats(style_texts)
+    check_index_habitats(style_texts)
     check_prompt_block_collisions(style_texts)
     check_cross_references(known_skills)
     check_yaml_health()

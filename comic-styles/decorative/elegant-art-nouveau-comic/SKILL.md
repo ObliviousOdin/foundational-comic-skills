@@ -1,6 +1,6 @@
 ---
 name: elegant-art-nouveau-comic
-version: 2.0.0
+version: 2.1.0
 category: comic-styles
 description: Mucha-lineage Art Nouveau — whiplash contour lines, halo and arch framing, flat muted jewel tones with gold, and botanical borders for graceful ornamental storytelling.
 ---
@@ -52,7 +52,8 @@ description: Mucha-lineage Art Nouveau — whiplash contour lines, halo and arch
 
 ## Dialogue & Lettering
 
-- Sparse dialogue; smooth oval bubbles with thin ruled outlines, or lines set in small ornamental cartouches at the panel base — per `comic-lettering-and-balloons`, these are the only deltas; caption boxes remain forbidden
+- Sparse dialogue; smooth oval bubbles with thin ruled outlines, or lines set in small ornamental cartouches at the panel base — per `comic-lettering-and-balloons`, these are the only deltas
+- **Caption boxes remain forbidden in every multi-panel format.** The one exception is `single-panel-gag`, where the format sanctions a caption line below the frame; that allowance holds here and takes this style's native treatment — an ornamental cartouche below the panel, whiplash rule and all, rather than a plain rectangle. Still one bubble *or* one caption, never both
 - ≤ 2 bubbles per panel, ≤ ~10 words, elevated but plain diction; the turnaround is often silent or single-line
 - SFX policy: effectively none — at most one hand-drawn chime or musical mark woven into the ornament, once per strip
 

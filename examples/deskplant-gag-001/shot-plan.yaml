@@ -1,0 +1,87 @@
+# Filled-in instance of comic-direction/comic-director/assets/templates/shot-plan-template.yaml
+# Deskplant 001: "Week Six" - one panel.
+
+shot_plan:
+  project: "Deskplant"
+  episode: "week-06"
+  strip_id: "deskplant-001"
+  format: "single-panel-gag"
+  narrative_pattern: "gag-escalation"
+  reading_direction: "ltr"
+  vision_check: "deadpan, fond, empty"
+
+# Cues extracted (comic-story-derivation), mapped to gag-escalation beats.
+#
+# This is the mapping the format makes strange, and it is worth being explicit
+# about: gag-escalation is PATTERN -> PATTERN -> BREAK, and this format has one
+# panel. Per comic-narrative-patterns, the single-panel variant compresses the
+# pattern into IMPLIED context - the drawn panel is the BREAK, and the two
+# PATTERN beats live in what the reader infers happened before it.
+#
+# So the shot plan carries beats that were never drawn. They are planned anyway,
+# because a BREAK only reads as a break against a pattern the reader can
+# reconstruct, and if the Director cannot state the two implied beats then the
+# reader has nothing to break against and the panel is just a picture.
+#
+#   PATTERN (implied): Wren buys the plant, resolves to water it Sundays
+#   PATTERN (implied): Wren misses a Sunday, resolves harder
+#   BREAK   (drawn):   the panel below
+
+implied_beats:
+  - beat: "PATTERN"
+    drawn: false
+    content: "the resolution, made"
+  - beat: "PATTERN"
+    drawn: false
+    content: "the resolution, renewed after failing once"
+
+panels:
+  - panel: 1
+    beat_role: "BREAK"
+    shot_size: "medium"
+    camera_angle: "eye-level"
+    staging: >-
+      White void, optional ground line. Wren stands at frame right, flat expression, holding
+      a full watering can. The deskplant sits at frame left, unmistakably thriving, with a
+      second smaller plant beside it that nobody planted. Roughly 70% of the panel is empty.
+    eyeline_vector: "Wren looks at the plants; the reader's eye travels right to left across the emptiness between them"
+    transition_in: "n/a - single panel"
+    pacing_weight: "n/a - the panel is the whole canvas"
+    gutter_before: "n/a"
+    dialogue:
+      bubbles: 0
+      lines: []
+      caption: "week six. i have not watered it once."
+      caption_placement: "below the panel, plain lowercase, no box, no rule"
+    crop_check:
+      action_legible: true
+      context_present: true
+      mood_served: true
+      composition_satisfying: true
+    notes: >-
+      Caption, not bubble - the format's budget is one or the other, and the joke is the
+      admission, so it goes in the caption and the panel stays silent. The second plant is
+      the break: the reader infers weeks of failed intention and the panel answers with the
+      plant having thrived anyway, and reproduced.
+
+# Rules that do not apply here, recorded so a reviewer does not go looking for them:
+not_applicable:
+  shot_ladder: "requires adjacent panels to vary against; one panel has none"
+  transition_budget: "no transitions exist in a single-panel format"
+  silence_rhythm: "single-panel-gag is exempt per comic-lettering-and-balloons - a silent-panel obligation would forbid the only text the format allows"
+  page_turn: "no pages"
+
+name_criteria:
+  strong_first_panel: true
+  layout_effortless: true
+  action_always_clear: true
+  shifts_convincing: true       # the shift is inferred, not staged; the implied beats carry it
+  emotion_legible: true
+
+final_cut:
+  verdict: "ACCEPT"
+  corrective_field: ""
+  artistic_life_note: >-
+    The emptiness between Wren and the plants is the timing, and the second plant does the
+    work no caption could. Flat expression held - a resigned face would have explained the
+    joke the caption already lands. Signed.

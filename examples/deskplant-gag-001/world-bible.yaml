@@ -1,0 +1,54 @@
+# World bible for Deskplant — a deliberately minimal bible.
+#
+# One panel, one character, one prop. This bible exists to show the floor: the
+# smallest document that still passes every structural, content, and consistency
+# check in comic-world-bible-system. Nothing here is padding, and nothing that
+# the format needs is missing.
+
+visual_grammar:
+  master_style_references: ["style-ref-01.png", "style-ref-02.png"]
+  color_palette_anchors:
+    - name: "ink-black"
+      hex: "#111111"
+    - name: "paper-white"
+      hex: "#FFFFFF"
+  linework_rules: "fixed-width 0.3mm fineliner, zero weight variation on figures, props, and borders alike"
+  lighting_grammar: "none - this style has no light model; white space is not lit, it is empty"
+  typography_rules: "hand-set lowercase at one size; no boxes, no rules, no ornament"
+
+character_compendium:
+  - name: "Wren"
+    canonical_reference_sheet: "assets/characters/wren/reference-sheet.png"
+    expression_library: ["neutral", "flat", "resigned", "faintly pleased", "caught out", "considering"]
+    dna_template: "stick-simple figure, circle head, dot eyes, two-stroke body, round glasses as the only distinguishing mark"
+    consistency_method: "IP-Adapter 0.4 - low weight; there is almost nothing to condition on"
+    signature_marks: "round glasses; that is the entire costume department"
+    negative_prompt_block: "line weight variation, facial features beyond dots, hair detail, shading, background scenery"
+
+world_register:
+  location_reference_sheets:
+    - name: "Nowhere"
+      lighting: "white void; optional ground line, nothing else"
+  recurring_props:
+    - name: "deskplant"
+      spec: "small potted plant, five leaves, drawn at the same fixed line width as the figure"
+  time_weather_lighting: "none - a white void has no weather, and saying so is the point"
+
+negative_library:
+  project_wide_negatives:
+    - "shading"
+    - "gradients"
+    - "texture"
+    - "color"
+    - "background scenery"
+    - "line weight variation"
+    - "text on image"
+
+version_history:
+  - date: "2026-08-04"
+    change: "Initial bible: minimalist visual grammar, Wren, the deskplant, and the void"
+    rationale: >-
+      A single-panel project still needs a bible. The format has no continuity across
+      panels to protect, but it has everything to protect across a *series* of single
+      panels - and the fields that look trivially small here (one prop, one signature
+      mark) are exactly the ones that drift when the same gag character returns weekly.
