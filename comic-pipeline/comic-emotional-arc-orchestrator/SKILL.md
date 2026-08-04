@@ -1,6 +1,6 @@
 ---
 name: comic-emotional-arc-orchestrator
-version: 1.0.0
+version: 1.1.0
 category: comic-pipeline
 description: Series-level emotional continuity. Plans each character's emotional throughline across episodes, tracks state in an arc ledger, and feeds per-episode emotional targets into the Producer's contract and the Director's shot plans.
 ---
@@ -42,6 +42,7 @@ Each episode receives a one-line target per featured character: *enter at X, exi
 - Record exit state per character, with the panel that proves it (panel reference, not vibes)
 - Diff exit state against the target; a miss is a **continuity debt** — the next episode must either pay it (re-plan) or the throughline is re-versioned with rationale
 - Sync the ledger with the world bible: expression-library gaps discovered here (a needed state with no canonical reference) become bible change requests
+- **An open change request blocks the shot plan that needs it.** A raised request is not a note to action later — until the state has a canonical reference, any panel calling for it hands the generator an expression it has never been shown, and the generator will invent one. That is the precise drift the consistency layer exists to prevent, arriving through the ledger instead of the prompt. Either the bible gains the state (with a reference) or the episode re-plans around the states that exist
 
 ### 4. Handoffs
 
