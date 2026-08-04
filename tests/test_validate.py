@@ -519,3 +519,22 @@ def test_bible_missing_sections_are_reported(tmp_path):
     problems = validate.validate_bible(path)
     assert any("character_compendium" in p for p in problems)
     assert any("linework_rules" in p for p in problems)
+
+
+# --- Library coverage (the inverse check) --------------------------------
+
+
+def test_every_sanctioned_format_and_pattern_is_claimed():
+    styles = {p: p.read_text(encoding="utf-8") for p in ROOT.glob("comic-styles/*/*/SKILL.md")}
+    validate.check_library_coverage(styles)
+    assert validate.errors == [], "a library entry no style claims cannot be routed to"
+
+
+def test_unclaimed_library_entry_is_reported():
+    """Simulate the 2x2-grid-page gap: a real format nothing points at."""
+    styles = {
+        p: p.read_text(encoding="utf-8").replace("`2x2-grid-page`", "`3-panel-horizontal`")
+        for p in ROOT.glob("comic-styles/*/*/SKILL.md")
+    }
+    validate.check_library_coverage(styles)
+    assert any("2x2-grid-page" in e and "no style claims it" in e for e in validate.errors)
