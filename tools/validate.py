@@ -14,7 +14,8 @@ Checks
    Prompt Block fits the 40-90 word injectable budget and stays a pure
    declarative style description (no pronouns, imperatives, or story).
 4. Style index sync: comic-styles/SKILL.md table rows match the
-   directory tree exactly (presence, category, declared count).
+   directory tree exactly (presence, category, declared count), and no
+   two styles inject near-identical Prompt Blocks.
 5. Cross-references: backticked `comic-*` tokens resolve to a real
    skill or the planned-skills allowlist, and every `When Not to Use`
    redirect names a style that exists.
@@ -24,6 +25,7 @@ Checks
 
 from __future__ import annotations
 
+import itertools
 import re
 import sys
 from pathlib import Path
@@ -93,6 +95,12 @@ BACKTICK_RE = re.compile(r"`([^`]+)`")
 # style signal; too long crowds the blocks that carry identity and staging.
 PROMPT_BLOCK_MIN_WORDS = 40
 PROMPT_BLOCK_MAX_WORDS = 90
+
+# Two styles whose fragments overlap this far are the same style wearing
+# two names. Measured against the corpus, the closest legitimately adjacent
+# pair (golden-age vs. silver-age superhero) sits at 0.27, so this leaves
+# wide headroom for real neighbours while catching copy-paste authorship.
+PROMPT_BLOCK_COLLISION_RATIO = 0.60
 
 # A Prompt Block is a pure declarative style description. Anything that
 # addresses a reader, commands a model, or carries story content is an
@@ -263,6 +271,33 @@ def check_prompt_block_purity(path: Path, text: str) -> None:
             err(
                 f"{rel(path)}: Prompt Block contains {m.group(0)!r} — "
                 f"{reason}"
+            )
+
+
+def check_prompt_block_collisions(style_texts: dict[Path, str]) -> None:
+    """No two styles may inject near-identical fragments.
+
+    The Prompt Block is the only part of a style skill the backend ever
+    sees. Two styles that resolve to the same fragment render the same
+    way, so the Producer's one-style-per-project lock stops meaning
+    anything and the style index promises a distinction it cannot keep.
+    """
+    vocab: list[tuple[Path, set[str]]] = []
+    for path, text in sorted(style_texts.items()):
+        body = prompt_block(text)
+        if body:
+            vocab.append((path, set(re.findall(r"[a-z0-9]+", body.lower()))))
+
+    for (path_a, words_a), (path_b, words_b) in itertools.combinations(vocab, 2):
+        union = words_a | words_b
+        if not union:
+            continue
+        ratio = len(words_a & words_b) / len(union)
+        if ratio >= PROMPT_BLOCK_COLLISION_RATIO:
+            err(
+                f"{rel(path_a)}: Prompt Block shares {ratio:.0%} of its "
+                f"vocabulary with {rel(path_b)} — two styles that inject "
+                f"near-identical fragments collapse into one visual grammar"
             )
 
 
@@ -459,6 +494,7 @@ def main() -> int:
 
     check_style_index(style_dirs)
     check_style_redirects(style_texts, set(style_dirs), known_skills)
+    check_prompt_block_collisions(style_texts)
     check_cross_references(known_skills)
     check_yaml_health()
     check_example_bibles()
