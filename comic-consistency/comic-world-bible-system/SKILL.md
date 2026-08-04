@@ -1,6 +1,6 @@
 ---
 name: comic-world-bible-system
-version: 1.5.0
+version: 1.6.0
 category: comic-consistency
 description: The canonical source of truth and asset registry for long-form comic production. Defines structured world bibles, character compendiums, style grammars, and generates derived consistency artifacts (DNA templates, model sheets, negative libraries).
 ---
@@ -24,10 +24,22 @@ A world bible is a structured document containing the following top-level sectio
 
 ### 1. visual_grammar
 - `master_style_references`: 3–5 canonical style reference images
-- `color_palette_anchors`: Named swatches with hex codes
+- `color_palette_anchors`: Named swatches, each with `hex`, and a `value` step (`light` / `mid` / `dark`)
+- `reserved_swatches`: Colours that appear in exactly one context and nowhere else (see below)
 - `linework_rules`: Weight, anti-aliasing, hatching conventions, pressure behavior
 - `lighting_grammar`: Key light direction, shadow hardness, ambient temperature
-- `typography_rules`: Lettering rules (if used)
+- `typography_rules`: Lettering rules (if used, `none` if the project renders no text)
+
+**Swatches carry a value step, not just a hex.** Readability is carried by value; hue is nearly free for meaning *because* value is doing the reading. Two swatches of different hue and identical value merge into one shape at reading speed, so a declared value step is what makes the greyscale test checkable instead of a matter of taste. See `COLOR-AND-PALETTE-FOR-SEQUENTIAL-ART.md`.
+
+**`reserved_swatches`** hold the colours whose whole power is scarcity — an alarm amber, a faction red, a hue that marks one emotional state. Each entry declares:
+
+- `name` and `hex`
+- `scope`: the one context it marks
+- `forbidden_in`: where it may not appear, *including places that would be aesthetically defensible*
+- `propagates_to`: neighbouring elements barred from the hue
+
+The third and fourth fields are the ones that matter. Reservation erodes silently — the hue leaks into a warm highlight, then a sunset, then a jacket, and by the time anyone notices, no single decision caused it. And propagation is a continuity decision rather than a colouring one: if a character's signature mark is a light and the reserved colour is an alarm, that light must be barred from the hue or the character reads as the alarm. `examples/rabot-webtoon-003/` does exactly this — Echo's temple indicator is explicitly barred from `alert-amber`.
 
 ### 2. character_compendium
 One entry per character containing:

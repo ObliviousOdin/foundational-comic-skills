@@ -1,6 +1,6 @@
 ---
 name: comic-export-and-publish
-version: 1.0.0
+version: 1.1.0
 category: comic-production
 description: Platform delivery contract — canvas/resolution/color specs per destination (Instagram, X, webtoon platforms, print zine, PDF chapter), lettering minimums, file naming, and archival rules for the Producer's sign-off.
 ---
@@ -26,6 +26,22 @@ The Producer selects target platforms at brief intake; this skill supplies the s
 
 - On-screen: rendered text ≥ ~12 px x-height at the platform's default zoom; phone-width test for webtoon and social
 - Print: ≥ 6 pt effective; never let bleed-safe margins crop a balloon (balloons live inside the safe area, 5 mm from trim)
+
+## The Gamut Gate (Colour Print Only)
+
+RGB work converted to CMYK loses colour, and it loses it **unevenly** — saturated blues, oranges, and neon greens shift hardest, muted earth tones barely move. This is where a palette that survived every other gate can still fail, and where the failure is invisible until the proof arrives.
+
+Run this before the first print run, not before the last:
+
+- [ ] **Every palette anchor soft-proofed** against the printer's profile. A swatch that shifts is a swatch the whole project has been drawn against
+- [ ] **Reserved swatches proofed first and hardest.** A reserved colour works by being unmistakable, and gamut compression is exactly what makes two colours mistakable. An `alert-amber` that converts toward the project's warm mid-tone stops being a signal in print while staying one on screen
+- [ ] **Value separation re-checked after conversion**, not before. Gamut compression moves hue *and* value, so a palette that passed the Layer 4 greyscale test in RGB can fail it in CMYK
+- [ ] **Neon and fluorescent accents flagged as out-of-gamut by design.** Styles like `cyberpunk-sci-fi-comic` are built on colours CMYK cannot reach; the honest options are a spot colour, a deliberate substitute recorded in the bible, or accepting the shift — never discovering it at the proof
+- [ ] **Rich black declared** for large black areas; a single-plate black reads grey beside line art in noir and woodcut styles
+
+**The rule underneath**: colour decisions belong to the bible, so a gamut substitution is a **bible change with a version bump**, not a per-export tweak. A colour quietly altered at export time makes the printed edition and the digital edition two different works, and only one of them matches canon.
+
+Screen-only projects skip this section entirely.
 - Re-cuts (e.g., strip → carousel) re-run the `comic-lettering-and-balloons` order test per crop
 
 ## Re-Cut Rules (One Master, Many Deliverables)
