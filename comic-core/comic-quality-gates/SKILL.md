@@ -1,6 +1,6 @@
 ---
 name: comic-quality-gates
-version: 1.3.0
+version: 1.4.0
 category: comic-core
 description: A rigorous, multi-layer quality evaluation system that prevents generic AI output and enforces human-like artistic standards across all comic skills.
 ---
@@ -57,6 +57,9 @@ Checked across **every panel in the locked format** — three in the default str
 - [ ] Every style lock rule is followed without deviation
 - [ ] Line quality, texture, color (or B&W treatment), and decorative elements match the chosen style exactly
 - [ ] Background treatment is appropriate to the style (screentone, floral, flat color, etc.)
+- [ ] **Greyscale test**: desaturate the panel — the focal figure still separates from its ground. Value carries readability, so a palette that dissolves in greyscale is unreadable at reading speed no matter how it looks in colour. This is the characteristic failure of generated colour: harmonious, identically-valued, and attractive
+- [ ] Every colour used appears in the bible's palette anchors; no swatch arrived at generation time
+- [ ] Reserved swatches appear **only** in their declared scope — check the `forbidden_in` and `propagates_to` entries, since erosion is gradual and no single panel causes it
 
 ### Layer 5: Text & Dialogue Gate
 - [ ] Maximum 1–2 speech/thought bubbles per panel
