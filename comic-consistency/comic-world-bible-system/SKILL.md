@@ -1,6 +1,6 @@
 ---
 name: comic-world-bible-system
-version: 1.4.0
+version: 1.5.0
 category: comic-consistency
 description: The canonical source of truth and asset registry for long-form comic production. Defines structured world bibles, character compendiums, style grammars, and generates derived consistency artifacts (DNA templates, model sheets, negative libraries).
 ---
@@ -52,19 +52,24 @@ One entry per character containing:
 
 **The four buckets say where a negative lives, not what it is for.** Negatives accumulate as reflexes — a panel goes wrong, a phrase gets added, and nobody can later say which failure any given line prevents. That matters because negatives compete for prompt budget, and a bloated block dilutes the entries doing real work.
 
-Every negative belongs to one of four **bleed classes**, and naming the class is what makes a negative reviewable:
+Every negative belongs to one of five **bleed classes**, and naming the class is what makes a negative reviewable:
 
 | Class | The failure it prevents | Where it lives | Example |
 |-------|------------------------|----------------|---------|
 | **Identity bleed** | One character acquiring another's signature marks | `per_character_negatives` — each entry carries the *others'* marks | Echo's block negates "facial scar" because Rabot has one |
 | **Style bleed** | A registered variant leaking into another | `per_style_negatives`, per variant | Chibi mode negates "realistic proportions"; the main series negates "chibi proportions" |
 | **Era bleed** | Period-locked worlds acquiring modern or wrong-era content | `project_wide_negatives` | A 1930 strip negates "smartphone, plastic, LED" |
+| **Contract bleed** | The locked **format or pattern** dissolving under the backend's defaults | `project_wide_negatives` | A scroll segment negates "side-by-side panels"; a silent strip negates "speech balloon, open shouting mouth" |
 | **Anatomy bleed** | Generic generation failures unrelated to this project | `project_wide_negatives` | "deformed hands, extra fingers" |
+
+**Contract bleed is the class authors reach for last and need most.** A backend handed a comic style reaches for a three-panel strip, so `single-panel-gag` must negate "multiple panels"; handed several beats it reaches for a grid, so `webtoon-scroll-segment` must negate "side-by-side panels"; handed a child reacting it draws a shout, so `silent-strip` must negate "open shouting mouth" — a face that imports speech without drawing a letter. In every case the format block already states the rule and the backend overrides it anyway.
+
+The test for this class is specific: **what does the backend do by default that this contract forbids?** Whatever that is belongs in the negative block as well as the format block. Anything the backend would not have done unprompted does not.
 
 Two rules follow from the table:
 
 1. **Identity and style bleed are bidirectional.** A negative added to one side without its opposite protects one character or variant and leaves the other exposed. Add both or neither.
-2. **Anatomy-bleed entries are the only ones safe to copy between projects.** The other three are all statements about *this* world, and a project-wide negative inherited from another project is how a lock stops matching the thing it was written for.
+2. **Anatomy-bleed entries are the only ones safe to copy between projects.** The other four are all statements about *this* world or *this* contract, and a project-wide negative inherited from another project is how a lock stops matching the thing it was written for.
 
 When the prompt budget forces cuts, drop from anatomy bleed first: backends have improved most there, and it is the class whose entries say the least about the project.
 

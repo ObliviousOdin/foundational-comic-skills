@@ -14,7 +14,7 @@ Complete, internally consistent worked projects. Every YAML here is a filled-in 
 
 **All six sanctioned formats have a worked project, and the first non-default pattern does too.**
 
-Read `rabot-strip-001/WALKTHROUGH.md` first — it narrates the artifacts in order. `rabot-4koma-002/` then shows the deltas rather than repeating the flow, `rabot-webtoon-003/` covers what only a serial can demonstrate, `lamplighter-chapter-001/` builds from nothing in a different world, and `deskplant-gag-001/` shows the contract with nowhere to hide.
+Read `rabot-strip-001/WALKTHROUGH.md` first — it narrates the artifacts in order. `rabot-4koma-002/` then shows the deltas rather than repeating the flow, `rabot-webtoon-003/` covers what only a serial can demonstrate, `lamplighter-chapter-001/` builds from nothing in a different world, `deskplant-gag-001/` shows the contract with nowhere to hide, `kell-grid-002/` puts parallel threads on the diagonal, and `tidepool-silent-004/` removes the words entirely.
 
 ---
 
