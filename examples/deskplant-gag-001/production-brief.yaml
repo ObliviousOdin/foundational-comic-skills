@@ -1,0 +1,62 @@
+# Filled-in instance of comic-direction/comic-producer/assets/templates/production-brief-template.yaml
+
+project:
+  name: "Deskplant"
+  premise: "A weekly single-panel gag about a person and the plant that outlasts every one of their resolutions."
+  audience: "Social feeds; single-image share"
+  tone: "Deadpan, fond, never cruel to the plant or the person"
+
+inputs:
+  reference_images: ["ref/wren.png", "ref/plant.png"]
+  world_bible: "world-bible.yaml"
+  existing_canon: "none - first panel"
+
+contract:
+  format: "single-panel-gag"
+  narrative_pattern: "gag-escalation"     # compressed: the panel IS the BREAK
+  style_skill: "minimalist-line-webcomic"
+  reading_direction: "ltr"
+
+scope:
+  total_panels: 1
+  episodes: 1
+  panels_per_episode: 1
+  rerender_reserve_pct: 20
+  deadline: "weekly"
+  platforms: ["instagram", "x-horizontal"]
+
+greenlight:
+  contract_locked: true
+  world_bible_valid: true
+  dna_templates_derived: true
+  negative_library_nonempty: true
+  style_lock_acknowledged: true
+  vision_statement_registered: true
+  first_shot_plan_ready: true
+  consistency_config_exported: true
+  blocking_list: []
+
+review_cadence:
+  episode_review: true
+  drift_reanchor_every_n_panels: 4       # tight: a weekly single-panel series re-anchors constantly
+  max_rerolls_per_panel: 2
+
+production_state:
+  panels_completed: 1
+  panels_rerendered: 0
+  reanchors_this_episode: 0
+  open_issues: []
+  decision_log:
+    - "Caption, not bubble. The format allows one OR the other; this gag lands in the caption, so the panel is silent"
+    - "The style forbade caption boxes outright and lists single-panel-gag as native habitat - a direct contradiction. Raised and fixed upstream in minimalist-line-webcomic 2.1.0 before this panel was planned"
+    - "Pipeline: runs through comic-3-panel-horizontal-pipeline with panel count overridden to 1, per comic-format-library"
+    - "Lettering silence rule does NOT apply (single-panel-gag is exempt per comic-lettering-and-balloons); a silent-panel obligation here would forbid the only text the format allows"
+
+signoff:
+  all_gates_passed: true
+  deliverables_match_contract: true
+  exports_generated: true
+  state_document_complete: true
+  version_history_updated: true
+  signed_off_by: "producer"
+  date: "2026-08-04"
