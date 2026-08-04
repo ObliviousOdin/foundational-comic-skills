@@ -5,10 +5,10 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 3 complete — next cycle starts at 4
-**Commits this session:** 15 (cycles 1–2 merged to `main` via PR #4)
+**Current cycle:** 4 complete — next cycle starts at 5
+**Commits this session:** 21 (cycles 1–2 merged to `main` via PR #4)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), validator green, 52 pytest tests passing, CI runs both
+**Current state:** 56 skills (30 styles), 2 worked examples, validator green, 66 pytest tests passing
 
 ## How This Loop Works
 
@@ -24,10 +24,11 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Validator & Tests (highest leverage — every future contribution inherits these)
 
-1. Require ≥2 bullets in `When to Use` and `When Not to Use`
+1. **Audit every core/direction skill for the same class of defect the pacing fix found** — rules written against the 3-panel default that other formats cannot obey. Check `comic-structural-contract`, `comic-lettering-and-balloons`, and `comic-quality-gates` Layer 2 ("same face across all three panels" is hardcoded to three)
 2. Validator error output: group violations by file rather than a flat list (56 skills makes flat output hard to act on)
-3. `--style` currently skips whole-corpus checks by necessity; print a one-line reminder so authors know a full run is still required
-4. Style index `Native Habitat` column is prose ("strip or chapter") while `Integration` uses canonical names — consider reconciling so the column is checkable too
+3. `--style` skips whole-corpus checks by necessity; print a one-line reminder so authors know a full run is still required
+4. Style index `Native Habitat` column is prose ("strip or chapter") while `Integration` uses canonical names — reconcile so the column is checkable too
+5. Shot-ladder reference table in `comic-director` (which shot answers which beat) — deferred from cycle 4 in favour of the pacing defect
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
@@ -87,6 +88,14 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 - `feat(tools)`: `--style` single-file authoring mode; shared reporting tail; `rel()` no longer raises on outside paths
 - `docs(docs)`: README validator documentation corrected against live output
 
+**Cycle 4 (2026-08-04) — 5 commits, validator and tests green throughout**
+
+- `feat(examples)`: `rabot-4koma-002` — second worked project; 4koma × kishotenketsu × chibi, bible referenced not copied
+- `test(tests)`: `tests/test_examples.py` — parametrized per project, so example #3 is covered on arrival
+- `feat(tools)`: ≥2 bullets required in the routing sections
+- `feat(core)`: quality-gates **Layer 0**, the pre-generation prompt assembly gate; 1.1.0→1.2.0
+- `fix(direction)`: pacing rules scoped to variable-geometry formats; 1.0.0→1.1.0
+
 ## Notes for the Next Cycle
 
 - `pytest` is not installed in a fresh container: `python3 -m pip install pytest pyyaml` before running the suite.
@@ -103,9 +112,15 @@ Ordered by value density: contract enforcement first, then coverage, then docume
   carries `source_register` and the validator enforces it for nonfiction bibles. No
   shipped style currently depends on anything unimplemented — keep it that way, and if a
   new style introduces an obligation, land the mechanism in the same cycle.
-- Style coverage is now the largest open area (8 queued) but the corpus is at 30 across 12
-  categories, so marginal value per new style is falling. Examples are the thinner gap:
-  one worked project for six formats. Weight cycles toward `examples/` next.
+- Style coverage is the largest open area by count (8 queued) but the corpus is at 30
+  across 12 categories, so marginal value per new style is falling.
+- **The most valuable finding so far came from building an example, not from auditing.**
+  The 4-koma project could not obey `comic-director`'s pacing rule, because that rule was
+  written against the 3-panel default and two sanctioned formats forbid it. Building a
+  worked project in an unused format is the cheapest way to find rules that only ever
+  worked by coincidence — backlog item 1 now audits the rest of the layer for the same
+  defect class, and items 14–15 (webtoon, silent-strip examples) are worth more than
+  their position suggests for the same reason.
 - New validator checks now ship with their tests in the same commit; cycle 1 separated
   them only because that suite covered pre-existing checks. Mutation-test each new guard
   before committing — a green suite proves nothing until you have watched it go red.
