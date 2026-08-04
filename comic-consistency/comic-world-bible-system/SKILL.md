@@ -139,7 +139,9 @@ A valid world bible must pass these checks:
 **Provenance Validation** (when `production_mode: nonfiction`)
 - `source_register` is present and holds at least one entry
 - Every entry carries `claim`, `source`, and `depicted_in`
-- Every character in the compendium carries a `source_note`
+- Every entry carries a `register` from the sanctioned set — an unmarked reconstruction is the failure this catches
+- Every character in the compendium carries a `source_note` and an `identifiability` level
+- Any character marked `composite: true` carries a `composite_disclosure`
 
 Fiction bibles skip this block entirely — omitting `production_mode` means `fiction`, and nothing changes for existing projects.
 
