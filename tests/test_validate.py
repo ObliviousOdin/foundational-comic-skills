@@ -317,6 +317,80 @@ def test_worked_example_bible_validates():
     assert validate.validate_bible(bible) == []
 
 
+def write_bible(tmp_path: Path, extra: str = "") -> Path:
+    path = tmp_path / "world-bible.yaml"
+    path.write_text(
+        "visual_grammar:\n"
+        "  linework_rules: 'clean 2px'\n"
+        "  lighting_grammar: 'soft key from upper left'\n"
+        "character_compendium:\n"
+        "  - name: 'Foreman'\n"
+        "    dna_template: 'man in his fifties, hi-vis vest'\n"
+        "    canonical_reference_sheet: 'foreman.png'\n"
+        "world_register:\n"
+        "  recurring_props: ['clipboard']\n"
+        "negative_library:\n"
+        "  project_wide_negatives: ['text on image']\n"
+        "version_history:\n"
+        "  - date: '2026-08-04'\n"
+        "    rationale: 'baseline'\n" + extra,
+        encoding="utf-8",
+    )
+    return path
+
+
+def test_fiction_bible_does_not_require_a_source_register(tmp_path):
+    assert validate.validate_bible(write_bible(tmp_path)) == []
+
+
+def test_nonfiction_bible_without_register_is_reported(tmp_path):
+    problems = validate.validate_bible(write_bible(tmp_path, "production_mode: nonfiction\n"))
+    assert any("source_register is empty" in p for p in problems)
+
+
+def test_nonfiction_character_needs_a_source_note(tmp_path):
+    extra = (
+        "production_mode: nonfiction\n"
+        "source_register:\n"
+        "  - claim: 'the depot roof is corrugated steel'\n"
+        "    source: 'site photograph DSC_0142'\n"
+        "    depicted_in: ['panel-01']\n"
+    )
+    problems = validate.validate_bible(write_bible(tmp_path, extra))
+    assert any("missing source_note" in p for p in problems)
+
+
+def test_nonfiction_register_entry_needs_every_field(tmp_path):
+    extra = (
+        "production_mode: nonfiction\n"
+        "source_register:\n"
+        "  - claim: 'night shifts run four crews'\n"
+        "    depicted_in: ['panel-02']\n"
+    )
+    problems = validate.validate_bible(write_bible(tmp_path, extra))
+    assert any("missing `source`" in p for p in problems)
+
+
+def test_complete_nonfiction_bible_validates(tmp_path):
+    path = tmp_path / "world-bible.yaml"
+    base = write_bible(tmp_path).read_text(encoding="utf-8")
+    path.write_text(
+        base.replace(
+            "    canonical_reference_sheet: 'foreman.png'\n",
+            "    canonical_reference_sheet: 'foreman.png'\n"
+            "    source_note: 'site visit 2026-03-11, photographed with consent'\n",
+        )
+        + "production_mode: nonfiction\n"
+        "source_register:\n"
+        "  - claim: 'the depot roof is corrugated steel'\n"
+        "    source: 'site photograph DSC_0142'\n"
+        "    depicted_in: ['panel-01', 'panel-03']\n"
+        "    confidence: verified\n",
+        encoding="utf-8",
+    )
+    assert validate.validate_bible(path) == []
+
+
 def test_bible_missing_sections_are_reported(tmp_path):
     path = tmp_path / "world-bible.yaml"
     path.write_text("visual_grammar: {}\n", encoding="utf-8")
