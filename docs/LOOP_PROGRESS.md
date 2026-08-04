@@ -39,31 +39,31 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 5. `single-panel-gag` worked project — the smallest format and the one carrying an explicit exemption (the lettering silence rule) that no artifact has ever exercised. On the 4-for-4 record, the exemption is the most likely place a defect is hiding
 6. `2x2-grid-page` worked project — the last unbuilt format after that; shares the locked-geometry constraint with 4-koma but adds the T-rule and Z-path reading
-22. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
+7. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
-7. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
-8. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
-9. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
-10. Marcinelle-school *gros nez* humour BD (European — only two European styles)
-11. Atomic-age retro-futurism (Sci-Fi)
-12. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
-13. Illuminated-manuscript marginalia (Decorative)
-14. Silhouette cut-paper theatre (Decorative)
+8. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
+9. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
+10. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
+11. Marcinelle-school *gros nez* humour BD (European — only two European styles)
+12. Atomic-age retro-futurism (Sci-Fi)
+13. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
+14. Illuminated-manuscript marginalia (Decorative)
+15. Silhouette cut-paper theatre (Decorative)
 
 ### Layer Depth
 
-15. **Documentary/comics-journalism research study** — `research/README.md` now names this as the one enforced contract resting on assumed practice rather than a cite-able source
-16. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
-17. `comic-production/comic-export-and-publish`: print CMYK gate refinement
-18. `research/`: color and palette science for sequential art, mapped into the traceability table
-19. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+16. **Documentary/comics-journalism research study** — `research/README.md` now names this as the one enforced contract resting on assumed practice rather than a cite-able source
+17. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
+18. `comic-production/comic-export-and-publish`: print CMYK gate refinement
+19. `research/`: color and palette science for sequential art, mapped into the traceability table
+20. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
 
 ### Documentation Accuracy
 
-20. Hermes integration notes: how an agent loads the layers in order
-21. `docs/showcase/README.md` accuracy pass against the 30-style tree
+21. Hermes integration notes: how an agent loads the layers in order
+22. `docs/showcase/README.md` accuracy pass against the 30-style tree
 
 ## Recently Completed
 
