@@ -11,12 +11,24 @@ Six studies ground the system. Research is only useful here when a skill operati
 | `ADVANCED-CONSISTENCY-SYSTEMS.md` | Layered conditioning, IP-Adapter/LoRA orchestration, world bible architecture | `comic-world-bible-system`, `comic-character-consistency-system`, `comic-image-generation-adapter` (assembly contract) |
 | `STYLE-SPECIFIC-TECHNICAL-MASTERY.md` | Screentone physics, ligne claire doctrine, gekiga framing, ink behavior | Style skills (Schema v2 locks & consistency notes), `comic-style-memory-system` |
 
+## Contracts That Trace to No Study
+
+The table above runs one direction: research is trivia unless a skill enforces it. The map is only honest if it runs the other way too. Several enforced contracts cite nothing above, and the distinction that matters is whether that is *legitimate* or *unexamined*.
+
+| Contract | Actual basis | Verdict |
+|----------|--------------|---------|
+| **Prompt Block trust boundary** (`tools/validate.py`, quality-gates Layer 0) | Engineering, not art. The block is concatenated verbatim into a live generation prompt, so every contributed style skill is an untrusted-input boundary | **Legitimate.** No comics study could ground this — it is a property of the generation pipeline, not of comics. Cite the threat model |
+| **Prompt Block collision threshold (0.60)** | Measured across this corpus: the closest legitimately adjacent pair sits at 0.27 | **Legitimate but local.** The number describes these 30 styles and should be re-measured, not inherited, if the corpus changes character |
+| **Format-scope rule** (`CONTRIBUTING.md`) | Five defects found and fixed, not a study | **Legitimate.** An internal finding, labelled as one |
+| **Nonfiction `source_register`** (`comic-world-bible-system`) | Journalism sourcing and attribution norms | **Gap.** The repository holds no documentary-comics study, so a shipped style's central ethical lock rests on assumed practice rather than a cite-able foundation |
+
 ## Gaps the Research Names That Remain Open
 
 - Real-time micro-decision capture during execution (the *name* → final-art translation) — partially mitigated by the Director's decision log
 - Cross-cultural production differences (manga vs. Western vs. BD planning) — reading-direction rule covers the structural piece only
 - Statistical aesthetics residuals (~25–50% of judgment unexplained) — Layer 6 stays a human/Director call by design
+- **Documentary and comics-journalism practice** — named above as the one contract resting on assumed practice; a study covering sourcing standards, consent, and the ethics of depicting real subjects would put `reportage-comics-journalism` on the same footing as every other style
 
 ---
 
-*Research that no skill enforces is trivia. This map keeps it load-bearing.*
+*Research that no skill enforces is trivia; a contract that cites nothing is either engineering or an assumption. This map names which.*
