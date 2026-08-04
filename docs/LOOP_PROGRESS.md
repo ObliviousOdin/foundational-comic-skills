@@ -5,10 +5,10 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 6 complete — next cycle starts at 7
-**Commits this session:** 33 (cycles 1–5 merged via PRs #4, #5, #6)
+**Current cycle:** 7 complete — next cycle starts at 8
+**Commits this session:** 40 (cycles 1–6 merged via PRs #4, #5, #6, #7)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), 2 worked examples, validator green, 69 pytest tests passing
+**Current state:** 56 skills (30 styles), 3 worked examples, validator green, 80 pytest tests passing
 
 **Commit identity:** commits are authored `obliviousodin <11676741+ObliviousOdin@users.noreply.github.com>`
 with no AI co-author trailer, by owner instruction. `main` history was rewritten once
@@ -31,13 +31,13 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 1. Style index `Native Habitat` column is prose ("strip or chapter") while `Integration` uses canonical names — reconcile so the column is checkable too
 2. Consider a validator heuristic for the format-scope defect class: flag unqualified "per strip" / "all three panels" phrasing in `comic-core`/`comic-direction`. Semantic, so it would have to be a WARN, not a FAIL — judge whether the false-positive rate is tolerable before building it
-3. `tests/test_examples.py` covers briefs and shot plans; nothing checks that `assembled-prompt.md` block order matches `comic-image-generation-adapter`'s canonical order (now a Layer 0 gate)
+3. `arc-ledger.yaml` is now a worked artifact but `tests/test_examples.py` does not check it — a ledger whose `exit_actual` contradicts its `proof_panel`, or whose steps skip an episode, would pass silently
 
-### Examples & Worked Proof (outranks style coverage — each new format has surfaced a real defect)
+### Examples & Worked Proof (outranks style coverage — every new format has surfaced a real defect, 3 for 3)
 
-4. Webtoon scroll worked project (scroll-gap timing + arc ledger in use); now also the natural test of the new per-format lettering budget unit
+4. Multi-page chapter worked project — the last unbuilt format, and page-turn beats have no filled-in artifact anywhere. Highest-value item in the backlog on the evidence so far
 5. Silent-strip worked project (the hardest directorial test, undemonstrated)
-6. Multi-page chapter worked project (page-turn beats have no filled-in artifact anywhere)
+6. `2x2-grid-page` and `single-panel-gag` remain unbuilt; the lettering exemption for `single-panel-gag` is untested by any artifact
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
@@ -122,6 +122,16 @@ Closed the defect-class audit and turned it into a preventive rule.
 came back clean — both already say "Default" or "e.g.". The defect class closes at five
 instances. No sixth fix was invented to reach a count.
 
+**Cycle 7 (2026-08-04) — 5 commits, validator and tests green throughout**
+
+Built the serialized format; it surfaced two defects, holding the pattern at 3 for 3.
+
+- `feat(examples)`: `rabot-webtoon-003` — first serialized project and the repository's first filled-in **arc ledger**, including a missed target recorded as arc debt rather than re-rolled
+- `feat(pipeline)`: open bible change requests block the shot plan that needs them; 1.0.0→1.1.0
+- `fix(direction)`: the counter-vector eyeline licensed under three conditions; 1.2.0→1.3.0
+- `test(tests)`: assembled-prompt canonical block order + STYLE-first, parametrized per project
+- Test count 69→80; the parametrized example suite picked up the new project automatically
+
 ## Notes for the Next Cycle
 
 - `pytest` is not installed in a fresh container: `python3 -m pip install pytest pyyaml` before running the suite.
@@ -134,6 +144,14 @@ instances. No sixth fix was invented to reach a count.
   pattern added to `PROMPT_BLOCK_FORBIDDEN` must be re-scanned against all styles first —
   `tests/test_validate.py::test_every_style_prompt_block_is_within_budget_and_pure` is the
   backstop, but scan before committing rather than after.
+- **Building in an unused format has now surfaced a defect three times out of three.**
+  4-koma found the pacing rule; webtoon found two (an arc-ledger field with no procedure
+  behind it, and an eyeline rule with no exception clause). This is the single most
+  productive activity in the backlog and should stay at the top until a format comes back
+  clean. `multi-page-chapter` is the last unbuilt sanctioned format.
+- Both cycle-7 defects were found by *writing a filled-in artifact and hitting a rule that
+  the artifact had to argue around in a note*. That is the tell: if a worked example needs
+  a footnote explaining why it is allowed to do something, the rule is missing a clause.
 - **The format-scope defect class is closed at five instances and now has a preventive
   rule** (`CONTRIBUTING.md` ground rule 6). If a sixth appears, it most likely arrives with
   a new format rather than a new rule — adding a seventh format to `comic-format-library`
