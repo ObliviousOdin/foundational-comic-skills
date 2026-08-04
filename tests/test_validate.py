@@ -75,13 +75,25 @@ def test_style_mode_rejects_a_violating_style(tmp_path):
     )
     result = run_validator("--style", str(broken))
     assert result.returncode == 1
-    assert "violation(s)." in result.stdout
+    assert "violation(s) across 1 file(s)." in result.stdout
+    # Findings sit under the owning path, not in a flat list.
+    assert f"\n  {broken}\n" in result.stdout
+    assert "    FAIL  " in result.stdout
 
 
 def test_style_mode_reports_a_missing_file():
     result = run_validator("--style", "comic-styles/nope/SKILL.md")
     assert result.returncode == 1
     assert "no such file" in result.stdout
+
+
+def test_report_groups_violations_by_owning_file():
+    validate.err("comic-styles/a/SKILL.md: first problem")
+    validate.err("comic-styles/b/SKILL.md: other problem")
+    validate.err("comic-styles/a/SKILL.md: second problem")
+    assert validate.report("Checked.", "clean") == 1
+    # Three findings, two files — the counter reports both dimensions.
+    assert len(validate.errors) == 3
 
 
 def test_bible_mode_accepts_the_worked_example():
