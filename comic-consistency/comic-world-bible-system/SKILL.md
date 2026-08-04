@@ -1,6 +1,6 @@
 ---
 name: comic-world-bible-system
-version: 1.3.0
+version: 1.4.0
 category: comic-consistency
 description: The canonical source of truth and asset registry for long-form comic production. Defines structured world bibles, character compendiums, style grammars, and generates derived consistency artifacts (DNA templates, model sheets, negative libraries).
 ---
@@ -49,6 +49,24 @@ One entry per character containing:
 - `per_character_negatives`
 - `per_style_negatives`
 - `documented_artifacts_to_reject`
+
+**The four buckets say where a negative lives, not what it is for.** Negatives accumulate as reflexes — a panel goes wrong, a phrase gets added, and nobody can later say which failure any given line prevents. That matters because negatives compete for prompt budget, and a bloated block dilutes the entries doing real work.
+
+Every negative belongs to one of four **bleed classes**, and naming the class is what makes a negative reviewable:
+
+| Class | The failure it prevents | Where it lives | Example |
+|-------|------------------------|----------------|---------|
+| **Identity bleed** | One character acquiring another's signature marks | `per_character_negatives` — each entry carries the *others'* marks | Echo's block negates "facial scar" because Rabot has one |
+| **Style bleed** | A registered variant leaking into another | `per_style_negatives`, per variant | Chibi mode negates "realistic proportions"; the main series negates "chibi proportions" |
+| **Era bleed** | Period-locked worlds acquiring modern or wrong-era content | `project_wide_negatives` | A 1930 strip negates "smartphone, plastic, LED" |
+| **Anatomy bleed** | Generic generation failures unrelated to this project | `project_wide_negatives` | "deformed hands, extra fingers" |
+
+Two rules follow from the table:
+
+1. **Identity and style bleed are bidirectional.** A negative added to one side without its opposite protects one character or variant and leaves the other exposed. Add both or neither.
+2. **Anatomy-bleed entries are the only ones safe to copy between projects.** The other three are all statements about *this* world, and a project-wide negative inherited from another project is how a lock stops matching the thing it was written for.
+
+When the prompt budget forces cuts, drop from anatomy bleed first: backends have improved most there, and it is the class whose entries say the least about the project.
 
 ### 5. version_history
 - Date-stamped record of all changes
