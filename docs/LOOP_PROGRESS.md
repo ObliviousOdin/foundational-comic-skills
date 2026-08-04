@@ -33,38 +33,35 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 2. Consider a validator heuristic for the format-scope defect class: flag unqualified "per strip" / "all three panels" phrasing in `comic-core`/`comic-direction`. Semantic, so it would have to be a WARN, not a FAIL — judge whether the false-positive rate is tolerable before building it
 3. `tests/test_examples.py` covers briefs and shot plans; nothing checks that `assembled-prompt.md` block order matches `comic-image-generation-adapter`'s canonical order (now a Layer 0 gate)
 
+### Examples & Worked Proof (outranks style coverage — each new format has surfaced a real defect)
+
+4. Webtoon scroll worked project (scroll-gap timing + arc ledger in use); now also the natural test of the new per-format lettering budget unit
+5. Silent-strip worked project (the hardest directorial test, undemonstrated)
+6. Multi-page chapter worked project (page-turn beats have no filled-in artifact anywhere)
+
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
-5. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
-6. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
-7. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
-8. Marcinelle-school *gros nez* humour BD (European — only two European styles)
-9. Atomic-age retro-futurism (Sci-Fi)
-10. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
-11. Illuminated-manuscript marginalia (Decorative)
-12. Silhouette cut-paper theatre (Decorative)
-
-### Examples & Worked Proof
-
-Outranks its position — see the notes below. Each new format has surfaced a real defect.
-
-13. Webtoon scroll worked project (scroll-gap timing + arc ledger in use); expect it to test whether the lettering budget assumes strip length
-14. Silent-strip worked project (the hardest directorial test, undemonstrated)
-15. Multi-page chapter worked project (page-turn beats have no filled-in artifact anywhere)
+7. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
+8. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
+9. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
+10. Marcinelle-school *gros nez* humour BD (European — only two European styles)
+11. Atomic-age retro-futurism (Sci-Fi)
+12. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
+13. Illuminated-manuscript marginalia (Decorative)
+14. Silhouette cut-paper theatre (Decorative)
 
 ### Layer Depth
 
+15. **Documentary/comics-journalism research study** — `research/README.md` now names this as the one enforced contract resting on assumed practice rather than a cite-able source
 16. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
 17. `comic-production/comic-export-and-publish`: print CMYK gate refinement
 18. `research/`: color and palette science for sequential art, mapped into the traceability table
 19. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
-20. `research/README.md`: add rows for contracts that now exist but trace to no study (Prompt Block trust boundary, source register)
 
 ### Documentation Accuracy
 
-21. Hermes integration notes: how an agent loads the layers in order
-22. `docs/showcase/README.md` accuracy pass against the 30-style tree
-23. `CHANGELOG.md` `[Unreleased]` needs the cycle 3–5 work (provenance, Layer 0, the four defect fixes)
+20. Hermes integration notes: how an agent loads the layers in order
+21. `docs/showcase/README.md` accuracy pass against the 30-style tree
 
 ## Recently Completed
 
