@@ -4,6 +4,11 @@ Repository milestones. Individual skills carry their own semver in frontmatter.
 
 Format: [Keep a Changelog](https://keepachangelog.com/). Dates are merge dates.
 
+## [Unreleased]
+
+### Added
+- `comic-styles/literary/reportage-comics-journalism` (29 styles): drawn nonfiction in the alternative-press reportage tradition — hatch-only value, researched specificity, unidealized faces, licensed caption boxes carrying observed fact, and a negative lock against fabricated documentary detail
+
 ## [0.3.0] — 2026-06-10 · "Deep & Sustainable"
 
 ### Added
