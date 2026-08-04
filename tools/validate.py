@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """Repository validator for foundational-comic-skills.
 
-Run from anywhere:  python3 tools/validate.py
-Exit code 0 = repository contracts hold; 1 = violations found.
+Modes
+-----
+  python3 tools/validate.py                     whole repository
+  python3 tools/validate.py --style <SKILL.md>  one style, while authoring
+  python3 tools/validate.py --bible <bible>     one world-bible YAML
+
+Exit code 0 = contracts hold; 1 = violations found.
 
 Checks
 ------
@@ -14,8 +19,9 @@ Checks
    Prompt Block fits the 40-90 word injectable budget and stays a pure
    declarative style description (no pronouns, imperatives, or story).
 4. Style index sync: comic-styles/SKILL.md table rows match the
-   directory tree exactly (presence, category, declared count), and no
-   two styles inject near-identical Prompt Blocks.
+   directory tree exactly (presence, category, declared count), no two
+   styles inject near-identical Prompt Blocks, and every native-habitat
+   name resolves against the core libraries.
 5. Cross-references: backticked `comic-*` tokens resolve to a real
    skill or the planned-skills allowlist, and every `When Not to Use`
    redirect names a style that exists.
@@ -162,7 +168,10 @@ def warn(msg: str) -> None:
 
 
 def rel(p: Path) -> str:
-    return str(p.relative_to(ROOT))
+    try:
+        return str(p.relative_to(ROOT))
+    except ValueError:
+        return str(p)  # --style/--bible accept paths from outside the tree
 
 
 def parse_frontmatter(text: str, path: Path) -> dict[str, str]:
@@ -545,7 +554,49 @@ def check_yaml_health() -> None:
                 err(f"{rel(path)}: fenced yaml block #{i} invalid - {exc}")
 
 
+def report(summary: str, clean_message: str) -> int:
+    """Print the accumulated findings and return the process exit code."""
+    print(summary)
+    for w in warnings:
+        print(f"  WARN  {w}")
+    if errors:
+        for e in errors:
+            print(f"  FAIL  {e}")
+        print(f"\n{len(errors)} violation(s).")
+        return 1
+    print(clean_message)
+    return 0
+
+
+def check_one_style(path: Path) -> int:
+    """Validate a single style file — the authoring loop.
+
+    Runs every check that can be answered from one file plus the tree it
+    sits in, so an author gets a verdict in milliseconds instead of
+    re-validating 56 skills after each edit. Whole-corpus checks (index
+    sync, Prompt Block collisions) still need the full run.
+    """
+    if not path.is_file():
+        print(f"  FAIL  {rel(path)}: no such file")
+        print("\n1 violation(s).")
+        return 1
+
+    text = path.read_text(encoding="utf-8")
+    check_frontmatter_and_aphorism(path, text)
+    check_style_schema(path, text)
+    check_style_redirects(
+        {path: text},
+        {p.parent.name for p in ROOT.glob("comic-styles/*/*/SKILL.md")},
+        {p.parent.name for p in skill_files()},
+    )
+    check_native_habitats({path: text})
+    return report(f"Checked {rel(path)}.", "Style contract holds.")
+
+
 def main() -> int:
+    if len(sys.argv) == 3 and sys.argv[1] == "--style":
+        return check_one_style(Path(sys.argv[2]).resolve())
+
     if len(sys.argv) == 3 and sys.argv[1] == "--bible":
         path = Path(sys.argv[2]).resolve()
         problems = validate_bible(path)
@@ -582,16 +633,10 @@ def main() -> int:
     check_yaml_health()
     check_example_bibles()
 
-    print(f"Checked {len(skill_files())} skills ({len(style_dirs)} styles).")
-    for w in warnings:
-        print(f"  WARN  {w}")
-    if errors:
-        for e in errors:
-            print(f"  FAIL  {e}")
-        print(f"\n{len(errors)} violation(s).")
-        return 1
-    print("All repository contracts hold.")
-    return 0
+    return report(
+        f"Checked {len(skill_files())} skills ({len(style_dirs)} styles).",
+        "All repository contracts hold.",
+    )
 
 
 if __name__ == "__main__":
