@@ -1,6 +1,6 @@
 ---
 name: comic-world-bible-system
-version: 1.1.0
+version: 1.2.0
 category: comic-consistency
 description: The canonical source of truth and asset registry for long-form comic production. Defines structured world bibles, character compendiums, style grammars, and generates derived consistency artifacts (DNA templates, model sheets, negative libraries).
 ---
@@ -53,6 +53,22 @@ One entry per character containing:
 ### 5. version_history
 - Date-stamped record of all changes
 - Rationale for each change (critical for long-running series)
+
+### 6. source_register (nonfiction projects only)
+
+Fiction invents its world; nonfiction owes its world to something outside itself. A bible declaring `production_mode: nonfiction` carries a source register, and every depicted fact traces to an entry in it.
+
+- `production_mode`: `fiction` (default, omit freely) or `nonfiction`
+- `source_register`: one entry per sourced fact, each containing:
+  - `claim`: the depicted fact, stated plainly ("the depot roof is corrugated steel")
+  - `source`: where it came from — photograph, interview, document, site visit
+  - `depicted_in`: the panels or assets that render the claim
+  - `confidence`: `verified` (direct evidence) or `reported` (single-source testimony)
+- Character entries additionally carry `source_note` when the subject is a real person
+
+**Why this is a schema section and not a style note.** `reportage-comics-journalism` locks out fabricated documentary detail — invented insignia, made-up signage, plausible-looking evidence. That lock is only checkable if the project holds a register of what *is* sourced; otherwise "no fabrication" is a sentiment. A style can state the rule, but only the bible can hold the evidence, and the bible outlives any single panel.
+
+**What the register does not do.** It records provenance, not permission. Whether a real person or place may be depicted at all is a Producer decision recorded in the contract; the register only answers whether what was drawn traces to something observed.
 
 ## Expected Folder Structure
 
@@ -111,6 +127,13 @@ A valid world bible must pass these checks:
 **Consistency Validation**
 - No conflicting costume or lighting rules across characters
 - All referenced assets in the bible have corresponding files in the assets folder
+
+**Provenance Validation** (when `production_mode: nonfiction`)
+- `source_register` is present and holds at least one entry
+- Every entry carries `claim`, `source`, and `depicted_in`
+- Every character in the compendium carries a `source_note`
+
+Fiction bibles skip this block entirely — omitting `production_mode` means `fiction`, and nothing changes for existing projects.
 
 ### 4. Derive Artifacts
 
@@ -238,6 +261,32 @@ version_history:
 ```
 
 This example satisfies structural, content, and consistency validation.
+
+### Nonfiction Delta
+
+A reportage project adds two things to the shape above — the mode flag and the register — and a `source_note` on any real subject:
+
+```yaml
+production_mode: nonfiction
+
+character_compendium:
+  - name: "Yard Foreman"
+    canonical_reference_sheet: "foreman-ref-sheet.png"
+    dna_template: "man in his fifties, weathered face, hi-vis vest over flannel"
+    source_note: "site visit 2026-03-11; photographed with consent, name withheld at request"
+
+source_register:
+  - claim: "the depot roof is corrugated steel with three patched sections"
+    source: "site photograph DSC_0142"
+    depicted_in: ["panel-01", "panel-03"]
+    confidence: verified
+  - claim: "night shifts run four crews since the January change"
+    source: "interview, yard foreman, 2026-03-11"
+    depicted_in: ["panel-02"]
+    confidence: reported
+```
+
+Anything drawn that no entry supports is fabrication, and the style's negative locks reject it.
 
 
 
