@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """Repository validator for foundational-comic-skills.
 
-Run from anywhere:  python3 tools/validate.py
-Exit code 0 = repository contracts hold; 1 = violations found.
+Modes
+-----
+  python3 tools/validate.py                     whole repository
+  python3 tools/validate.py --style <SKILL.md>  one style, while authoring
+  python3 tools/validate.py --bible <bible>     one world-bible YAML
+
+Exit code 0 = contracts hold; 1 = violations found.
 
 Checks
 ------
@@ -14,8 +19,9 @@ Checks
    Prompt Block fits the 40-90 word injectable budget and stays a pure
    declarative style description (no pronouns, imperatives, or story).
 4. Style index sync: comic-styles/SKILL.md table rows match the
-   directory tree exactly (presence, category, declared count), and no
-   two styles inject near-identical Prompt Blocks.
+   directory tree exactly (presence, category, declared count), no two
+   styles inject near-identical Prompt Blocks, and every native-habitat
+   name resolves against the core libraries.
 5. Cross-references: backticked `comic-*` tokens resolve to a real
    skill or the planned-skills allowlist, and every `When Not to Use`
    redirect names a style that exists.
@@ -88,7 +94,17 @@ FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 REF_RE = re.compile(r"`(comic-[a-z0-9-]+)`")
 PROMPT_BLOCK_RE = re.compile(r"## Prompt Block\s*\n+```text\n(.*?)\n```", re.DOTALL)
 WHEN_NOT_RE = re.compile(r"## When Not to Use\n(.*?)\n## ", re.DOTALL)
+INTEGRATION_RE = re.compile(r"## Integration\n(.*?)(?:\n---|\Z)", re.DOTALL)
 BACKTICK_RE = re.compile(r"`([^`]+)`")
+LIB_ENTRY_RE = re.compile(r"^### \d+\. `([a-z0-9-]+)`", re.MULTILINE)
+
+# Canvases and beat arcs are defined once, in the core libraries. Native
+# habitat vocabulary is read from them rather than restated here, so the
+# check cannot drift from the thing it validates.
+LIBRARY_PATHS = (
+    "comic-core/comic-format-library/SKILL.md",
+    "comic-core/comic-narrative-patterns/SKILL.md",
+)
 
 # The Prompt Block is injected verbatim into a generation prompt alongside
 # character, scene, and negative blocks. Too short starves the backend of
@@ -152,7 +168,10 @@ def warn(msg: str) -> None:
 
 
 def rel(p: Path) -> str:
-    return str(p.relative_to(ROOT))
+    try:
+        return str(p.relative_to(ROOT))
+    except ValueError:
+        return str(p)  # --style/--bible accept paths from outside the tree
 
 
 def parse_frontmatter(text: str, path: Path) -> dict[str, str]:
@@ -225,6 +244,13 @@ def check_style_schema(path: Path, text: str) -> None:
         err(f"{rel(path)}: Style Lock needs >= 5 bullets")
     if bullet_count("## Negative Locks") < 3:
         err(f"{rel(path)}: Negative Locks needs >= 3 bullets")
+    # Routing sections: one bullet cannot express a choice between styles.
+    for section in ("## When to Use", "## When Not to Use"):
+        if bullet_count(section) < 2:
+            err(
+                f"{rel(path)}: `{section.lstrip('# ')}` needs >= 2 bullets — "
+                f"a single line cannot route a Producer between styles"
+            )
     if "```text" not in section_body("## Prompt Block"):
         err(f"{rel(path)}: Prompt Block needs a fenced ```text block")
     else:
@@ -271,6 +297,42 @@ def check_prompt_block_purity(path: Path, text: str) -> None:
             err(
                 f"{rel(path)}: Prompt Block contains {m.group(0)!r} — "
                 f"{reason}"
+            )
+
+
+def library_vocabulary() -> set[str]:
+    """Sanctioned format and pattern names, read from the core libraries."""
+    vocab: set[str] = set()
+    for rel_path in LIBRARY_PATHS:
+        path = ROOT / rel_path
+        if path.is_file():
+            vocab |= set(LIB_ENTRY_RE.findall(path.read_text(encoding="utf-8")))
+    return vocab
+
+
+def check_native_habitats(style_texts: dict[Path, str]) -> None:
+    """A style's Integration line must route to canvases that exist.
+
+    "Native habitat" tells the Producer which format and pattern a style
+    is strongest in, so an unrecognised name routes a project to a canvas
+    the pipelines cannot build.
+    """
+    vocab = library_vocabulary()
+    if not vocab:
+        warn("core libraries unreadable - skipping native-habitat checks")
+        return
+    for path, text in sorted(style_texts.items()):
+        m = INTEGRATION_RE.search(text)
+        if not m:
+            continue
+        for token in sorted(set(BACKTICK_RE.findall(m.group(1)))):
+            # `comic-*` skills are resolved by the cross-reference pass.
+            if token.startswith("comic-") or token in vocab:
+                continue
+            err(
+                f"{rel(path)}: Integration names native habitat `{token}`, "
+                f"which is neither a format in comic-format-library nor a "
+                f"pattern in comic-narrative-patterns"
             )
 
 
@@ -432,6 +494,42 @@ def validate_bible(path: Path) -> list[str]:
     elif not all(entry.get("rationale") for entry in history):
         problems.append("every version_history entry needs a rationale")
 
+    problems.extend(check_provenance(data, characters))
+    return problems
+
+
+def check_provenance(data: dict, characters: list) -> list[str]:
+    """Nonfiction bibles must be able to show their work.
+
+    A nonfiction style locks out fabricated documentary detail; that lock
+    only means something if the project holds a register of what is
+    actually sourced. Fiction bibles omit `production_mode` entirely and
+    never reach this check.
+    """
+    if str(data.get("production_mode", "fiction")).lower() != "nonfiction":
+        return []
+
+    problems: list[str] = []
+    register = data.get("source_register") or []
+    if not register:
+        problems.append(
+            "production_mode is nonfiction but source_register is empty — "
+            "every depicted fact must trace to a source"
+        )
+    for i, entry in enumerate(register, 1):
+        if not isinstance(entry, dict):
+            problems.append(f"source_register entry #{i} must be a mapping")
+            continue
+        for field in ("claim", "source", "depicted_in"):
+            if not entry.get(field):
+                problems.append(f"source_register entry #{i} missing `{field}`")
+
+    for ch in characters:
+        if isinstance(ch, dict) and not ch.get("source_note"):
+            problems.append(
+                f"character `{ch.get('name', '<unnamed>')}` missing source_note "
+                f"(required in a nonfiction bible)"
+            )
     return problems
 
 
@@ -463,7 +561,49 @@ def check_yaml_health() -> None:
                 err(f"{rel(path)}: fenced yaml block #{i} invalid - {exc}")
 
 
+def report(summary: str, clean_message: str) -> int:
+    """Print the accumulated findings and return the process exit code."""
+    print(summary)
+    for w in warnings:
+        print(f"  WARN  {w}")
+    if errors:
+        for e in errors:
+            print(f"  FAIL  {e}")
+        print(f"\n{len(errors)} violation(s).")
+        return 1
+    print(clean_message)
+    return 0
+
+
+def check_one_style(path: Path) -> int:
+    """Validate a single style file — the authoring loop.
+
+    Runs every check that can be answered from one file plus the tree it
+    sits in, so an author gets a verdict in milliseconds instead of
+    re-validating 56 skills after each edit. Whole-corpus checks (index
+    sync, Prompt Block collisions) still need the full run.
+    """
+    if not path.is_file():
+        print(f"  FAIL  {rel(path)}: no such file")
+        print("\n1 violation(s).")
+        return 1
+
+    text = path.read_text(encoding="utf-8")
+    check_frontmatter_and_aphorism(path, text)
+    check_style_schema(path, text)
+    check_style_redirects(
+        {path: text},
+        {p.parent.name for p in ROOT.glob("comic-styles/*/*/SKILL.md")},
+        {p.parent.name for p in skill_files()},
+    )
+    check_native_habitats({path: text})
+    return report(f"Checked {rel(path)}.", "Style contract holds.")
+
+
 def main() -> int:
+    if len(sys.argv) == 3 and sys.argv[1] == "--style":
+        return check_one_style(Path(sys.argv[2]).resolve())
+
     if len(sys.argv) == 3 and sys.argv[1] == "--bible":
         path = Path(sys.argv[2]).resolve()
         problems = validate_bible(path)
@@ -494,21 +634,16 @@ def main() -> int:
 
     check_style_index(style_dirs)
     check_style_redirects(style_texts, set(style_dirs), known_skills)
+    check_native_habitats(style_texts)
     check_prompt_block_collisions(style_texts)
     check_cross_references(known_skills)
     check_yaml_health()
     check_example_bibles()
 
-    print(f"Checked {len(skill_files())} skills ({len(style_dirs)} styles).")
-    for w in warnings:
-        print(f"  WARN  {w}")
-    if errors:
-        for e in errors:
-            print(f"  FAIL  {e}")
-        print(f"\n{len(errors)} violation(s).")
-        return 1
-    print("All repository contracts hold.")
-    return 0
+    return report(
+        f"Checked {len(skill_files())} skills ({len(style_dirs)} styles).",
+        "All repository contracts hold.",
+    )
 
 
 if __name__ == "__main__":
