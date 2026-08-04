@@ -13,5 +13,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install pyyaml
-      - run: python3 tools/validate.py
+      - run: pip install pyyaml pytest
+      - name: Repository contracts
+        run: python3 tools/validate.py
+      - name: Validator and showcase tests
+        run: python3 -m pytest tests/ -q

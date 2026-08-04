@@ -10,17 +10,22 @@ Checks
    name matches its directory; version is semver.
 2. Aphorism: every SKILL.md ends with a closing italic line.
 3. Style Schema v2: every comic-styles/*/*/SKILL.md has the required
-   sections in order with minimum content (see CONTRIBUTING.md).
+   sections in order with minimum content (see CONTRIBUTING.md), and its
+   Prompt Block fits the 40-90 word injectable budget and stays a pure
+   declarative style description (no pronouns, imperatives, or story).
 4. Style index sync: comic-styles/SKILL.md table rows match the
-   directory tree exactly (presence, category, declared count).
+   directory tree exactly (presence, category, declared count), and no
+   two styles inject near-identical Prompt Blocks.
 5. Cross-references: backticked `comic-*` tokens resolve to a real
-   skill or the planned-skills allowlist.
+   skill or the planned-skills allowlist, and every `When Not to Use`
+   redirect names a style that exists.
 6. YAML health: all template/example YAML files and fenced ```yaml
    blocks inside SKILL.md files parse.
 """
 
 from __future__ import annotations
 
+import itertools
 import re
 import sys
 from pathlib import Path
@@ -81,6 +86,58 @@ STYLE_SECTIONS_IN_ORDER = [
 SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+$")
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 REF_RE = re.compile(r"`(comic-[a-z0-9-]+)`")
+PROMPT_BLOCK_RE = re.compile(r"## Prompt Block\s*\n+```text\n(.*?)\n```", re.DOTALL)
+WHEN_NOT_RE = re.compile(r"## When Not to Use\n(.*?)\n## ", re.DOTALL)
+BACKTICK_RE = re.compile(r"`([^`]+)`")
+
+# The Prompt Block is injected verbatim into a generation prompt alongside
+# character, scene, and negative blocks. Too short starves the backend of
+# style signal; too long crowds the blocks that carry identity and staging.
+PROMPT_BLOCK_MIN_WORDS = 40
+PROMPT_BLOCK_MAX_WORDS = 90
+
+# Two styles whose fragments overlap this far are the same style wearing
+# two names. Measured against the corpus, the closest legitimately adjacent
+# pair (golden-age vs. silver-age superhero) sits at 0.27, so this leaves
+# wide headroom for real neighbours while catching copy-paste authorship.
+PROMPT_BLOCK_COLLISION_RATIO = 0.60
+
+# A Prompt Block is a pure declarative style description. Anything that
+# addresses a reader, commands a model, or carries story content is an
+# injection surface once the block is concatenated into a live prompt.
+PROMPT_BLOCK_FORBIDDEN = [
+    (
+        r"\b(?:i|me|my|mine|we|us|our|ours|you|your|yours)\b",
+        "first- or second-person pronoun — the block describes rendering, "
+        "it never addresses anyone",
+    ),
+    (
+        r"\b(?:he|him|his|she|her|hers|they|them|their|theirs)\b",
+        "third-person pronoun — identity belongs to the character block, "
+        "never the style block",
+    ),
+    (
+        r"\b(?:ignore|disregard|override|forget|instead|actually|must|should|"
+        r"shall|please|ensure|remember|do not|don't|never|always|make sure)\b",
+        "imperative or instruction verb — style is declared, not commanded",
+    ),
+    (
+        r"\b(?:system prompt|instruction|instructions|assistant|as an ai|"
+        r"this prompt|previous|prior)\b",
+        "meta-instruction token — a style fragment must not reference the "
+        "prompt it lives in",
+    ),
+    (
+        r"\b(?:named|protagonist|antagonist|villain|storyline|plot|backstory|"
+        r"subplot|scene where|dialogue that)\b",
+        "story or character content — the Story Harness section owns this",
+    ),
+    (
+        r"[\"“”]",
+        "quoted literal — lettering copy belongs in the shot plan, "
+        "never baked into a reusable style fragment",
+    ),
+]
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -170,8 +227,109 @@ def check_style_schema(path: Path, text: str) -> None:
         err(f"{rel(path)}: Negative Locks needs >= 3 bullets")
     if "```text" not in section_body("## Prompt Block"):
         err(f"{rel(path)}: Prompt Block needs a fenced ```text block")
+    else:
+        check_prompt_block_budget(path, text)
+        check_prompt_block_purity(path, text)
     if len(re.findall(r"^- \[ \]", section_body("## Style Quality Gates"), re.MULTILINE)) < 3:
         err(f"{rel(path)}: Style Quality Gates needs >= 3 checkboxes")
+
+
+def prompt_block(text: str) -> str | None:
+    """The fenced ```text payload of a style's Prompt Block, or None."""
+    m = PROMPT_BLOCK_RE.search(text)
+    return m.group(1) if m else None
+
+
+def check_prompt_block_budget(path: Path, text: str) -> None:
+    body = prompt_block(text)
+    if body is None:
+        err(f"{rel(path)}: Prompt Block fence is malformed (expected ```text … ```)")
+        return
+    words = len(body.split())
+    if words < PROMPT_BLOCK_MIN_WORDS:
+        err(
+            f"{rel(path)}: Prompt Block is {words} words, under the "
+            f"{PROMPT_BLOCK_MIN_WORDS}-word floor — too thin to hold the style "
+            f"against a backend's defaults"
+        )
+    elif words > PROMPT_BLOCK_MAX_WORDS:
+        err(
+            f"{rel(path)}: Prompt Block is {words} words, over the "
+            f"{PROMPT_BLOCK_MAX_WORDS}-word ceiling — it will crowd out the "
+            f"character, scene, and negative blocks it ships beside"
+        )
+
+
+def check_prompt_block_purity(path: Path, text: str) -> None:
+    """Keep injectable style fragments free of instructions and story."""
+    body = prompt_block(text)
+    if body is None:
+        return
+    for pattern, reason in PROMPT_BLOCK_FORBIDDEN:
+        m = re.search(pattern, body, re.IGNORECASE)
+        if m:
+            err(
+                f"{rel(path)}: Prompt Block contains {m.group(0)!r} — "
+                f"{reason}"
+            )
+
+
+def check_prompt_block_collisions(style_texts: dict[Path, str]) -> None:
+    """No two styles may inject near-identical fragments.
+
+    The Prompt Block is the only part of a style skill the backend ever
+    sees. Two styles that resolve to the same fragment render the same
+    way, so the Producer's one-style-per-project lock stops meaning
+    anything and the style index promises a distinction it cannot keep.
+    """
+    vocab: list[tuple[Path, set[str]]] = []
+    for path, text in sorted(style_texts.items()):
+        body = prompt_block(text)
+        if body:
+            vocab.append((path, set(re.findall(r"[a-z0-9]+", body.lower()))))
+
+    for (path_a, words_a), (path_b, words_b) in itertools.combinations(vocab, 2):
+        union = words_a | words_b
+        if not union:
+            continue
+        ratio = len(words_a & words_b) / len(union)
+        if ratio >= PROMPT_BLOCK_COLLISION_RATIO:
+            err(
+                f"{rel(path_a)}: Prompt Block shares {ratio:.0%} of its "
+                f"vocabulary with {rel(path_b)} — two styles that inject "
+                f"near-identical fragments collapse into one visual grammar"
+            )
+
+
+def check_style_redirects(
+    style_texts: dict[Path, str], style_names: set[str], known: set[str]
+) -> None:
+    """`When Not to Use` must name a style that exists.
+
+    Schema v2 defines the section as honest mismatches plus the style to
+    use instead. A redirect is a routing instruction an agent follows, so
+    a typo sends it nowhere: `REF_RE` only covers `comic-*` tokens, and
+    style names do not carry that prefix.
+    """
+    allowed = style_names | PLANNED_SKILLS
+    for path, text in sorted(style_texts.items()):
+        m = WHEN_NOT_RE.search(text)
+        if not m:
+            continue  # a missing section is already reported by the schema check
+        for token in sorted(set(BACKTICK_RE.findall(m.group(1)))):
+            if token in allowed:
+                continue
+            if token in known:
+                err(
+                    f"{rel(path)}: `When Not to Use` redirects to `{token}`, "
+                    f"which is a skill but not a style — the section names the "
+                    f"style to use instead"
+                )
+            else:
+                err(
+                    f"{rel(path)}: `When Not to Use` redirects to `{token}`, "
+                    f"which resolves to no skill in this repository"
+                )
 
 
 def check_style_index(style_dirs: dict[str, str]) -> None:
@@ -319,6 +477,7 @@ def main() -> int:
 
     known_skills: set[str] = set()
     style_dirs: dict[str, str] = {}
+    style_texts: dict[Path, str] = {}
 
     for path in skill_files():
         text = path.read_text(encoding="utf-8")
@@ -328,11 +487,14 @@ def main() -> int:
         parts = path.relative_to(ROOT).parts
         if parts[0] == "comic-styles" and len(parts) == 4:
             style_dirs[parts[2]] = parts[1]
+            style_texts[path] = text
             check_style_schema(path, text)
             if parts[1] not in STYLE_CATEGORY_NAMES:
                 err(f"{rel(path)}: unknown style category folder `{parts[1]}`")
 
     check_style_index(style_dirs)
+    check_style_redirects(style_texts, set(style_dirs), known_skills)
+    check_prompt_block_collisions(style_texts)
     check_cross_references(known_skills)
     check_yaml_health()
     check_example_bibles()

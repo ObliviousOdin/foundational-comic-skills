@@ -16,7 +16,7 @@ description: Modular artistic style skills on Schema v2 — each a self-containe
 - All styles must integrate with the World Bible and consistency systems
 - The Producer locks **one style per project**; the Director works inside its Style Lock
 
-## Current Skills (28)
+## Current Skills (30)
 
 Categories match the directory layout. "Native habitat" suggests the format/pattern pairings (from `comic-format-library` and `comic-narrative-patterns`) where the style is strongest — the default 3-panel strip works everywhere.
 
@@ -49,7 +49,9 @@ Categories match the directory layout. "Native habitat" suggests the format/patt
 | Decorative | `watercolor-storybook-comic` | strip; silent strip | ✅ Schema v2 |
 | Literary | `autobio-indie-literary-comic` | strip or chapter | ✅ Schema v2 |
 | Literary | `minimalist-line-webcomic` | strip or single-panel; gag escalation | ✅ Schema v2 |
+| Literary | `reportage-comics-journalism` | chapter; parallel action | ✅ Schema v2 |
 | Cartoon | `saturday-morning-cartoon-comic` | strip; gag escalation | ✅ Schema v2 |
+| Cartoon | `rubber-hose-animation-comic` | strip or 4-koma; gag escalation | ✅ Schema v2 |
 
 ## Integration
 Every style skill must:
