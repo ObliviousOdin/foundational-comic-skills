@@ -1,6 +1,6 @@
 ---
 name: minimalist-line-webcomic
-version: 2.0.0
+version: 2.1.0
 category: comic-styles
 description: Radical-economy webcomic — thin uniform line, stick-to-simple figures, vast white space, one essential prop, and timing carried entirely by placement and silence.
 ---
@@ -53,7 +53,8 @@ description: Radical-economy webcomic — thin uniform line, stick-to-simple fig
 
 ## Dialogue & Lettering
 
-- Plain text floated near the speaker, or thin-line ovals with straight tails; hand-set lowercase or small caps at one size throughout — per `comic-lettering-and-balloons`, these are the only deltas; caption boxes remain forbidden
+- Plain text floated near the speaker, or thin-line ovals with straight tails; hand-set lowercase or small caps at one size throughout — per `comic-lettering-and-balloons`, these are the only deltas
+- **Caption boxes remain forbidden in every multi-panel format.** The one exception is `single-panel-gag`, where the format sanctions a caption line below the frame and often lands the joke there; that allowance holds here, set in the same plain lettering with **no box, no rule, no ornament** — the line sits under the panel like a title card. Still one bubble *or* one caption, never both
 - ≤ 2 short lines per panel, ≤ ~12 words; word choice is this style's only ornament — edit lines like jokes, because they are
 - SFX policy: none; silence is the soundtrack, and a beat panel outranks any sound effect
 

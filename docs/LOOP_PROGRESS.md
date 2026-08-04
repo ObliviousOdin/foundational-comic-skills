@@ -5,11 +5,11 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 8 complete — next cycle starts at 9
-**Commits this session:** 46 (cycles 1–7 merged via PRs #4–#8)
+**Current cycle:** 9 complete — next cycle starts at 10
+**Commits this session:** 54 (cycles 1–8 merged via PRs #4–#9)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), 4 worked examples, validator green, 89 pytest tests passing
-**Formats built:** 4 of 6 sanctioned — `3-panel-horizontal`, `4koma-vertical`, `webtoon-scroll-segment`, `multi-page-chapter`
+**Current state:** 56 skills (30 styles), 5 worked examples, validator green, 103 pytest tests passing
+**Formats built:** 5 of 6 sanctioned — only `2x2-grid-page` remains unbuilt
 
 **Commit identity:** commits are authored `obliviousodin <11676741+ObliviousOdin@users.noreply.github.com>`
 with no AI co-author trailer, by owner instruction. `main` history was rewritten once
@@ -30,40 +30,36 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Validator & Tests (highest leverage — every future contribution inherits these)
 
-1. Style index `Native Habitat` column is prose ("strip or chapter") while `Integration` uses canonical names — reconcile so the column is checkable too
-2. Consider a validator heuristic for the format-scope defect class: flag unqualified "per strip" / "all three panels" phrasing in `comic-core`/`comic-direction`. Semantic, so it would have to be a WARN, not a FAIL — judge whether the false-positive rate is tolerable before building it
-3. `arc-ledger.yaml` is now a worked artifact but nothing checks it — a ledger whose `exit_actual` contradicts its `proof_panel`, or whose steps skip an episode, would pass silently
-4. `chapter-map.yaml` page grammar is unchecked: nothing verifies recto/verso alternation, that `page_grammar` pages match the `scenes` page lists, or that panel counts sit in the 4–9 range the format library mandates
+1. Consider a validator heuristic for the format-scope defect class: flag unqualified "per strip" / "all three panels" phrasing in `comic-core`/`comic-direction`. Semantic, so it would have to be a WARN, not a FAIL — judge whether the false-positive rate is tolerable before building it
 
 ### Examples & Worked Proof (outranks style coverage — every new format has surfaced a real defect, now 4 for 4)
 
-5. `single-panel-gag` worked project — the smallest format and the one carrying an explicit exemption (the lettering silence rule) that no artifact has ever exercised. On the 4-for-4 record, the exemption is the most likely place a defect is hiding
-6. `2x2-grid-page` worked project — the last unbuilt format after that; shares the locked-geometry constraint with 4-koma but adds the T-rule and Z-path reading
-7. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
+2. `2x2-grid-page` worked project — the last unbuilt format after that; shares the locked-geometry constraint with 4-koma but adds the T-rule and Z-path reading
+3. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
-8. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
-9. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
-10. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
-11. Marcinelle-school *gros nez* humour BD (European — only two European styles)
-12. Atomic-age retro-futurism (Sci-Fi)
-13. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
-14. Illuminated-manuscript marginalia (Decorative)
-15. Silhouette cut-paper theatre (Decorative)
+4. Ukiyo-e woodblock sequential (Asian — no pre-modern Japanese print grammar)
+5. Risograph limited-palette zine print (Pop Art — technique-native, misregistration as a lock)
+6. Sunday-page adventure illustration, Foster/Raymond school (Adventure)
+7. Marcinelle-school *gros nez* humour BD (European — only two European styles)
+8. Atomic-age retro-futurism (Sci-Fi)
+9. Diagrammatic geometric literary comics (Literary — architecture-of-the-page school)
+10. Illuminated-manuscript marginalia (Decorative)
+11. Silhouette cut-paper theatre (Decorative)
 
 ### Layer Depth
 
-16. **Documentary/comics-journalism research study** — `research/README.md` now names this as the one enforced contract resting on assumed practice rather than a cite-able source
-17. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
-18. `comic-production/comic-export-and-publish`: print CMYK gate refinement
-19. `research/`: color and palette science for sequential art, mapped into the traceability table
-20. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+12. **Documentary/comics-journalism research study** — `research/README.md` now names this as the one enforced contract resting on assumed practice rather than a cite-able source
+13. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
+14. `comic-production/comic-export-and-publish`: print CMYK gate refinement
+15. `research/`: color and palette science for sequential art, mapped into the traceability table
+16. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
 
 ### Documentation Accuracy
 
-21. Hermes integration notes: how an agent loads the layers in order
-22. `docs/showcase/README.md` accuracy pass against the 30-style tree
+17. Hermes integration notes: how an agent loads the layers in order
+18. `docs/showcase/README.md` accuracy pass against the 30-style tree
 
 ## Recently Completed
 
@@ -143,6 +139,18 @@ Built the last unbuilt format. It surfaced two defects, holding the pattern at 4
 - `feat(examples)`: `lamplighter-chapter-001` — cold start in a new world, 3 scenes composing 3 patterns, page-turn beats, the single rationed splash
 - Test count 80→89
 
+**Cycle 9 (2026-08-04) — 5 commits, validator and tests green throughout**
+
+Built the second-smallest format; it found a contradiction, holding the pattern at 5 for 5.
+
+- `fix(styles)`: `minimalist-line-webcomic` and `elegant-art-nouveau-comic` forbade captions outright while claiming `single-panel-gag` as native habitat, where the format grants one — **defects 6 and 7** of the format-scope class; both 2.0.0→2.1.0
+- `feat(examples)`: `deskplant-gag-001` — implied beats that are never drawn, a `not_applicable` block, the smallest passing bible
+- `test(tests)`: arc-ledger and chapter-map validation (7 checks; proof panels, recorded debt, bible-backed states, recto/verso alternation, page coverage, panel-count range)
+- `refactor(styles)`: index habitat column rewritten in canonical vocabulary, derived from each skill's Integration line; 2.0.0→2.1.0
+- `feat(tools)`: index habitat column verified against each skill — the skill is the authority, the index follows
+
+Test count 89→103.
+
 ## Notes for the Next Cycle
 
 - `pytest` is not installed in a fresh container: `python3 -m pip install pytest pyyaml` before running the suite.
@@ -155,7 +163,7 @@ Built the last unbuilt format. It surfaced two defects, holding the pattern at 4
   pattern added to `PROMPT_BLOCK_FORBIDDEN` must be re-scanned against all styles first —
   `tests/test_validate.py::test_every_style_prompt_block_is_within_budget_and_pure` is the
   backstop, but scan before committing rather than after.
-- **Building in an unused format has now surfaced a defect four times out of four.**
+- **Building in an unused format has now surfaced a defect five times out of five.**
   4-koma found the pacing rule; webtoon found two (an arc-ledger field with no procedure
   behind it, and an eyeline rule with no exception clause); chapter found two more (a
   mandated artifact with no template, and the pattern-agreement test asserting a rule that
