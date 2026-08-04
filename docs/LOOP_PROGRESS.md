@@ -37,9 +37,9 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Examples & Worked Proof (outranks style coverage — every new format has surfaced a real defect, now 4 for 4)
 
-4. `single-panel-gag` worked project — the smallest format and the one carrying an explicit exemption (the lettering silence rule) that no artifact has ever exercised. On the 4-for-4 record, the exemption is the most likely place a defect is hiding
-5. `2x2-grid-page` worked project — the last unbuilt format after that; shares the locked-geometry constraint with 4-koma but adds the T-rule and Z-path reading
-6. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
+5. `single-panel-gag` worked project — the smallest format and the one carrying an explicit exemption (the lettering silence rule) that no artifact has ever exercised. On the 4-for-4 record, the exemption is the most likely place a defect is hiding
+6. `2x2-grid-page` worked project — the last unbuilt format after that; shares the locked-geometry constraint with 4-koma but adds the T-rule and Z-path reading
+22. Silent-strip worked project (a *pattern*, not a format — the hardest directorial test, undemonstrated)
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
