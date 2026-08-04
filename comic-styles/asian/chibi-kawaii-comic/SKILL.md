@@ -1,6 +1,6 @@
 ---
 name: chibi-kawaii-comic
-version: 2.0.0
+version: 2.1.0
 category: comic-styles
 description: Sticker-flat chibi kawaii comics — locked 2-head proportions, a five-swatch pastel palette, emoji-grammar faces, and thick rounded outlines for silly-sweet gag strips.
 ---
@@ -95,7 +95,7 @@ sticker finish.
 ## Integration
 
 - Loads `comic-core` and `comic-consistency`; rendered via `comic-image-generation-adapter`
-- Native habitat: `4koma-vertical`; patterns `gag-escalation` and `kishotenketsu`
+- Native habitat: `4koma-vertical` or `2x2-grid-page` — the same four beats, folded into a grid instead of a column; patterns `gag-escalation` and `kishotenketsu`
 
 ---
 
