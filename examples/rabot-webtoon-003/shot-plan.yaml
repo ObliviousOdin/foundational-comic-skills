@@ -1,0 +1,156 @@
+# Filled-in instance of comic-direction/comic-director/assets/templates/shot-plan-template.yaml
+# Long Night ep-01: "Amber" - one scroll segment, slow-burn reveal.
+
+shot_plan:
+  project: "Rabot — Long Night"
+  episode: "ep-01"
+  strip_id: "webtoon-003-ep01"
+  format: "webtoon-scroll-segment"
+  narrative_pattern: "slow-burn-reveal"
+  reading_direction: "ltr"
+  panel_flow: "top-to-bottom"
+  vision_check: "held breath, warm underneath"
+
+# Cues extracted (comic-story-derivation), mapped to slow-burn-reveal beats:
+#   The SETTING cue withholds, the PROP is the hint, the reveal recontextualizes the MOOD.
+#   MOOD: settled, about to stop being settled    WARDROBE: night-shift practical
+#   SETTING: control room (withholds - the board is out of frame until P6)
+#   PROP: the status board (the hint, glimpsed in reflection at P3)
+#   RELATIONSHIP: settled company; the arc ledger owns where it goes
+#
+# Pacing instrument for this format: the SCROLL GAP. Panel geometry is variable here,
+# so size is available - but gap height is the stronger instrument and the one the
+# format is built around. Gap heights below are in screen-fractions at 800x1280.
+#
+# Lettering budget unit for this format = THE SEGMENT (comic-lettering-and-balloons),
+# so this episode gets at most one burst balloon, one off-panel line, one SFX, and
+# owes at least one silent panel. Spent: 0 burst, 1 off-panel (P6), 1 SFX (P4),
+# silent panels P2, P5, P7.
+
+panels:
+  - panel: 1
+    beat_role: "WITHHOLD"
+    shot_size: "establishing"
+    camera_angle: "eye-level"
+    staging: "control room wide, full-bleed width; Rabot mid-frame at the console, Echo seated frame right; the monitor wall is deliberately cropped out above frame"
+    eyeline_vector: "down, into the console - scroll formats point the eye down, never sideways"
+    transition_in: "n/a"
+    scroll_role: "open"
+    gap_after: "0.25 screen"
+    dialogue:
+      bubbles: 1
+      lines: ["Six hours to shift end."]
+      placement: "upper-left, wholly within screen 1 - no boundary contact"
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "The crop is the withholding: the status board exists above the frame line and the reader has no reason yet to want it"
+
+  - panel: 2
+    beat_role: "WITHHOLD"
+    shot_size: "close-up"
+    camera_angle: "eye-level"
+    transition_in: "moment"
+    staging: "Rabot's hands on the console, one thumb resting on the thermos lid; warm key, cool ambient"
+    eyeline_vector: "n/a - hands only, reader continues down"
+    scroll_role: "settle"
+    gap_after: "0.2 screen"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "Silent. Establishes the resting tempo the reveal will break; also the season-1 thermos, carried without comment"
+
+  - panel: 3
+    beat_role: "HINT"
+    shot_size: "extreme close-up"
+    camera_angle: "eye-level"
+    transition_in: "subject"
+    staging: "the thermos's steel curve, and in its reflection a smear of amber that is the wrong color for this room"
+    eyeline_vector: "n/a"
+    scroll_role: "plant"
+    gap_after: "0.2 screen"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "The hint must be honest and missable in equal measure - a first-time reader scrolls past, a re-reader stops here. The reflection is legible at 100% and ignorable at scroll speed"
+
+  - panel: 4
+    beat_role: "HINT"
+    shot_size: "medium"
+    camera_angle: "eye-level"
+    transition_in: "action"
+    staging: "Echo's head turning up and left, out of frame, toward the cropped-out board; Rabot unchanged, still working"
+    eyeline_vector: "her gaze exits UP - the one deliberate violation of the down-vector rule in this segment"
+    scroll_role: "tension"
+    gap_after: "0.5 screen"          # the pre-reveal gap - the page turn of this format
+    dialogue:
+      bubbles: 0
+      lines: []
+      placement: "silent art; one small typographic SFX only"
+    sfx: "a soft *tk* as the board's relay trips - the segment's single sanctioned SFX"
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "Proof panel for Rabot's ep-01 exit state (focused): he does not look up. The upward eyeline is licensed because it points at the thing being withheld, and the gap below it holds that pointing for a full half-screen"
+
+  - panel: 5
+    beat_role: "HINT"
+    shot_size: "wide"
+    camera_angle: "low"
+    transition_in: "aspect"
+    staging: "empty room detail across the pre-reveal gap: the doorway, the corridor beyond it dark, nobody in frame"
+    eyeline_vector: "none - the cast is absent"
+    scroll_role: "hold"
+    gap_after: "0.5 screen"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "Subject removal, held between two half-screen gaps. This is the breath before the reveal and the reason the reveal lands after the gap rather than beside it"
+
+  - panel: 6
+    beat_role: "REVEAL"
+    shot_size: "wide"
+    camera_angle: "low"
+    transition_in: "subject"
+    staging: "full-bleed: the monitor wall finally in frame, the ground-link row amber across its whole width; both figures small beneath it"
+    eyeline_vector: "both look up; reader's eye lands on the amber row first, then finds the figures under it"
+    scroll_role: "reveal"
+    gap_after: "0.3 screen"
+    dialogue:
+      bubbles: 1
+      lines: ["Ground's gone quiet."]
+      placement: "lower third, wholly inside the screen; off-panel tail toward the corridor speaker"
+      balloon_type: "off-panel"
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: >-
+      Proof panel for Echo's ep-01 exit state - and the one the arc ledger records as MISSED.
+      Staged her at the board reading it (processing) rather than watching Rabot receive it
+      (attentive). Shipped: the panel is good and the arc debt is recorded rather than
+      re-rolled. Episode 2 pays it.
+
+  - panel: 7
+    beat_role: "REVEAL"
+    shot_size: "close-up"
+    camera_angle: "eye-level"
+    transition_in: "moment"
+    staging: "Rabot's face lit amber from above, the warmth of the room's key light losing to it"
+    eyeline_vector: "up and held - the segment ends looking at the thing it withheld"
+    scroll_role: "close"
+    gap_after: "n/a - segment end"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "Retroactive legibility check: re-scrolling, P3's amber reflection is now obviously the board. The reveal was on-panel from the start"
+
+name_criteria:
+  strong_first_panel: true
+  layout_effortless: true
+  action_always_clear: true
+  shifts_convincing: true
+  emotion_legible: true
+
+scroll_check:
+  reveal_lands_after_gap: true
+  no_bubble_straddles_boundary: true      # P5 failed this on v1; see the production decision log
+  one_idea_per_screen_height: true
+  no_side_by_side_panels: true
+
+final_cut:
+  verdict: "ACCEPT"
+  corrective_field: ""
+  artistic_life_note: >-
+    The half-screen gaps do the work; the reveal is the only loud panel and it earns it.
+    Echo's beat is a miss, logged as arc debt rather than papered over - the panel is honest,
+    the throughline is what needs the fix, and that is next episode's job.

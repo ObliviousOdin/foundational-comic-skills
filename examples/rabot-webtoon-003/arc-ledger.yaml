@@ -1,0 +1,68 @@
+# Filled-in instance of comic-pipeline/comic-emotional-arc-orchestrator/assets/templates/arc-ledger-template.yaml
+#
+# The first worked arc ledger in the repository. A single episode's shot plan cannot
+# hold a six-episode emotional throughline, which is exactly why this file exists:
+# the ledger owns where a character must arrive, the episode owns how they get there
+# that week. Updated after EVERY episode delivery.
+
+arc:
+  project: "Rabot — Long Night"
+  arc_name: "season-2 / Long Night"
+  episodes_planned: 6
+  bible_version: "4.0.0"
+
+throughlines:
+  - character: "Rabot"
+    baseline_state: "quiet-warm"        # carried in from season-1's close
+    arc_shape: "fall"
+    destination_state: "tired"
+    destination_episode: 4
+    forbidden_resets:
+      - "surprised at Echo's company"   # earned away in strip-001; he cannot re-learn it
+      - "parallel solitude"             # season-1 spent this; returning to it would undo the season
+    steps:
+      - episode: 1
+        enter: "quiet-warm"
+        exit_target: "focused"
+        because: "the ground-link status board drops to amber mid-shift"
+        exit_actual: "focused"
+        proof_panel: "ep-01 P4"
+        debt: ""
+
+  - character: "Echo"
+    baseline_state: "quiet-warm"
+    arc_shape: "thaw"
+    destination_state: "dry-amusement"  # her warmest registered state
+    destination_episode: 6
+    forbidden_resets:
+      - "dim"                           # her season-1 opening state; re-entering it would erase the thaw
+    steps:
+      - episode: 1
+        enter: "quiet-warm"
+        exit_target: "attentive"
+        because: "she notices the amber board one beat before Rabot does and says nothing"
+        exit_actual: "processing"
+        proof_panel: "ep-01 P6"
+        debt: >-
+          Missed by one state. The reveal beat gave her the diagnostic pose rather than the
+          watching-him pose, so the panel proves processing, not attentive. Episode 2 owes an
+          early beat where she is plainly watching Rabot rather than the board - otherwise the
+          thaw reads as machine competence and the arc shape is lost.
+
+bible_change_requests:
+  - character: "Echo"
+    gap: >-
+      No registered expression covers "worried about a person rather than a system". Her
+      library runs neutral / attentive / dry-amusement / processing / dim / quiet-warm, and
+      the episode-2 debt above needs a state between attentive and quiet-warm.
+    proposed: "concerned"
+    status: "open - blocks the ep-02 shot plan"
+
+revisions:
+  - date: "2026-08-04"
+    change: "Arc registered: 6 episodes, Rabot falling to tired by ep-04, Echo thawing to dry-amusement by ep-06"
+    rationale: >-
+      Season-1 ended with both characters at quiet-warm, which is a resting state and cannot
+      carry a serial. The arc moves them apart before it moves them together: Rabot degrades
+      under the outage while Echo warms toward him, so the season's midpoint has them at
+      opposite ends of their own throughlines.
