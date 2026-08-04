@@ -5,10 +5,10 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 12 complete — next cycle starts at 13
-**Commits this session:** 74 (cycles 1–11 merged via PRs #4–#12)
+**Current cycle:** 13 complete — see the handoff note below
+**Commits this session:** 79 (cycles 1–12 merged via PRs #4–#13)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), 7 worked examples, 7 research studies, validator green, 123 pytest tests passing
+**Current state:** 56 skills (30 styles), 7 worked examples, 8 research studies, validator green, 123 pytest tests passing
 **Formats built:** 6 of 6 sanctioned — every format in `comic-format-library` now has a worked project
 
 **Commit identity:** commits are authored `obliviousodin <11676741+ObliviousOdin@users.noreply.github.com>`
@@ -179,6 +179,43 @@ Applied the build-an-unused-thing technique to a **pattern** rather than a forma
 - `feat(consistency)`: **contract bleed** named as the fifth negative class, once three projects showed it; 1.4.0→1.5.0
 - `docs(docs)`: `docs/AGENT-INTEGRATION.md` — load order and precedence, resolving to *a permission never overrides a lock*
 - `docs(docs)`: stale counts corrected and a research-map claim that had become false (three "cannot express" gaps closed in cycle 11)
+
+**Cycle 13 (2026-08-04) — 4 commits, validator and tests green throughout**
+
+A colour cycle, and one correction.
+
+- `fix(docs)`: **corrected a false claim this ledger was carrying** — cycle 12 asserted four patterns had never been a primary lock; all six had. Verified, replaced, and the verification loop recorded
+- `research(research)`: `COLOR-AND-PALETTE-FOR-SEQUENTIAL-ART.md` — value carries readability, hue carries meaning, and *attractive mush* is the characteristic generated failure
+- `feat(consistency)`: `reserved_swatches` and swatch `value` steps; quality-gates Layer 4 gains the greyscale test; bible 1.5.0→1.6.0, gates 1.3.0→1.4.0
+- `feat(production)`: the gamut gate — a substitution is a bible change with a version bump, not an export tweak; 1.0.0→1.1.0
+
+Four commits, not five. No fifth item cleared the value bar, and padding is a contract
+violation by this file's own rule.
+
+## Handoff — Read This Before Cycle 14
+
+**The two productive seams of this session are exhausted.**
+
+1. *Build an unused format or pattern* ran 7 for 7 and is finished: all six formats and
+   all six patterns have been primary locks. Do not re-open it without re-running the
+   verification loop above.
+2. *Audit for the format-scope defect class* found nine instances and now has a
+   preventive rule (`CONTRIBUTING.md` ground rule 6). The tree has been swept twice.
+
+**What remains, honestly ranked:**
+
+- **Highest**: a worked example carrying a **nonfiction bible**. `source_register`,
+  `register`, `identifiability`, and `composite_disclosure` are all enforced and *none is
+  demonstrated* — the only enforced schema in the repository with no filled-in artifact.
+- **Medium**: the lettering-typography study (the last unwritten backlog research item);
+  a selectively chosen format×pattern pair the libraries call native and nobody has built.
+- **Low, and honest about it**: eight queued style additions. Thirty styles across twelve
+  categories means each new one is worth measurably less than the last. These are real
+  work but they are not high-value work, and a cycle made only of them is padding.
+
+**The habit worth keeping** is the one that produced most of this session's findings:
+build a filled-in artifact for something the tree claims to support but has never
+exercised, and watch which rule it has to argue around in a footnote.
 
 ## Notes for the Next Cycle
 
