@@ -7,7 +7,12 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Dates are merge dates.
 ## [Unreleased]
 
 ### Added
-- `comic-styles/literary/reportage-comics-journalism` (29 styles): drawn nonfiction in the alternative-press reportage tradition — hatch-only value, researched specificity, unidealized faces, licensed caption boxes carrying observed fact, and a negative lock against fabricated documentary detail
+- `comic-styles/literary/reportage-comics-journalism`: drawn nonfiction in the alternative-press reportage tradition — hatch-only value, researched specificity, unidealized faces, licensed caption boxes carrying observed fact, and a negative lock against fabricated documentary detail
+- `comic-styles/cartoon/rubber-hose-animation-comic` (30 styles): late-1920s theatrical cartoon grammar — boneless hose limbs, circular construction, grey-wash monochrome, performing scenery, and licensed musical SFX
+- **Prompt Block trust boundary**: the validator now enforces the 40–90 word budget, rejects injection surfaces (pronouns, imperatives, meta-instruction tokens, story content, quoted literals), and fails builds where two styles inject near-identical fragments (≥60% vocabulary overlap)
+- `When Not to Use` redirects are resolved against the style tree — a typo'd routing instruction no longer ships green
+- `tests/test_validate.py`: 33 contract tests covering the validator's own checks; CI now runs the suite alongside the validator
+- `docs/LOOP_PROGRESS.md`: continuous-maintenance ledger with the rolling backlog
 
 ## [0.3.0] — 2026-06-10 · "Deep & Sustainable"
 
