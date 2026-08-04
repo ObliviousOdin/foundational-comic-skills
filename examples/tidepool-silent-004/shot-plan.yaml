@@ -1,0 +1,109 @@
+# Filled-in instance of comic-direction/comic-director/assets/templates/shot-plan-template.yaml
+# Tidepool 004: "Low Tide" - three panels, zero words.
+
+shot_plan:
+  project: "Tidepool"
+  episode: "strip-001"
+  strip_id: "tidepool-004"
+  format: "3-panel-horizontal"
+  narrative_pattern: "silent-strip"
+  reading_direction: "ltr"
+  vision_check: "patient, tender, unsentimental"
+
+# Cues (comic-story-derivation):
+#   MOOD: patient curiosity   WARDROBE: yellow raincoat, bare feet
+#   SETTING: tidepool shelf at low tide   PROP: a stranded starfish
+#
+# GESTURE SEEDING (Step 4 under silent-strip). The step does not generate lines
+# and then delete them - that produces beats designed to be spoken. For each beat
+# it records the body movement that would have carried the line:
+
+gesture_seeding:
+  - beat: "SETUP"
+    line_that_would_have_been: "oh - you're stuck"
+    gesture_instead: "she stops walking; one foot still lifted mid-step"
+  - beat: "REINFORCE"
+    line_that_would_have_been: "hold on, I've got you"
+    gesture_instead: "she crouches and turns both palms up before touching anything"
+  - beat: "TURNAROUND"
+    line_that_would_have_been: "there you go"
+    gesture_instead: "she does not watch it leave; she is already looking at the next pool"
+
+panels:
+  - panel: 1
+    beat_role: "SETUP"
+    shot_size: "wide"
+    camera_angle: "eye-level"
+    staging: "the tidepool shelf, wet rock in three wash values; Mira entering frame left mid-stride, stopped, one foot still raised; the starfish small and off-centre at frame right"
+    eyeline_vector: "her gaze crosses to frame right, landing on the starfish and carrying the reader with it"
+    transition_in: "n/a"
+    pacing_weight: "medium"
+    gutter_before: "n/a"
+    dialogue: {bubbles: 0, lines: [], placement: "none - the pattern forbids it"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "The stopped mid-stride IS the line. A settled standing pose would have needed one"
+
+  - panel: 2
+    beat_role: "REINFORCE"
+    shot_size: "close-up"
+    camera_angle: "high"
+    staging: "her hands entering the frame palms-up beside the starfish, not yet touching it; the brush weight on the starfish identical to the weight on her fingers"
+    eyeline_vector: "n/a - hands only; the high angle keeps the reader in her point of view"
+    transition_in: "subject"
+    pacing_weight: "medium"
+    gutter_before: "standard"
+    dialogue: {bubbles: 0, lines: [], placement: "none"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: >-
+      Palms-up before contact is the whole characterisation: care shown as hesitation
+      rather than stated as kindness. RETAKE history: v1 and v2 gave her an open-mouthed
+      reaction, which reads as a sound - silent does not mean soundless-looking, it means
+      the strip cannot import speech through a face. v3 closes the mouth and moves the beat
+      into the shoulders.
+
+  - panel: 3
+    beat_role: "TURNAROUND"
+    shot_size: "wide"
+    camera_angle: "eye-level"
+    staging: "the waterline; the starfish just below the surface, already sinking out of the value range; Mira in the upper left of the frame, back turned, walking on toward the next pool"
+    eyeline_vector: "she faces away, out of frame left - the reader's eye is left with the water"
+    transition_in: "action"
+    pacing_weight: "large"
+    gutter_before: "wide"
+    dialogue: {bubbles: 0, lines: [], placement: "none"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: >-
+      The turnaround is that she does not watch. A panel of her watching it swim away is
+      the sentimental version and would have wanted a caption; her having already moved on
+      reframes the act as ordinary rather than heroic, which is the mood cue paid off.
+
+# Rules recorded as out of scope, per the practice the single-panel project started:
+not_applicable:
+  dialogue_seeding: "replaced by gesture_seeding above - comic-story-derivation Step 4 under silent-strip"
+  text_budget: "no text exists; comic-lettering-and-balloons has nothing to ration here"
+  sfx: >-
+    The style sanctions sparse SFX and this strip spends none. A sound effect in a silent
+    strip is dialogue wearing a different font - the pattern removes words, not just balloons.
+
+silence_check:
+  every_beat_carried_by_staging: true
+  no_beat_requires_a_line: true
+  arc_legible_at_a_glance: true      # the Layer 3 test the pattern's anti-pattern names
+  no_sfx_substitutes: true
+
+name_criteria:
+  strong_first_panel: true
+  layout_effortless: true
+  action_always_clear: true
+  shifts_convincing: true
+  emotion_legible: true
+
+final_cut:
+  verdict: "ACCEPT"
+  corrective_field: ""
+  artistic_life_note: >-
+    P2's palms-up hesitation does the work two panels of dialogue would have done badly.
+    The real test was P3: the instinct is to show her watching, and resisting it is what
+    makes the strip about a child who returns starfish rather than a child being kind at
+    the reader. Wash values held across all three, which is where this style fails first.
+    Signed.

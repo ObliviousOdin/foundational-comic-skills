@@ -1,0 +1,56 @@
+# World bible for Tidepool.
+
+visual_grammar:
+  master_style_references: ["style-ref-wash-01.png", "style-ref-wash-02.png"]
+  color_palette_anchors:
+    - name: "sumi-black"
+      hex: "#1A1A1A"
+    - name: "paper-warm"
+      hex: "#F4EFE4"
+    - name: "wash-grey"
+      hex: "#8A9096"
+  linework_rules: "brush-drawn contour with natural pressure variation; ink wash in three value steps, no flat fills, no hatching"
+  lighting_grammar: "overcast diffuse - no cast shadows, value carried by wash density rather than direction"
+  typography_rules: "none. This project renders no text of any kind"
+
+character_compendium:
+  - name: "Mira"
+    canonical_reference_sheet: "assets/characters/mira/reference-sheet.png"
+    expression_library: ["neutral", "curious", "careful", "dismayed", "resolved", "quiet-glad"]
+    dna_template: "child around seven, dark bobbed hair, oversized yellow raincoat, bare feet, rolled trousers"
+    consistency_method: "IP-Adapter 0.6 + style LoRA 0.8"
+    signature_marks: "yellow raincoat, always unbuttoned; bare feet"
+    negative_prompt_block: "deformed hands, extra fingers, adult proportions, footwear, speech balloon, open shouting mouth"
+
+world_register:
+  location_reference_sheets:
+    - name: "Tidepool Shelf"
+      lighting: "overcast diffuse, wet rock, no sun glare"
+    - name: "Waterline"
+      lighting: "same light, deeper water, the pool's edge dropping away"
+  recurring_props:
+    - name: "starfish"
+      spec: "five-armed, palm-sized, drawn with the same brush weight as the child - never cuter than she is"
+  time_weather_lighting: "one low tide, overcast; the tide is the clock and nothing else marks time"
+
+negative_library:
+  # Classified per the bleed taxonomy in comic-world-bible-system.
+  project_wide_negatives:
+    - "speech balloon"            # pattern bleed: the silent-strip lock, stated as a negative
+    - "caption box"
+    - "sound effect lettering"
+    - "text on image"
+    - "flat colour fills"         # style bleed
+    - "hatching"
+    - "cast shadows"
+    - "deformed hands"            # anatomy bleed
+    - "extra fingers"
+
+version_history:
+  - date: "2026-08-04"
+    change: "Initial bible: ink-wash grammar, Mira, the tidepool shelf and waterline, the starfish"
+    rationale: >-
+      typography_rules is set to "none" rather than left empty. A silent strip has no
+      lettering policy, and recording that explicitly stops a later episode from quietly
+      acquiring one - the pattern lock lives in the contract, but the bible is where a
+      generator looks.
