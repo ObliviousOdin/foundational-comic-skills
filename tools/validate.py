@@ -10,7 +10,8 @@ Checks
    name matches its directory; version is semver.
 2. Aphorism: every SKILL.md ends with a closing italic line.
 3. Style Schema v2: every comic-styles/*/*/SKILL.md has the required
-   sections in order with minimum content (see CONTRIBUTING.md).
+   sections in order with minimum content (see CONTRIBUTING.md), and its
+   Prompt Block fits the 40-90 word injectable budget.
 4. Style index sync: comic-styles/SKILL.md table rows match the
    directory tree exactly (presence, category, declared count).
 5. Cross-references: backticked `comic-*` tokens resolve to a real
@@ -81,6 +82,13 @@ STYLE_SECTIONS_IN_ORDER = [
 SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+$")
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 REF_RE = re.compile(r"`(comic-[a-z0-9-]+)`")
+PROMPT_BLOCK_RE = re.compile(r"## Prompt Block\s*\n+```text\n(.*?)\n```", re.DOTALL)
+
+# The Prompt Block is injected verbatim into a generation prompt alongside
+# character, scene, and negative blocks. Too short starves the backend of
+# style signal; too long crowds the blocks that carry identity and staging.
+PROMPT_BLOCK_MIN_WORDS = 40
+PROMPT_BLOCK_MAX_WORDS = 90
 
 errors: list[str] = []
 warnings: list[str] = []
@@ -170,8 +178,36 @@ def check_style_schema(path: Path, text: str) -> None:
         err(f"{rel(path)}: Negative Locks needs >= 3 bullets")
     if "```text" not in section_body("## Prompt Block"):
         err(f"{rel(path)}: Prompt Block needs a fenced ```text block")
+    else:
+        check_prompt_block_budget(path, text)
     if len(re.findall(r"^- \[ \]", section_body("## Style Quality Gates"), re.MULTILINE)) < 3:
         err(f"{rel(path)}: Style Quality Gates needs >= 3 checkboxes")
+
+
+def prompt_block(text: str) -> str | None:
+    """The fenced ```text payload of a style's Prompt Block, or None."""
+    m = PROMPT_BLOCK_RE.search(text)
+    return m.group(1) if m else None
+
+
+def check_prompt_block_budget(path: Path, text: str) -> None:
+    body = prompt_block(text)
+    if body is None:
+        err(f"{rel(path)}: Prompt Block fence is malformed (expected ```text … ```)")
+        return
+    words = len(body.split())
+    if words < PROMPT_BLOCK_MIN_WORDS:
+        err(
+            f"{rel(path)}: Prompt Block is {words} words, under the "
+            f"{PROMPT_BLOCK_MIN_WORDS}-word floor — too thin to hold the style "
+            f"against a backend's defaults"
+        )
+    elif words > PROMPT_BLOCK_MAX_WORDS:
+        err(
+            f"{rel(path)}: Prompt Block is {words} words, over the "
+            f"{PROMPT_BLOCK_MAX_WORDS}-word ceiling — it will crowd out the "
+            f"character, scene, and negative blocks it ships beside"
+        )
 
 
 def check_style_index(style_dirs: dict[str, str]) -> None:
