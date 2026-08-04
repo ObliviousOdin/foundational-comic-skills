@@ -42,24 +42,25 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Examples & Worked Proof
 
-13. 4-koma worked project (format × `kishotenketsu` × a manga-family style)
-14. Webtoon scroll worked project (scroll-gap timing + emotional arc ledger in use)
-15. Silent-strip worked project (the hardest directorial test, undemonstrated)
-16. `examples/README.md` index row for every example added
+Outranks its position — see the notes below. Each new format has surfaced a real defect.
+
+13. Webtoon scroll worked project (scroll-gap timing + arc ledger in use); expect it to test whether the lettering budget assumes strip length
+14. Silent-strip worked project (the hardest directorial test, undemonstrated)
+15. Multi-page chapter worked project (page-turn beats have no filled-in artifact anywhere)
 
 ### Layer Depth
 
-17. `comic-core/comic-quality-gates`: explicit style-purity gate referencing the Prompt Block trust boundary
-18. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
-19. `comic-direction/comic-director`: shot-ladder reference table (which shot answers which beat)
-20. `comic-production/comic-export-and-publish`: print CMYK gate refinement
-21. `research/`: color and palette science for sequential art, mapped into the traceability table
-22. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+16. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
+17. `comic-production/comic-export-and-publish`: print CMYK gate refinement
+18. `research/`: color and palette science for sequential art, mapped into the traceability table
+19. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+20. `research/README.md`: add rows for contracts that now exist but trace to no study (Prompt Block trust boundary, source register)
 
 ### Documentation Accuracy
 
-23. Hermes integration notes: how an agent loads the layers in order
-24. `examples/README.md` and `docs/showcase/README.md` accuracy pass against the 30-style tree
+21. Hermes integration notes: how an agent loads the layers in order
+22. `docs/showcase/README.md` accuracy pass against the 30-style tree
+23. `CHANGELOG.md` `[Unreleased]` needs the cycle 3–5 work (provenance, Layer 0, the four defect fixes)
 
 ## Recently Completed
 
