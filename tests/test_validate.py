@@ -67,6 +67,18 @@ def test_style_mode_accepts_a_valid_style():
     assert "Style contract holds." in result.stdout
 
 
+def test_style_mode_warns_that_corpus_checks_were_skipped():
+    """A clean single-file run must not read as a clean repository."""
+    result = run_validator("--style", str(GOLD))
+    assert "WARN" in result.stdout
+    assert "single-file mode" in result.stdout
+    assert "python3 tools/validate.py" in result.stdout
+
+
+def test_full_run_carries_no_single_file_warning():
+    assert "single-file mode" not in run_validator().stdout
+
+
 def test_style_mode_rejects_a_violating_style(tmp_path):
     broken = tmp_path / "SKILL.md"
     broken.write_text(

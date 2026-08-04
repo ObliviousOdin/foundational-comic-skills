@@ -599,6 +599,10 @@ def check_one_style(path: Path) -> int:
         err(f"{rel(path)}: no such file")
         return report(f"Checked {rel(path)}.", "Style contract holds.")
 
+    warn(
+        "single-file mode — index sync and Prompt Block collision checks need "
+        "the whole corpus; run `python3 tools/validate.py` before committing"
+    )
     text = path.read_text(encoding="utf-8")
     check_frontmatter_and_aphorism(path, text)
     check_style_schema(path, text)
