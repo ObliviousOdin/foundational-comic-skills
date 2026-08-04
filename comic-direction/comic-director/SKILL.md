@@ -1,6 +1,6 @@
 ---
 name: comic-director
-version: 1.2.0
+version: 1.3.0
 category: comic-direction
 description: The creative authority for every comic project. Owns the directorial vision, per-panel shot planning (the digital "name"), camera grammar, staging, transition selection, pacing, and the final cut. Operationalizes the repository's research on artistic decision-making and editorial evaluation.
 ---
@@ -54,6 +54,7 @@ A shot plan passes the **five *name* criteria** before generation:
 - **The shot ladder**: across any strip, vary at least two of {shot size, angle, staging}. Three identical framings in a row is a direction failure, not a style choice. See the rung table below.
 - **180° rule**: keep all cameras on one side of the action axis; characters must not swap screen sides between panels without an on-camera move or an establishing re-set.
 - **Eyeline choreography**: in LTR formats, exit vectors point right (down for vertical scroll; left for RTL manga). The reader's eye is choreographed, never abandoned.
+- **The counter-vector**: a gaze may point *against* the reading flow when it points at something deliberately withheld — a character looking up at an out-of-frame thing the reader has not been shown. This is the exception, and it is only legitimate under three conditions: the withheld thing is real and arrives later in the same unit, the panel is followed by a held pause (a wide gutter, or a tall gap in scroll formats) so the pointing registers before the reader moves on, and it happens **once**. A second counter-vector in the same unit stops reading as tension and starts reading as a Director who lost the axis.
 - **Transition budget**: action-to-action and subject-to-subject are the workhorses. Each scene-to-scene or aspect-to-aspect transition must buy something (time jump, atmosphere) and costs reader effort — spend at most one per short strip.
 - **Lens language**: wide-angle distortion for disorientation or scale; telephoto compression for intimacy or claustrophobia. Use deliberately, log in the shot plan.
 
