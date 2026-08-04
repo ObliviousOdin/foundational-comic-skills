@@ -11,8 +11,17 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Dates are merge dates.
 - `comic-styles/cartoon/rubber-hose-animation-comic` (30 styles): late-1920s theatrical cartoon grammar — boneless hose limbs, circular construction, grey-wash monochrome, performing scenery, and licensed musical SFX
 - **Prompt Block trust boundary**: the validator now enforces the 40–90 word budget, rejects injection surfaces (pronouns, imperatives, meta-instruction tokens, story content, quoted literals), and fails builds where two styles inject near-identical fragments (≥60% vocabulary overlap)
 - `When Not to Use` redirects are resolved against the style tree — a typo'd routing instruction no longer ships green
-- `tests/test_validate.py`: 33 contract tests covering the validator's own checks; CI now runs the suite alongside the validator
+- `examples/rabot-4koma-002/`: second worked project — `4koma-vertical` × `kishotenketsu` × `chibi-kawaii-comic` in the strip-001 world. Demonstrates the **bible delta** pattern (canon referenced, never copied), pacing built from content density where geometry is locked, and a *ten* beat that shifts perspective rather than landing a punchline
+- **World-bible `source_register`** (schema section 6): bibles declaring `production_mode: nonfiction` record every depicted fact with its claim, source, rendering panels, and verified/reported confidence; real subjects carry a `source_note`. Validator-enforced; fiction bibles are untouched
+- **Quality gates Layer 0** — the pre-generation prompt assembly gate. Every other layer judges an image; this one judges the prompt, including a check that no block carries an instruction addressed to the model
+- Validator: native-habitat names resolved against the core libraries, routing-section bullet floors, violations grouped under the owning file, and a `--style <path>` single-file authoring mode
+- `tests/test_validate.py` + `tests/test_examples.py`: 67 contract tests covering the validator's own checks and the worked projects; CI now runs the suite alongside the validator
 - `docs/LOOP_PROGRESS.md`: continuous-maintenance ledger with the rolling backlog
+- `CONTRIBUTING.md`: the Prompt Block trust boundary, and a ground rule requiring every rule to name its scope
+
+### Fixed
+- **Five rules written against the 3-panel default but stated as universal**, each unobeyable in at least one sanctioned format: `comic-director` pacing (fixed geometry in `4koma-vertical`/`2x2-grid-page`), `comic-structural-contract` attributing panel uniformity to the style rather than the format, `comic-quality-gates` Layer 2 checking "all three panels", `comic-story-derivation` mapping cues to three panels rather than the locked pattern's beats, and `comic-lettering-and-balloons` rationing scarce lettering elements "per strip" — which in `single-panel-gag` forbade the text that format explicitly allows
+- README quickstart documented validator output the tool has never printed
 
 ## [0.3.0] — 2026-06-10 · "Deep & Sustainable"
 
