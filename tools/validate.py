@@ -21,8 +21,9 @@ Checks
 4. Style index sync: comic-styles/SKILL.md table rows match the
    directory tree exactly (presence, category, declared count), the
    index habitat column agrees with each skill's Integration line, no
-   two styles inject near-identical Prompt Blocks, and every
-   native-habitat name resolves against the core libraries.
+   two styles inject near-identical Prompt Blocks, every native-habitat
+   name resolves against the core libraries, and every sanctioned
+   format and pattern is claimed by at least one style.
 5. Cross-references: backticked `comic-*` tokens resolve to a real
    skill or the planned-skills allowlist, and every `When Not to Use`
    redirect names a style that exists.
@@ -309,6 +310,33 @@ def library_vocabulary() -> set[str]:
         if path.is_file():
             vocab |= set(LIB_ENTRY_RE.findall(path.read_text(encoding="utf-8")))
     return vocab
+
+
+def check_library_coverage(style_texts: dict[Path, str]) -> None:
+    """Every sanctioned format and pattern must be claimed by some style.
+
+    Resolving habitat names catches a style pointing at nothing. This
+    catches the opposite and rarer failure: a library entry nothing points
+    at. `2x2-grid-page` sat fully specified, pipelined, and unclaimed by
+    all 30 styles, so the Producer's routing table answered "which style
+    suits this format?" with silence.
+    """
+    vocab = library_vocabulary()
+    if not vocab:
+        return  # library unreadable; check_native_habitats already warned
+
+    claimed: set[str] = set()
+    for text in style_texts.values():
+        m = INTEGRATION_RE.search(text)
+        if m:
+            claimed |= set(BACKTICK_RE.findall(m.group(1)))
+
+    for entry in sorted(vocab - claimed):
+        err(
+            f"comic-core: `{entry}` is sanctioned in the core libraries but no "
+            f"style claims it as native habitat — a format or pattern nothing "
+            f"points at cannot be routed to"
+        )
 
 
 def check_index_habitats(style_texts: dict[Path, str]) -> None:
@@ -690,6 +718,7 @@ def main() -> int:
     check_style_redirects(style_texts, set(style_dirs), known_skills)
     check_native_habitats(style_texts)
     check_index_habitats(style_texts)
+    check_library_coverage(style_texts)
     check_prompt_block_collisions(style_texts)
     check_cross_references(known_skills)
     check_yaml_health()
