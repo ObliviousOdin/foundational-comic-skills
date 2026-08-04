@@ -1,0 +1,122 @@
+# Filled-in instance of comic-pipeline/comic-multi-page-chapter-pipeline/assets/templates/chapter-map-template.yaml
+# Authored before any page shot plan, as the pipeline requires.
+
+chapter:
+  project: "The Lamplighter"
+  chapter_id: "ch-001"
+  title: "Eleven Standards"
+  bible_version: "1.0.0"
+  style_skill: "painted-prestige-comic"
+  page_count: 6
+  first_page_side: recto
+
+scenes:
+  - scene: 1
+    pages: [1, 2]
+    narrative_pattern: "setup-reinforce-turnaround"
+    location: "Kell Bridge"
+    axis: "Ada moves screen-left to screen-right along the bridge; camera stays river-side"
+    axis_reestablished: true      # first scene establishes it
+    purpose: "The reader learns the round, the competence, and that the light is made by hand - before learning it is ending"
+
+  - scene: 2
+    pages: [3, 4]
+    narrative_pattern: "slow-burn-reveal"
+    location: "Bridge Keeper's Hut"
+    axis: "Ada screen-left, Perrin screen-right across the hut table; camera on the window side"
+    axis_reestablished: true      # interior; axis re-declared after the scene change
+    purpose: "The reader learns what Perrin came to deliver, and that Ada already knew"
+
+  - scene: 3
+    pages: [5, 6]
+    narrative_pattern: "kishotenketsu"
+    location: "Kell Bridge (electrified)"
+    axis: "reversed deliberately - Perrin now moves left-to-right along the bridge, Ada still; camera stays river-side"
+    axis_reestablished: true
+    purpose: "The reader sees the same bridge under the opposite grammar of light, and what is handed over is not the job but the attention"
+
+page_grammar:
+  - page: 1
+    side: recto
+    scene: 1
+    panel_count: 6
+    opens_with: "n/a - chapter opening"
+    ends_on: "Ada reaching the tenth standard and finding it already lit"
+    turn_protected: true
+    silent_panels: ["p1.1", "p1.2", "p1.5"]
+
+  - page: 2
+    side: verso
+    scene: 1
+    panel_count: 5
+    opens_with: "the consequence: a young man in slate uniform standing at the eleventh standard, holding a card"
+    ends_on: "the two of them regarding each other, nothing said"
+    turn_protected: true
+    silent_panels: ["p2.1", "p2.4"]
+
+  - page: 3
+    side: recto
+    scene: 2
+    panel_count: 7
+    opens_with: "hut interior, the notice face-down on the table between them"
+    ends_on: "Ada turning the notice over without reading it - why does she not need to?"
+    turn_protected: true
+    silent_panels: ["p3.3", "p3.6"]
+
+  - page: 4
+    side: verso
+    scene: 2
+    panel_count: 6
+    opens_with: "the consequence: the drawer, open, holding eleven identical notices from eleven previous years"
+    ends_on: "Perrin understanding that the decision was made long before he carried it"
+    turn_protected: true
+    silent_panels: ["p4.1", "p4.2", "p4.5"]
+
+  - page: 5
+    side: recto
+    scene: 3
+    panel_count: 4
+    opens_with: "outside again, first light; the arc lamps come on all at once"
+    ends_on: "the bridge under unbroken cold white, no pools, no dark - is anything left to do here?"
+    turn_protected: true
+    silent_panels: ["p5.1", "p5.2", "p5.3", "p5.4"]   # wholly silent page
+
+  - page: 6
+    side: verso
+    scene: 3
+    panel_count: 1
+    opens_with: "the consequence, and the chapter's only splash: Ada putting the lamp key into Perrin's hand"
+    ends_on: "chapter end"
+    turn_protected: true
+    silent_panels: ["p6.1"]
+
+climax:
+  page: 6
+  scene: 3
+  splash: true
+  justification: >-
+    The chapter's argument is that the craft being lost is attention, not ignition, and the
+    only image that carries it is the key changing hands under light that no longer needs a
+    key. Page 5 spends four silent panels emptying the bridge of purpose; the splash on the
+    verso opposite is the answer, and it is the single loudest image in the chapter. One
+    splash is the chapter's whole allowance and this is where it is spent.
+
+review_gates:
+  - after_scene: 1
+    reviewer: "producer"
+    status: passed
+  - after_scene: 2
+    reviewer: "producer"
+    status: passed
+  - after_scene: 3
+    reviewer: "producer"
+    status: passed
+
+revisions:
+  - date: "2026-08-04"
+    change: "Chapter mapped: 3 scenes over 6 pages, patterns setup-reinforce-turnaround / slow-burn-reveal / kishotenketsu, splash designated at page 6"
+    rationale: >-
+      Scene 3 takes kishotenketsu because the ending is a recontextualization rather than a
+      conflict resolved: the bridge is the *ten* (the same place under inverted light, no
+      person in the frame doing anything), and the key changing hands is the *ketsu*. A
+      turnaround pattern here would have demanded a reversal the story does not contain.

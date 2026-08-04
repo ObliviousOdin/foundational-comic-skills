@@ -9,7 +9,9 @@ Complete, internally consistent worked projects. Every YAML here is a filled-in 
 
 | `rabot-webtoon-003/` | The same world, serialized: `webtoon-scroll-segment` × `slow-burn-reveal` × `manhwa-color-webtoon`. The repository's first filled-in **arc ledger**, including a missed emotional target recorded as *arc debt* rather than re-rolled. Also shows the scroll gap as the primary pacing instrument, a reserved colour swatch, and a third registered rendering grammar over one cast. |
 
-Read `rabot-strip-001/WALKTHROUGH.md` first — it narrates the artifacts in order. `rabot-4koma-002/` then shows the deltas rather than repeating the flow, and `rabot-webtoon-003/` covers what only a serial can demonstrate.
+| `lamplighter-chapter-001/` | A **cold start** in a new world: `multi-page-chapter` × `painted-prestige-comic`, three scenes composing three different narrative patterns. Shows the **chapter map**, page-turn beats across recto/verso, the single rationed splash, scene-boundary review, and a location registered twice under opposite lighting so the chapter's argument is canon rather than a note. |
+
+Read `rabot-strip-001/WALKTHROUGH.md` first — it narrates the artifacts in order. `rabot-4koma-002/` then shows the deltas rather than repeating the flow, `rabot-webtoon-003/` covers what only a serial can demonstrate, and `lamplighter-chapter-001/` builds from nothing in a different world.
 
 ---
 

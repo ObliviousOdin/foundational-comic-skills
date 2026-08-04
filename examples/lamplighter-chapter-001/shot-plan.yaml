@@ -1,0 +1,105 @@
+# Filled-in instance of comic-direction/comic-director/assets/templates/shot-plan-template.yaml
+# The Lamplighter ch-001, PAGE 5 - the recto of the chapter's climax spread.
+#
+# A chapter carries one shot plan PER PAGE. Pages 1-4 exist in the project as
+# separate plans; this file and shot-plan-p06.yaml hold the two that demonstrate
+# what the format is for. chapter-map.yaml is the authority both pages answer to.
+
+shot_plan:
+  project: "The Lamplighter"
+  episode: "ch-001"
+  strip_id: "ch-001-p05"
+  format: "multi-page-chapter"
+  narrative_pattern: "kishotenketsu"     # scene 3's pattern, per the chapter map
+  reading_direction: "ltr"
+  page: 5
+  page_side: recto
+  scene: 3
+  vision_check: "reverent, unsentimental, cold"
+
+# Scene 3 axis (chapter map): reversed on purpose - Perrin now moves left-to-right,
+# Ada is still. Re-established at p5.1 with a clean establishing shot, because the
+# 180-degree rule holds within a scene across pages but must be re-declared after
+# every scene change.
+#
+# Page 5 is WHOLLY SILENT. The chapter silence rhythm asks for one wordless panel
+# per spread; this page spends four. The reason is structural rather than stylistic:
+# the ten of a kishotenketsu steps outside the frame the story has established, and
+# any caption here would explain the step.
+
+panels:
+  - panel: "p5.1"
+    beat_role: "TEN"
+    shot_size: "establishing"
+    camera_angle: "eye-level"
+    staging: "Kell Bridge from the river side at first light, arc lamps not yet lit; the eleven gas standards dark and small against the span"
+    eyeline_vector: "none - no figures in frame"
+    transition_in: "scene"
+    pacing_weight: "large"
+    gutter_before: "n/a - page opening"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "Re-establishes the scene-3 axis with no one in it. The bridge is the subject of this page, not the people"
+
+  - panel: "p5.2"
+    beat_role: "TEN"
+    shot_size: "wide"
+    camera_angle: "low"
+    staging: "the arc lamps strike - cold white flooding the span edge to edge, the warm pools of the gas standards erased inside it"
+    eyeline_vector: "none"
+    transition_in: "moment"
+    pacing_weight: "large"
+    gutter_before: "wide"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "The chapter's argument in one image: warm and local replaced by cold and total. Painted with no ink edge, so the light does the drawing"
+
+  - panel: "p5.3"
+    beat_role: "TEN"
+    shot_size: "medium"
+    camera_angle: "eye-level"
+    staging: "one gas standard still burning inside the flood, its amber invisible against the white - lit, and contributing nothing"
+    eyeline_vector: "none"
+    transition_in: "subject"
+    pacing_weight: "medium"
+    gutter_before: "standard"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: "The one panel a reader will re-read. The lamp is doing its job perfectly and the job no longer exists"
+
+  - panel: "p5.4"
+    beat_role: "TEN"
+    shot_size: "wide"
+    camera_angle: "high"
+    staging: "the full span under unbroken white, both figures small at the far end, neither of them working"
+    eyeline_vector: "none - the reader looks down at a place with nothing left to do in it"
+    transition_in: "aspect"
+    pacing_weight: "large"
+    gutter_before: "wide"
+    dialogue: {bubbles: 0, lines: [], placement: "silent"}
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: >-
+      Page-turn beat. The chapter map has this recto ending on a question - is anything left
+      to do here? - and the verso opposite answers it. Nothing continues across the turn, so
+      no action-to-action pair is split.
+
+name_criteria:
+  strong_first_panel: true
+  layout_effortless: true
+  action_always_clear: true
+  shifts_convincing: true
+  emotion_legible: true
+
+page_turn_check:
+  side: recto
+  ends_on_question: true
+  action_pair_split: false
+  answered_by: "page 6"
+
+final_cut:
+  verdict: "ACCEPT"
+  corrective_field: ""
+  artistic_life_note: >-
+    p5.3 is the chapter. A lamp burning perfectly and pointlessly says the whole thing
+    without a caption, and the paint holds the amber inside the white rather than losing it.
+    Signed.

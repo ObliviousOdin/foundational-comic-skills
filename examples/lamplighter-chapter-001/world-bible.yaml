@@ -1,0 +1,72 @@
+# World bible for The Lamplighter — a cold start.
+#
+# The first example project NOT set in the Rabot world. Three worked projects
+# sharing one bible proved the delta pattern; this one proves the system does not
+# depend on canon that already exists.
+
+visual_grammar:
+  master_style_references: ["style-ref-plate-01.png", "style-ref-plate-02.png", "style-ref-plate-03.png"]
+  color_palette_anchors:
+    - name: "gaslight-amber"
+      hex: "#D9A441"
+    - name: "electric-white"
+      hex: "#E9F0F4"
+    - name: "river-slate"
+      hex: "#39434C"
+    - name: "coat-oxblood"
+      hex: "#5C2B2B"
+  linework_rules: "no ink outlines; edges resolved by value and colour alone, visible brushwork, dry-brush texture on stone and cloth"
+  lighting_grammar: "single warm key per panel with museum glow; gaslight is warm and local, electric light is cold and total - the chapter's whole argument is carried in that contrast"
+  typography_rules: "hand-painted caption plates; clean oval balloons used sparingly so the paint stays unobstructed"
+
+character_compendium:
+  - name: "Ada Cull"
+    canonical_reference_sheet: "assets/characters/ada/reference-sheet.png"
+    expression_library: ["neutral", "attentive", "weary", "proud", "grieving", "resolved"]
+    dna_template: "woman in her sixties, close-cropped grey hair, oxblood wool greatcoat over work clothes, brass lamp key on a neck cord, weathered hands"
+    consistency_method: "IP-Adapter 0.6 + style LoRA 0.85"
+    signature_marks: "brass lamp key always visible; left glove worn through at the thumb"
+    negative_prompt_block: "deformed hands, extra fingers, youthful face, ink outlines, cel shading, smooth digital skin"
+
+  - name: "Perrin Vale"
+    canonical_reference_sheet: "assets/characters/perrin/reference-sheet.png"
+    expression_library: ["neutral", "eager", "uncertain", "embarrassed", "attentive", "resolved"]
+    dna_template: "young man, early twenties, tall and narrow, municipal electrical inspector's slate uniform, wire-rim spectacles, clipboard"
+    consistency_method: "IP-Adapter 0.6 + style LoRA 0.85"
+    signature_marks: "wire-rim spectacles; ink stain on the right cuff"
+    negative_prompt_block: "deformed hands, extra fingers, oxblood coat, brass key, ink outlines, cel shading"
+    # note: carries Ada's signature marks as negatives (identity bleed prevention)
+
+world_register:
+  location_reference_sheets:
+    - name: "Kell Bridge"
+      lighting: "eleven gas standards at intervals; warm pools with dark between them; river fog below"
+    - name: "Bridge Keeper's Hut"
+      lighting: "single oil lamp interior, warm and close; window admits cold blue from outside"
+    - name: "Kell Bridge (electrified)"
+      lighting: "unbroken cold white from overhead arc lamps; no pools, no dark between - the same location with its grammar inverted"
+  recurring_props:
+    - name: "lamp key"
+      spec: "long brass key with a hooked wick-trimmer at one end; Ada's, worn smooth at the grip"
+    - name: "the notice"
+      spec: "municipal decommission notice, cream card stock, printed not handwritten"
+  time_weather_lighting: "one night in late autumn, river fog rising; the chapter runs from dusk to first light"
+
+negative_library:
+  project_wide_negatives:
+    - "ink outlines"
+    - "cel shading"
+    - "flat colour fills"
+    - "lens flare"
+    - "photorealistic skin texture"
+    - "text on image"
+    - "modern clothing"
+
+version_history:
+  - date: "2026-08-04"
+    change: "Initial bible: painted visual grammar, Ada Cull, Perrin Vale, Kell Bridge in both lighting states"
+    rationale: >-
+      Kell Bridge is registered twice, lit two ways, on purpose. The chapter's argument is
+      the difference between warm local light and cold total light, so the electrified state
+      is a separate canonical sheet rather than a lighting note - otherwise the final scene
+      would be generated as the same place slightly brighter, and the point would be lost.

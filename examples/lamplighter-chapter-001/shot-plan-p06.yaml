@@ -1,0 +1,63 @@
+# Filled-in instance of comic-direction/comic-director/assets/templates/shot-plan-template.yaml
+# The Lamplighter ch-001, PAGE 6 — the chapter's designated splash.
+#
+# One shot plan per page is the chapter format's shape. `shot-plan.yaml` holds page 5;
+# this holds the verso opposite it. Both answer to chapter-map.yaml, which designated
+# this page as the climax and granted it the chapter's single splash.
+
+shot_plan:
+  project: "The Lamplighter"
+  episode: "ch-001"
+  strip_id: "ch-001-p06"
+  format: "multi-page-chapter"
+  narrative_pattern: "kishotenketsu"     # scene 3's pattern, per the chapter map
+  reading_direction: "ltr"
+  page: 6
+  page_side: verso
+  scene: 3
+  vision_check: "reverent, unsentimental, warm at the last"
+
+panels:
+  - panel: "p6.1"
+    beat_role: "KETSU"
+    shot_size: "close-up"
+    camera_angle: "eye-level"
+    staging: >-
+      Full-page splash: two pairs of hands at the centre of the frame, Ada's weathered and
+      Perrin's unmarked, the brass lamp key passing between them. Cold arc light from above,
+      one small warm reflection in the brass. Neither face in frame.
+    eyeline_vector: "none - the hands are the subject and the frame ends here"
+    transition_in: "subject"
+    pacing_weight: "full page"
+    gutter_before: "n/a - splash"
+    dialogue:
+      bubbles: 0
+      lines: []
+      placement: "one hand-painted caption plate, lower left"
+    caption: "Eleven standards. She had lit them nine thousand times."
+    crop_check: {action_legible: true, context_present: true, mood_served: true, composition_satisfying: true}
+    notes: >-
+      The chapter's only splash, designated in the chapter map with justification. Faces are
+      out of frame deliberately: a reaction shot would make this about grief, and the chapter
+      is about transfer. The single warm reflection in the brass is the last warm light in
+      the book.
+
+name_criteria:
+  strong_first_panel: true
+  layout_effortless: true
+  action_always_clear: true
+  shifts_convincing: true
+  emotion_legible: true
+
+page_turn_check:
+  side: verso
+  opens_with_consequence: true
+  answers: "page 5"
+
+final_cut:
+  verdict: "ACCEPT"
+  corrective_field: ""
+  artistic_life_note: >-
+    Keeping the faces out was the right call and it was close — the first plan had Ada's
+    face and it turned the page into mourning. Hands only, and the transfer reads as
+    inheritance instead. Signed.
