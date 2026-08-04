@@ -500,17 +500,83 @@ def test_complete_nonfiction_bible_validates(tmp_path):
         base.replace(
             "    canonical_reference_sheet: 'foreman.png'\n",
             "    canonical_reference_sheet: 'foreman.png'\n"
-            "    source_note: 'site visit 2026-03-11, photographed with consent'\n",
+            "    source_note: 'site visit 2026-03-11, photographed with consent'\n"
+            "    identifiability: reduced\n",
         )
         + "production_mode: nonfiction\n"
         "source_register:\n"
         "  - claim: 'the depot roof is corrugated steel'\n"
         "    source: 'site photograph DSC_0142'\n"
         "    depicted_in: ['panel-01', 'panel-03']\n"
-        "    confidence: verified\n",
+        "    confidence: verified\n"
+        "    register: observed\n",
         encoding="utf-8",
     )
     assert validate.validate_bible(path) == []
+
+
+def test_nonfiction_entry_needs_a_register(tmp_path):
+    """Confidence grades the evidence; register grades the artist's presence."""
+    extra = (
+        "production_mode: nonfiction\n"
+        "source_register:\n"
+        "  - claim: 'the depot roof is corrugated steel'\n"
+        "    source: 'site photograph DSC_0142'\n"
+        "    depicted_in: ['panel-01']\n"
+        "    confidence: verified\n"
+    )
+    problems = validate.validate_bible(write_bible(tmp_path, extra))
+    assert any("missing `register`" in p for p in problems)
+
+
+def test_nonfiction_register_must_be_a_known_value(tmp_path):
+    extra = (
+        "production_mode: nonfiction\n"
+        "source_register:\n"
+        "  - claim: 'the depot roof is corrugated steel'\n"
+        "    source: 'site photograph DSC_0142'\n"
+        "    depicted_in: ['panel-01']\n"
+        "    register: imagined\n"
+    )
+    problems = validate.validate_bible(write_bible(tmp_path, extra))
+    assert any("register `imagined` is not one of" in p for p in problems)
+
+
+def test_nonfiction_character_needs_identifiability(tmp_path):
+    extra = (
+        "production_mode: nonfiction\n"
+        "source_register:\n"
+        "  - claim: 'the depot roof is corrugated steel'\n"
+        "    source: 'site photograph DSC_0142'\n"
+        "    depicted_in: ['panel-01']\n"
+        "    register: observed\n"
+    )
+    problems = validate.validate_bible(write_bible(tmp_path, extra))
+    assert any("missing identifiability" in p for p in problems)
+
+
+def test_undisclosed_composite_is_reported(tmp_path):
+    """An undisclosed composite misattributes testimony to a real person."""
+    path = tmp_path / "world-bible.yaml"
+    base = write_bible(tmp_path).read_text(encoding="utf-8")
+    path.write_text(
+        base.replace(
+            "    canonical_reference_sheet: 'foreman.png'\n",
+            "    canonical_reference_sheet: 'foreman.png'\n"
+            "    source_note: 'three interviews'\n"
+            "    identifiability: anonymised\n"
+            "    composite: true\n",
+        )
+        + "production_mode: nonfiction\n"
+        "source_register:\n"
+        "  - claim: 'night shifts run four crews'\n"
+        "    source: 'interviews, 2026-03'\n"
+        "    depicted_in: ['panel-02']\n"
+        "    register: reconstructed\n",
+        encoding="utf-8",
+    )
+    problems = validate.validate_bible(path)
+    assert any("composite with no composite_disclosure" in p for p in problems)
 
 
 def test_bible_missing_sections_are_reported(tmp_path):

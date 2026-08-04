@@ -1,6 +1,6 @@
 ---
 name: comic-world-bible-system
-version: 1.2.0
+version: 1.4.0
 category: comic-consistency
 description: The canonical source of truth and asset registry for long-form comic production. Defines structured world bibles, character compendiums, style grammars, and generates derived consistency artifacts (DNA templates, model sheets, negative libraries).
 ---
@@ -50,6 +50,24 @@ One entry per character containing:
 - `per_style_negatives`
 - `documented_artifacts_to_reject`
 
+**The four buckets say where a negative lives, not what it is for.** Negatives accumulate as reflexes — a panel goes wrong, a phrase gets added, and nobody can later say which failure any given line prevents. That matters because negatives compete for prompt budget, and a bloated block dilutes the entries doing real work.
+
+Every negative belongs to one of four **bleed classes**, and naming the class is what makes a negative reviewable:
+
+| Class | The failure it prevents | Where it lives | Example |
+|-------|------------------------|----------------|---------|
+| **Identity bleed** | One character acquiring another's signature marks | `per_character_negatives` — each entry carries the *others'* marks | Echo's block negates "facial scar" because Rabot has one |
+| **Style bleed** | A registered variant leaking into another | `per_style_negatives`, per variant | Chibi mode negates "realistic proportions"; the main series negates "chibi proportions" |
+| **Era bleed** | Period-locked worlds acquiring modern or wrong-era content | `project_wide_negatives` | A 1930 strip negates "smartphone, plastic, LED" |
+| **Anatomy bleed** | Generic generation failures unrelated to this project | `project_wide_negatives` | "deformed hands, extra fingers" |
+
+Two rules follow from the table:
+
+1. **Identity and style bleed are bidirectional.** A negative added to one side without its opposite protects one character or variant and leaves the other exposed. Add both or neither.
+2. **Anatomy-bleed entries are the only ones safe to copy between projects.** The other three are all statements about *this* world, and a project-wide negative inherited from another project is how a lock stops matching the thing it was written for.
+
+When the prompt budget forces cuts, drop from anatomy bleed first: backends have improved most there, and it is the class whose entries say the least about the project.
+
 ### 5. version_history
 - Date-stamped record of all changes
 - Rationale for each change (critical for long-running series)
@@ -64,7 +82,15 @@ Fiction invents its world; nonfiction owes its world to something outside itself
   - `source`: where it came from — photograph, interview, document, site visit
   - `depicted_in`: the panels or assets that render the claim
   - `confidence`: `verified` (direct evidence) or `reported` (single-source testimony)
-- Character entries additionally carry `source_note` when the subject is a real person
+  - `register`: `observed` (the artist was present), `reconstructed` (documented but not witnessed), or `represented` (deliberately non-literal — a metaphor, diagram, or mental state)
+- Character entries additionally carry, when the subject is a real person:
+  - `source_note`: where the depiction comes from, and the consent position
+  - `identifiability`: `exact`, `reduced`, or `anonymised` — the recognisability the artist *chose*
+  - `composite`: `true` when the figure merges several real people, with `composite_disclosure` stating how the reader is told
+
+**Why `register` is separate from `confidence`.** They answer different questions. Confidence grades the *evidence* — verified or single-source. Register grades the artist's *relationship to the scene*, and `COMICS-JOURNALISM-AND-DEPICTION-ETHICS.md` identifies collapsing the two as the field's commonest failure: a reconstructed scene rendered with the same confident specificity as a witnessed one is not a lie, it is an unmarked claim. A well-sourced reconstruction is still a reconstruction, and the panel should say so.
+
+**Why identifiability is recorded rather than assumed.** An artist controls how recognisable a face is on a continuous gradient, which is a capability prose does not have and therefore a decision prose never has to log. Recording it makes the choice reviewable instead of implicit.
 
 **Why this is a schema section and not a style note.** `reportage-comics-journalism` locks out fabricated documentary detail — invented insignia, made-up signage, plausible-looking evidence. That lock is only checkable if the project holds a register of what *is* sourced; otherwise "no fabrication" is a sentiment. A style can state the rule, but only the bible can hold the evidence, and the bible outlives any single panel.
 
@@ -131,7 +157,9 @@ A valid world bible must pass these checks:
 **Provenance Validation** (when `production_mode: nonfiction`)
 - `source_register` is present and holds at least one entry
 - Every entry carries `claim`, `source`, and `depicted_in`
-- Every character in the compendium carries a `source_note`
+- Every entry carries a `register` from the sanctioned set — an unmarked reconstruction is the failure this catches
+- Every character in the compendium carries a `source_note` and an `identifiability` level
+- Any character marked `composite: true` carries a `composite_disclosure`
 
 Fiction bibles skip this block entirely — omitting `production_mode` means `fiction`, and nothing changes for existing projects.
 
@@ -274,16 +302,19 @@ character_compendium:
     canonical_reference_sheet: "foreman-ref-sheet.png"
     dna_template: "man in his fifties, weathered face, hi-vis vest over flannel"
     source_note: "site visit 2026-03-11; photographed with consent, name withheld at request"
+    identifiability: reduced        # face softened at the subject's request
 
 source_register:
   - claim: "the depot roof is corrugated steel with three patched sections"
     source: "site photograph DSC_0142"
     depicted_in: ["panel-01", "panel-03"]
     confidence: verified
+    register: observed              # the artist stood there
   - claim: "night shifts run four crews since the January change"
     source: "interview, yard foreman, 2026-03-11"
     depicted_in: ["panel-02"]
     confidence: reported
+    register: reconstructed         # documented, not witnessed - and the panel says so
 ```
 
 Anything drawn that no entry supports is fabrication, and the style's negative locks reject it.

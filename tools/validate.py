@@ -108,6 +108,12 @@ LIBRARY_PATHS = (
     "comic-core/comic-narrative-patterns/SKILL.md",
 )
 
+# Nonfiction provenance vocabulary, from COMICS-JOURNALISM-AND-DEPICTION-ETHICS.
+# `register` grades the artist's relationship to the scene; `confidence` grades
+# the evidence. Collapsing the two is the field's commonest failure.
+SOURCE_REGISTERS = {"observed", "reconstructed", "represented"}
+IDENTIFIABILITY_LEVELS = {"exact", "reduced", "anonymised"}
+
 # The Prompt Block is injected verbatim into a generation prompt alongside
 # character, scene, and negative blocks. Too short starves the backend of
 # style signal; too long crowds the blocks that carry identity and staging.
@@ -590,12 +596,42 @@ def check_provenance(data: dict, characters: list) -> list[str]:
         for field in ("claim", "source", "depicted_in"):
             if not entry.get(field):
                 problems.append(f"source_register entry #{i} missing `{field}`")
+        reg = entry.get("register")
+        if not reg:
+            problems.append(
+                f"source_register entry #{i} missing `register` — a reconstruction "
+                f"rendered like an eyewitness account is an unmarked claim"
+            )
+        elif reg not in SOURCE_REGISTERS:
+            problems.append(
+                f"source_register entry #{i} register `{reg}` is not one of "
+                f"{sorted(SOURCE_REGISTERS)}"
+            )
 
     for ch in characters:
-        if isinstance(ch, dict) and not ch.get("source_note"):
+        if not isinstance(ch, dict):
+            continue
+        label = ch.get("name", "<unnamed>")
+        if not ch.get("source_note"):
             problems.append(
-                f"character `{ch.get('name', '<unnamed>')}` missing source_note "
+                f"character `{label}` missing source_note "
                 f"(required in a nonfiction bible)"
+            )
+        ident = ch.get("identifiability")
+        if not ident:
+            problems.append(
+                f"character `{label}` missing identifiability — how recognisable a "
+                f"real subject is drawn is the artist's choice, so it is logged"
+            )
+        elif ident not in IDENTIFIABILITY_LEVELS:
+            problems.append(
+                f"character `{label}` identifiability `{ident}` is not one of "
+                f"{sorted(IDENTIFIABILITY_LEVELS)}"
+            )
+        if ch.get("composite") and not ch.get("composite_disclosure"):
+            problems.append(
+                f"character `{label}` is a composite with no composite_disclosure — "
+                f"an undisclosed composite misattributes testimony"
             )
     return problems
 
