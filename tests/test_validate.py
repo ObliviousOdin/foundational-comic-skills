@@ -152,6 +152,36 @@ def test_every_style_prompt_block_is_within_budget_and_pure():
     assert validate.errors == []
 
 
+# --- Native habitat routing ---------------------------------------------
+
+
+def test_library_vocabulary_reads_both_core_libraries():
+    vocab = validate.library_vocabulary()
+    assert "3-panel-horizontal" in vocab and "multi-page-chapter" in vocab
+    assert "kishotenketsu" in vocab and "silent-strip" in vocab
+    assert len(vocab) == 12, "six sanctioned formats and six sanctioned patterns"
+
+
+def test_live_corpus_habitats_all_resolve():
+    styles = {p: p.read_text(encoding="utf-8") for p in ROOT.glob("comic-styles/*/*/SKILL.md")}
+    validate.check_native_habitats(styles)
+    assert validate.errors == []
+
+
+def test_unknown_habitat_is_reported():
+    text = GOLD.read_text(encoding="utf-8").replace(
+        "`multi-page-chapter`", "`5-panel-diagonal`", 1
+    )
+    validate.check_native_habitats({GOLD: text})
+    assert any("5-panel-diagonal" in e for e in validate.errors)
+
+
+def test_habitat_check_defers_comic_tokens_to_the_reference_pass():
+    text = GOLD.read_text(encoding="utf-8")
+    validate.check_native_habitats({GOLD: text})
+    assert not any("comic-core" in e for e in validate.errors)
+
+
 # --- Prompt Block collisions --------------------------------------------
 
 
