@@ -1,6 +1,6 @@
 ---
 name: comic-world-bible-system
-version: 1.2.0
+version: 1.3.0
 category: comic-consistency
 description: The canonical source of truth and asset registry for long-form comic production. Defines structured world bibles, character compendiums, style grammars, and generates derived consistency artifacts (DNA templates, model sheets, negative libraries).
 ---
@@ -64,7 +64,15 @@ Fiction invents its world; nonfiction owes its world to something outside itself
   - `source`: where it came from — photograph, interview, document, site visit
   - `depicted_in`: the panels or assets that render the claim
   - `confidence`: `verified` (direct evidence) or `reported` (single-source testimony)
-- Character entries additionally carry `source_note` when the subject is a real person
+  - `register`: `observed` (the artist was present), `reconstructed` (documented but not witnessed), or `represented` (deliberately non-literal — a metaphor, diagram, or mental state)
+- Character entries additionally carry, when the subject is a real person:
+  - `source_note`: where the depiction comes from, and the consent position
+  - `identifiability`: `exact`, `reduced`, or `anonymised` — the recognisability the artist *chose*
+  - `composite`: `true` when the figure merges several real people, with `composite_disclosure` stating how the reader is told
+
+**Why `register` is separate from `confidence`.** They answer different questions. Confidence grades the *evidence* — verified or single-source. Register grades the artist's *relationship to the scene*, and `COMICS-JOURNALISM-AND-DEPICTION-ETHICS.md` identifies collapsing the two as the field's commonest failure: a reconstructed scene rendered with the same confident specificity as a witnessed one is not a lie, it is an unmarked claim. A well-sourced reconstruction is still a reconstruction, and the panel should say so.
+
+**Why identifiability is recorded rather than assumed.** An artist controls how recognisable a face is on a continuous gradient, which is a capability prose does not have and therefore a decision prose never has to log. Recording it makes the choice reviewable instead of implicit.
 
 **Why this is a schema section and not a style note.** `reportage-comics-journalism` locks out fabricated documentary detail — invented insignia, made-up signage, plausible-looking evidence. That lock is only checkable if the project holds a register of what *is* sourced; otherwise "no fabrication" is a sentiment. A style can state the rule, but only the bible can hold the evidence, and the bible outlives any single panel.
 
@@ -274,16 +282,19 @@ character_compendium:
     canonical_reference_sheet: "foreman-ref-sheet.png"
     dna_template: "man in his fifties, weathered face, hi-vis vest over flannel"
     source_note: "site visit 2026-03-11; photographed with consent, name withheld at request"
+    identifiability: reduced        # face softened at the subject's request
 
 source_register:
   - claim: "the depot roof is corrugated steel with three patched sections"
     source: "site photograph DSC_0142"
     depicted_in: ["panel-01", "panel-03"]
     confidence: verified
+    register: observed              # the artist stood there
   - claim: "night shifts run four crews since the January change"
     source: "interview, yard foreman, 2026-03-11"
     depicted_in: ["panel-02"]
     confidence: reported
+    register: reconstructed         # documented, not witnessed - and the panel says so
 ```
 
 Anything drawn that no entry supports is fabrication, and the style's negative locks reject it.
