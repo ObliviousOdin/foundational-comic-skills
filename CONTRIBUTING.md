@@ -156,7 +156,7 @@ Layer indexes and system skills are freer in structure but must have:
 
 ## Templates
 
-Machine-readable templates live under `assets/templates/` inside the owning skill and must parse as YAML. Current templates: character DNA, world bible (example in skill), production brief, shot plan, arc ledger.
+Machine-readable templates live under `assets/templates/` inside the owning skill and must parse as YAML. Current templates: character DNA, world bible (example in skill), production brief, shot plan, arc ledger, chapter map.
 
 ## Commit Conventions
 

@@ -1,6 +1,6 @@
 ---
 name: comic-multi-page-chapter-pipeline
-version: 1.0.0
+version: 1.1.0
 category: comic-pipeline
 description: End-to-end pipeline for chapter-length comics (multiple pages, 4–9 panels per page). Adds page grammar, scene composition across patterns, and page-turn beat management on top of the full direction and consistency stack.
 ---
@@ -19,7 +19,7 @@ description: End-to-end pipeline for chapter-length comics (multiple pages, 4–
 
 1. **Producer**: contract locks `multi-page-chapter` + style; chapter broken into scenes, each scene assigned a narrative pattern; panel budget set per page (4–9)
 2. **Load**: `comic-core`, `comic-consistency` (full World Bible required — no chapter without one), locked style skill
-3. **Director chapter map** (before any page): scene order, climax placement, and **page-turn beats** — right-hand pages end on questions, left-hand pages open with consequences; never split an action-to-action pair across a turn
+3. **Director chapter map** (before any page, template in `assets/templates/chapter-map-template.yaml`): scene order, climax placement, and **page-turn beats** — right-hand pages end on questions, left-hand pages open with consequences; never split an action-to-action pair across a turn
 4. **Director shot plans**: one per page, following the five *name* criteria; shot ladder varied within and across pages
 5. **Process**: page-by-page generation through `comic-image-generation-adapter`; `comic-long-sequence-orchestrator` tracks world state, costume, and lighting continuity between scenes
 6. **Review gates**: Director final cut per page; Producer-scheduled human review at every scene boundary; drift re-anchoring per policy
