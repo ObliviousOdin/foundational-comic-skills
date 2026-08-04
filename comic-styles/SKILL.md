@@ -1,6 +1,6 @@
 ---
 name: comic-styles
-version: 2.0.0
+version: 2.1.0
 category: comic-styles
 description: Modular artistic style skills on Schema v2 — each a self-contained production spec with style locks, negative locks, story harness, direction and consistency notes, and an injectable prompt block.
 ---
@@ -18,40 +18,40 @@ description: Modular artistic style skills on Schema v2 — each a self-containe
 
 ## Current Skills (30)
 
-Categories match the directory layout. "Native habitat" suggests the format/pattern pairings (from `comic-format-library` and `comic-narrative-patterns`) where the style is strongest — the default 3-panel strip works everywhere.
+Categories match the directory layout. **Native habitat** names the canonical format and pattern (from `comic-format-library` and `comic-narrative-patterns`) where the style is strongest — its *primary* pairing, not its only one. Each style's own `Integration` line carries the full set, and the validator checks this column against it. RTL eligibility is noted where the reading-direction rule permits it.
 
 | Category | Skill | Native Habitat | Status |
 |----------|-------|----------------|--------|
-| Manga | `retro-hand-inked-manga-comic` | strip or 4-koma; RTL eligible | ✅ Schema v2 |
-| Manga | `gekiga-cinematic-manga` | strip or chapter; slow-burn reveal | ✅ Schema v2 |
-| Manga | `shoujo-romance-manga` | strip; RTL eligible | ✅ Schema v2 |
-| Manga | `ink-wash-storybook-manga` | strip; silent strip | ✅ Schema v2 |
-| Asian | `manhwa-color-webtoon` | **webtoon scroll segment** | ✅ Schema v2 |
-| Asian | `chibi-kawaii-comic` | 4-koma; gag escalation | ✅ Schema v2 |
-| Asian | `manhua-wuxia-comic` | chapter; parallel action | ✅ Schema v2 |
-| Western | `classic-newspaper-comic` | strip; gag escalation | ✅ Schema v2 |
-| Western | `golden-age-superhero-comic` | strip or chapter | ✅ Schema v2 |
-| Western | `silver-age-pop-comic` | strip or chapter | ✅ Schema v2 |
-| Western | `painted-prestige-comic` | chapter; slow-burn reveal | ✅ Schema v2 |
-| European | `ligne-claire-franco-belge` | strip or chapter | ✅ Schema v2 |
-| European | `moebius-metal-hurlant-sci-fi` | chapter; aspect-rich transitions | ✅ Schema v2 |
-| Horror | `junji-ito-body-horror` | slow-burn reveal; RTL eligible | ✅ Schema v2 |
-| Horror | `horror-ec-comics-style` | strip; slow-burn reveal | ✅ Schema v2 |
-| Horror | `sin-city-graphic-noir` | strip or chapter | ✅ Schema v2 |
-| Noir | `noir-expressionist-comic` | strip; slow-burn reveal | ✅ Schema v2 |
-| Sci-Fi | `cyberpunk-sci-fi-comic` | strip or webtoon scroll | ✅ Schema v2 |
-| Sci-Fi | `steampunk-victorian-comic` | strip or chapter | ✅ Schema v2 |
-| Adventure | `bold-woodcut-adventure` | strip; silent strip | ✅ Schema v2 |
-| Adventure | `pulp-adventure-comic` | strip or chapter | ✅ Schema v2 |
-| Pop Art | `pop-art-lichtenstein-comic` | strip or single-panel | ✅ Schema v2 |
-| Pop Art | `underground-zine-comix` | strip; gag escalation | ✅ Schema v2 |
-| Decorative | `elegant-art-nouveau-comic` | strip or single-panel | ✅ Schema v2 |
-| Decorative | `watercolor-storybook-comic` | strip; silent strip | ✅ Schema v2 |
-| Literary | `autobio-indie-literary-comic` | strip or chapter | ✅ Schema v2 |
-| Literary | `minimalist-line-webcomic` | strip or single-panel; gag escalation | ✅ Schema v2 |
-| Literary | `reportage-comics-journalism` | chapter; parallel action | ✅ Schema v2 |
-| Cartoon | `saturday-morning-cartoon-comic` | strip; gag escalation | ✅ Schema v2 |
-| Cartoon | `rubber-hose-animation-comic` | strip or 4-koma; gag escalation | ✅ Schema v2 |
+| Manga | `retro-hand-inked-manga-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` · RTL eligible | ✅ Schema v2 |
+| Manga | `gekiga-cinematic-manga` | `3-panel-horizontal` · `slow-burn-reveal` · RTL eligible | ✅ Schema v2 |
+| Manga | `shoujo-romance-manga` | `3-panel-horizontal` · `setup-reinforce-turnaround` · RTL eligible | ✅ Schema v2 |
+| Manga | `ink-wash-storybook-manga` | `3-panel-horizontal` · `silent-strip` · RTL eligible | ✅ Schema v2 |
+| Asian | `manhwa-color-webtoon` | `webtoon-scroll-segment` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Asian | `chibi-kawaii-comic` | `4koma-vertical` · `gag-escalation` | ✅ Schema v2 |
+| Asian | `manhua-wuxia-comic` | `multi-page-chapter` · `parallel-action` | ✅ Schema v2 |
+| Western | `classic-newspaper-comic` | `3-panel-horizontal` · `gag-escalation` | ✅ Schema v2 |
+| Western | `golden-age-superhero-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Western | `silver-age-pop-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Western | `painted-prestige-comic` | `multi-page-chapter` · `slow-burn-reveal` | ✅ Schema v2 |
+| European | `ligne-claire-franco-belge` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| European | `moebius-metal-hurlant-sci-fi` | `multi-page-chapter` · `kishotenketsu` | ✅ Schema v2 |
+| Horror | `junji-ito-body-horror` | `3-panel-horizontal` · `slow-burn-reveal` · RTL eligible | ✅ Schema v2 |
+| Horror | `horror-ec-comics-style` | `3-panel-horizontal` · `slow-burn-reveal` | ✅ Schema v2 |
+| Horror | `sin-city-graphic-noir` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Noir | `noir-expressionist-comic` | `3-panel-horizontal` · `slow-burn-reveal` | ✅ Schema v2 |
+| Sci-Fi | `cyberpunk-sci-fi-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Sci-Fi | `steampunk-victorian-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Adventure | `bold-woodcut-adventure` | `3-panel-horizontal` · `silent-strip` | ✅ Schema v2 |
+| Adventure | `pulp-adventure-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Pop Art | `pop-art-lichtenstein-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Pop Art | `underground-zine-comix` | `3-panel-horizontal` · `gag-escalation` | ✅ Schema v2 |
+| Decorative | `elegant-art-nouveau-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Decorative | `watercolor-storybook-comic` | `3-panel-horizontal` · `silent-strip` | ✅ Schema v2 |
+| Literary | `autobio-indie-literary-comic` | `3-panel-horizontal` · `setup-reinforce-turnaround` | ✅ Schema v2 |
+| Literary | `minimalist-line-webcomic` | `3-panel-horizontal` · `gag-escalation` | ✅ Schema v2 |
+| Literary | `reportage-comics-journalism` | `multi-page-chapter` · `parallel-action` | ✅ Schema v2 |
+| Cartoon | `saturday-morning-cartoon-comic` | `3-panel-horizontal` · `gag-escalation` | ✅ Schema v2 |
+| Cartoon | `rubber-hose-animation-comic` | `3-panel-horizontal` · `gag-escalation` | ✅ Schema v2 |
 
 ## Integration
 Every style skill must:
