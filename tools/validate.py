@@ -562,17 +562,29 @@ def check_yaml_health() -> None:
 
 
 def report(summary: str, clean_message: str) -> int:
-    """Print the accumulated findings and return the process exit code."""
+    """Print the accumulated findings and return the process exit code.
+
+    Violations are grouped under the file that owns them. A flat list
+    across 56 skills forces the reader to re-sort it by hand before they
+    can fix anything, and one broken file usually raises several.
+    """
     print(summary)
     for w in warnings:
         print(f"  WARN  {w}")
-    if errors:
-        for e in errors:
-            print(f"  FAIL  {e}")
-        print(f"\n{len(errors)} violation(s).")
-        return 1
-    print(clean_message)
-    return 0
+    if not errors:
+        print(clean_message)
+        return 0
+
+    grouped: dict[str, list[str]] = {}
+    for e in errors:
+        path, sep, detail = e.partition(": ")
+        grouped.setdefault(path if sep else "(repository)", []).append(detail or e)
+    for path in sorted(grouped):
+        print(f"\n  {path}")
+        for detail in grouped[path]:
+            print(f"    FAIL  {detail}")
+    print(f"\n{len(errors)} violation(s) across {len(grouped)} file(s).")
+    return 1
 
 
 def check_one_style(path: Path) -> int:
@@ -584,9 +596,8 @@ def check_one_style(path: Path) -> int:
     sync, Prompt Block collisions) still need the full run.
     """
     if not path.is_file():
-        print(f"  FAIL  {rel(path)}: no such file")
-        print("\n1 violation(s).")
-        return 1
+        err(f"{rel(path)}: no such file")
+        return report(f"Checked {rel(path)}.", "Style contract holds.")
 
     text = path.read_text(encoding="utf-8")
     check_frontmatter_and_aphorism(path, text)

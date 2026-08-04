@@ -1,6 +1,6 @@
 ---
 name: comic-director
-version: 1.1.0
+version: 1.2.0
 category: comic-direction
 description: The creative authority for every comic project. Owns the directorial vision, per-panel shot planning (the digital "name"), camera grammar, staging, transition selection, pacing, and the final cut. Operationalizes the repository's research on artistic decision-making and editorial evaluation.
 ---
@@ -51,11 +51,24 @@ A shot plan passes the **five *name* criteria** before generation:
 
 ### 3. Camera Grammar & Continuity Rules
 
-- **The shot ladder**: across any strip, vary at least two of {shot size, angle, staging}. Three identical framings in a row is a direction failure, not a style choice.
+- **The shot ladder**: across any strip, vary at least two of {shot size, angle, staging}. Three identical framings in a row is a direction failure, not a style choice. See the rung table below.
 - **180° rule**: keep all cameras on one side of the action axis; characters must not swap screen sides between panels without an on-camera move or an establishing re-set.
 - **Eyeline choreography**: in LTR formats, exit vectors point right (down for vertical scroll; left for RTL manga). The reader's eye is choreographed, never abandoned.
 - **Transition budget**: action-to-action and subject-to-subject are the workhorses. Each scene-to-scene or aspect-to-aspect transition must buy something (time jump, atmosphere) and costs reader effort — spend at most one per short strip.
 - **Lens language**: wide-angle distortion for disorientation or scale; telephoto compression for intimacy or claustrophobia. Use deliberately, log in the shot plan.
+
+**The shot ladder — which rung answers which question.** Shot size is not decoration. Each rung answers a different question, and choosing one decides what the reader is allowed to know. Pick the rung that answers the beat's question, then check the cost column before committing.
+
+| Rung | The question it answers | Native beats | What overuse costs |
+|---|---|---|---|
+| Establishing | *Where are we?* | SETUP · *ki* · WITHHOLD | Travelogue — a place with nobody in it |
+| Wide | *Who is here, and how do they stand in relation?* | TURNAROUND two-shot · CONVERGE · *ketsu* | Distance starts reading as indifference |
+| Medium | *What is happening?* | REINFORCE · *shō* · PATTERN | The statistical average, and the exact default this system exists to prevent |
+| Close-up | *What does it feel like?* | REINFORCE · HINT · BREAK | Emotional shouting, with nothing left for the peak |
+| Extreme close-up | *Which single detail changes everything?* | REVEAL · object-scale *ten* | The reader loses the room and cannot re-place themselves |
+| Extreme wide / removed | *How small is this against what surrounds it?* | scale-shift *ten* · aspect beats | The reader exits the story entirely |
+
+Two rules govern movement on the ladder: **an extreme rung is earned by the rung below it** — cut to an ECU from a medium, never from nothing — and **adjacent panels move at least one rung** unless the repetition is the point, as in `gag-escalation`, where beats 1 and 2 must be visibly parallel for the break to land.
 
 ### 4. Pacing & Emotional Modulation
 

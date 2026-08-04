@@ -5,10 +5,10 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 4 complete — next cycle starts at 5
-**Commits this session:** 21 (cycles 1–2 merged to `main` via PR #4)
+**Current cycle:** 5 complete — next cycle starts at 6
+**Commits this session:** 27 (cycles 1–2 merged via PR #4; cycles 3–4 via PR #5)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), 2 worked examples, validator green, 66 pytest tests passing
+**Current state:** 56 skills (30 styles), 2 worked examples, validator green, 67 pytest tests passing
 
 ## How This Loop Works
 
@@ -24,11 +24,10 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Validator & Tests (highest leverage — every future contribution inherits these)
 
-1. **Audit every core/direction skill for the same class of defect the pacing fix found** — rules written against the 3-panel default that other formats cannot obey. Check `comic-structural-contract`, `comic-lettering-and-balloons`, and `comic-quality-gates` Layer 2 ("same face across all three panels" is hardcoded to three)
-2. Validator error output: group violations by file rather than a flat list (56 skills makes flat output hard to act on)
-3. `--style` skips whole-corpus checks by necessity; print a one-line reminder so authors know a full run is still required
-4. Style index `Native Habitat` column is prose ("strip or chapter") while `Integration` uses canonical names — reconcile so the column is checkable too
-5. Shot-ladder reference table in `comic-director` (which shot answers which beat) — deferred from cycle 4 in favour of the pacing defect
+1. `comic-lettering-and-balloons` is the last unaudited layer skill for the 3-panel defect class — the per-panel bubble budget may assume strip length
+2. `--style` skips whole-corpus checks by necessity; print a one-line reminder so authors know a full run is still required
+3. Style index `Native Habitat` column is prose ("strip or chapter") while `Integration` uses canonical names — reconcile so the column is checkable too
+4. `comic-universal-operating-rule` and the pipelines still describe the 3-panel default in places that read as universal; re-read with the defect class in mind
 
 ### Style Coverage (fill real category gaps, Schema v2 only)
 
@@ -43,24 +42,25 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Examples & Worked Proof
 
-13. 4-koma worked project (format × `kishotenketsu` × a manga-family style)
-14. Webtoon scroll worked project (scroll-gap timing + emotional arc ledger in use)
-15. Silent-strip worked project (the hardest directorial test, undemonstrated)
-16. `examples/README.md` index row for every example added
+Outranks its position — see the notes below. Each new format has surfaced a real defect.
+
+13. Webtoon scroll worked project (scroll-gap timing + arc ledger in use); expect it to test whether the lettering budget assumes strip length
+14. Silent-strip worked project (the hardest directorial test, undemonstrated)
+15. Multi-page chapter worked project (page-turn beats have no filled-in artifact anywhere)
 
 ### Layer Depth
 
-17. `comic-core/comic-quality-gates`: explicit style-purity gate referencing the Prompt Block trust boundary
-18. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
-19. `comic-direction/comic-director`: shot-ladder reference table (which shot answers which beat)
-20. `comic-production/comic-export-and-publish`: print CMYK gate refinement
-21. `research/`: color and palette science for sequential art, mapped into the traceability table
-22. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+16. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
+17. `comic-production/comic-export-and-publish`: print CMYK gate refinement
+18. `research/`: color and palette science for sequential art, mapped into the traceability table
+19. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+20. `research/README.md`: add rows for contracts that now exist but trace to no study (Prompt Block trust boundary, source register)
 
 ### Documentation Accuracy
 
-23. Hermes integration notes: how an agent loads the layers in order
-24. `examples/README.md` and `docs/showcase/README.md` accuracy pass against the 30-style tree
+21. Hermes integration notes: how an agent loads the layers in order
+22. `docs/showcase/README.md` accuracy pass against the 30-style tree
+23. `CHANGELOG.md` `[Unreleased]` needs the cycle 3–5 work (provenance, Layer 0, the four defect fixes)
 
 ## Recently Completed
 
@@ -96,6 +96,17 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 - `feat(core)`: quality-gates **Layer 0**, the pre-generation prompt assembly gate; 1.1.0→1.2.0
 - `fix(direction)`: pacing rules scoped to variable-geometry formats; 1.0.0→1.1.0
 
+**Cycle 5 (2026-08-04) — 5 commits, validator and tests green throughout**
+
+The defect-class audit. Three more instances found and fixed, all the same shape:
+a rule written against the 3-panel default and stated as universal.
+
+- `fix(core)`: `comic-structural-contract` — panel uniformity attributed to the format, not the style; 1.1.0→1.2.0
+- `fix(core)`: `comic-quality-gates` Layer 2 checked "all three panels"; now every panel in the locked format; 1.2.0→1.3.0
+- `fix(core)`: `comic-story-derivation` mapped cues to three panels; now to the locked pattern's beats, with a per-pattern table; 1.1.0→1.2.0
+- `feat(direction)`: shot-ladder reference table — which rung answers which question, and what overuse costs; 1.1.0→1.2.0
+- `feat(tools)`: validator violations grouped under the owning file
+
 ## Notes for the Next Cycle
 
 - `pytest` is not installed in a fresh container: `python3 -m pip install pytest pyyaml` before running the suite.
@@ -114,13 +125,17 @@ Ordered by value density: contract enforcement first, then coverage, then docume
   new style introduces an obligation, land the mechanism in the same cycle.
 - Style coverage is the largest open area by count (8 queued) but the corpus is at 30
   across 12 categories, so marginal value per new style is falling.
-- **The most valuable finding so far came from building an example, not from auditing.**
-  The 4-koma project could not obey `comic-director`'s pacing rule, because that rule was
-  written against the 3-panel default and two sanctioned formats forbid it. Building a
-  worked project in an unused format is the cheapest way to find rules that only ever
-  worked by coincidence — backlog item 1 now audits the rest of the layer for the same
-  defect class, and items 14–15 (webtoon, silent-strip examples) are worth more than
-  their position suggests for the same reason.
+- **The most valuable findings came from building an example, not from auditing.** The
+  4-koma project could not obey `comic-director`'s pacing rule; chasing that one defect
+  through the layers found three more of the same shape (structural contract, quality
+  gates Layer 2, story derivation). Four defects, one root cause: rules written against
+  the 3-panel default and stated as universal.
+- **The diagnostic that found them all**: take any rule stated unconditionally and ask
+  whether `4koma-vertical` or `webtoon-scroll-segment` can obey it. If not, the rule is
+  scoped wrong, not the format. Apply this to any new contract before committing it.
+- This is why the remaining example backlog outranks its position: a webtoon or
+  silent-strip worked project is the cheapest way to find rules that only ever worked by
+  coincidence. Build in an unused format and the defects surface themselves.
 - New validator checks now ship with their tests in the same commit; cycle 1 separated
   them only because that suite covered pre-existing checks. Mutation-test each new guard
   before committing — a green suite proves nothing until you have watched it go red.
