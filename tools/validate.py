@@ -432,6 +432,42 @@ def validate_bible(path: Path) -> list[str]:
     elif not all(entry.get("rationale") for entry in history):
         problems.append("every version_history entry needs a rationale")
 
+    problems.extend(check_provenance(data, characters))
+    return problems
+
+
+def check_provenance(data: dict, characters: list) -> list[str]:
+    """Nonfiction bibles must be able to show their work.
+
+    A nonfiction style locks out fabricated documentary detail; that lock
+    only means something if the project holds a register of what is
+    actually sourced. Fiction bibles omit `production_mode` entirely and
+    never reach this check.
+    """
+    if str(data.get("production_mode", "fiction")).lower() != "nonfiction":
+        return []
+
+    problems: list[str] = []
+    register = data.get("source_register") or []
+    if not register:
+        problems.append(
+            "production_mode is nonfiction but source_register is empty — "
+            "every depicted fact must trace to a source"
+        )
+    for i, entry in enumerate(register, 1):
+        if not isinstance(entry, dict):
+            problems.append(f"source_register entry #{i} must be a mapping")
+            continue
+        for field in ("claim", "source", "depicted_in"):
+            if not entry.get(field):
+                problems.append(f"source_register entry #{i} missing `{field}`")
+
+    for ch in characters:
+        if isinstance(ch, dict) and not ch.get("source_note"):
+            problems.append(
+                f"character `{ch.get('name', '<unnamed>')}` missing source_note "
+                f"(required in a nonfiction bible)"
+            )
     return problems
 
 
