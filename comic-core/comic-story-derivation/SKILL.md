@@ -1,6 +1,6 @@
 ---
 name: comic-story-derivation
-version: 1.2.0
+version: 1.3.0
 category: comic-core
 description: A systematic method for extracting narrative seeds from reference images and transforming them into emotionally coherent panel stories — including multi-character and serialized derivation.
 ---
@@ -77,9 +77,23 @@ Once the emotional arc exists, translate it into the visual language of the chos
 - Noir → chiaroscuro, cigarette smoke, wet streets
 
 ### Step 4: Dialogue Seeding
+
 - Generate 1–2 short lines per panel that **match the mood cue**
 - Keep each line under ~8 words
 - Dialogue should advance the emotional arc, not explain it
+- Respect the locked format's budget, which is stricter in some formats than this default (`single-panel-gag` allows one bubble *or* one caption, never both)
+
+**Under `silent-strip`, this step does not run.** The pattern is defined by zero dialogue, so seeding lines and then deleting them produces a strip whose beats were designed to be spoken and are now merely unspoken — which is exactly the "silence as decoration" the pattern names as its anti-pattern.
+
+The step is replaced rather than skipped. For each beat, seed the **gesture** that would have carried the line:
+
+| Instead of seeding | Seed |
+|--------------------|------|
+| What the character says | What their body does at the moment they would have spoken |
+| The line that lands the beat | The staged object or expression the reader reads instead |
+| Dialogue that advances the arc | The McCloud closure the gutter has to perform |
+
+If a beat has no gesture — if the only honest answer is a line of dialogue — the pattern is wrong for this story, and that is a `comic-producer` decision to revisit, not something the Director can stage around.
 
 ### Anti-Patterns to Avoid
 - Using the same beat structure regardless of the reference image or the locked pattern
