@@ -5,10 +5,10 @@ when resuming work: it holds the cycle counter, the rolling backlog, and the not
 next session needs.
 
 **Session start:** 2026-08-04
-**Current cycle:** 10 complete — next cycle starts at 11
-**Commits this session:** 62 (cycles 1–9 merged via PRs #4–#10)
+**Current cycle:** 11 complete — next cycle starts at 12
+**Commits this session:** 68 (cycles 1–10 merged via PRs #4–#11)
 **Baseline at session start:** 54 skills (28 styles), validator green, 5 pytest tests passing
-**Current state:** 56 skills (30 styles), 6 worked examples, validator green, 112 pytest tests passing
+**Current state:** 56 skills (30 styles), 6 worked examples, 7 research studies, validator green, 116 pytest tests passing
 **Formats built:** 6 of 6 sanctioned — every format in `comic-format-library` now has a worked project
 
 **Commit identity:** commits are authored `obliviousodin <11676741+ObliviousOdin@users.noreply.github.com>`
@@ -49,16 +49,14 @@ Ordered by value density: contract enforcement first, then coverage, then docume
 
 ### Layer Depth
 
-11. **Documentary/comics-journalism research study** — `research/README.md` now names this as the one enforced contract resting on assumed practice rather than a cite-able source
-12. `comic-consistency`: negative-library taxonomy (identity bleed / style bleed / era bleed / anatomy bleed)
-13. `comic-production/comic-export-and-publish`: print CMYK gate refinement
-14. `research/`: color and palette science for sequential art, mapped into the traceability table
-15. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
+11. `comic-production/comic-export-and-publish`: print CMYK gate refinement
+12. `research/`: color and palette science for sequential art, mapped into the traceability table
+13. `research/`: lettering typography history, feeding `comic-lettering-and-balloons`
 
 ### Documentation Accuracy
 
-16. Hermes integration notes: how an agent loads the layers in order
-17. `docs/showcase/README.md` accuracy pass against the 30-style tree
+14. Hermes integration notes: how an agent loads the layers in order
+15. `docs/showcase/README.md` accuracy pass against the 30-style tree
 
 ## Recently Completed
 
@@ -160,6 +158,20 @@ the pattern held: building it found a defect before a panel was planned.
 - `feat(examples)`: `kell-grid-002` — Z-path putting parallel threads on the diagonal, T-rule as a recorded layout decision, convergence of meaning without the characters meeting
 - `feat(tools)`: every sanctioned format and pattern must be claimed by some style — the inverse of habitat resolution, and the check that would have caught the gap
 - Test count 103→112
+
+**Cycle 11 (2026-08-04) — 5 commits, validator and tests green throughout**
+
+Research → contract conversion, end to end in one cycle.
+
+- `research(research)`: `COMICS-JOURNALISM-AND-DEPICTION-ETHICS.md` — closes the one enforced contract that rested on assumed practice; argues from what makes *drawing* evidentially distinct rather than importing prose-reporting rules
+- `feat(consistency)`: the study's three named gaps become schema — `register`, `identifiability`, `composite_disclosure`; 1.2.0→1.3.0
+- `docs(consistency)`: Validate section synced with the six checks it now has
+- `feat(consistency)`: negative **bleed classes** (identity / style / era / anatomy) with the bidirectionality rule and the budget-cut order; 1.3.0→1.4.0
+- Test count 112→116
+
+The cycle is worth remembering as a shape: study → named gaps → schema → enforcement →
+docs, inside one cycle. A study that ends with "gaps this leaves open" gives the next
+commits their agenda for free.
 
 ## Notes for the Next Cycle
 
